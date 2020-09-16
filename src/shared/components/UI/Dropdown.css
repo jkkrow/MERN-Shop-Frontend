@@ -1,0 +1,55 @@
+.dropdown {
+  position: absolute;
+  right: -20%;
+  top: 4rem;
+  width: 25rem;
+  padding: 2rem;
+  color: var(--text-reverse);
+  background-color: var(--bg-dark);
+  border: 1px solid var(--text-primary);
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+}
+
+.dropdown__item {
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 5px;
+  filter: grayscale(100%) opacity(.7);
+  transition: 200ms;
+}
+
+.dropdown__item:hover {
+  filter: grayscale(0%) opacity(1);
+}
+
+.dropdown__item a {
+  color: var(--text-reverse);
+}
+
+/* CSS Transition */
+
+.dropdown-enter {
+  transform: translateY(-10%);
+  opacity: 0;
+}
+
+.dropdown-enter-active {
+  transform: translateY(0%);
+  opacity: 1;
+  transition: all 200ms ease;
+}
+
+.dropdown-exit {
+  transform: translateY(0%);
+  opacity: 1;
+}
+
+.dropdown-exit-active {
+  transform: translateY(-10%);
+  opacity: 0;
+  transition: all 200ms ease;
+}

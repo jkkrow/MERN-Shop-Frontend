@@ -1,0 +1,23 @@
+.profile {
+  position: relative;
+  margin: .5rem;
+  transition: filter 500ms;
+}
+
+.profile:focus {
+  outline: none;
+}
+
+.profile img {
+  cursor: pointer;
+}
+
+.profile img:hover {
+  filter: brightness(1.1);
+}
+
+@media (max-width: 700px) {
+  .profile {
+    margin-left: auto;
+  }
+}

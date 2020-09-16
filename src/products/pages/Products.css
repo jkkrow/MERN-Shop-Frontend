@@ -1,0 +1,17 @@
+.products {
+  list-style: none;
+  margin: 0 auto;
+  padding: 1rem;
+  width: 80%;
+  height: 100%;
+  max-width: 75rem;
+  min-width: 60rem;
+  border-radius: 6px;
+  background: var(--bg-bright);
+}
+
+@media (max-width: 700px) {
+  .products {
+    min-width: 30rem;
+  }
+}

@@ -1,0 +1,12 @@
+.google-login-btn {
+  margin: 2rem auto;
+  background: red;
+}
+
+.google-login-btn:hover {
+  filter: brightness(0.9);
+}
+
+.google-login-btn:focus {
+    outline: none;
+}

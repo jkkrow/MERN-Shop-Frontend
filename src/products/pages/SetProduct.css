@@ -1,0 +1,27 @@
+.set-product {
+  display: flex;
+  margin: auto;
+  padding: 3rem;
+  justify-content: center;
+}
+
+.set-product__section-1 {
+  width: 45%;
+  margin-right: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.set-product__section-1 textarea {
+    height: 30rem;
+}
+
+.set-product__section-2 {
+  width: 55%;
+  display: flex;
+  flex-direction: column;
+}
+
+.set-product__section-2 button {
+    margin-top: auto;
+}

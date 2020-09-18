@@ -4,7 +4,6 @@ import { NavLink } from "react-router-dom";
 import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/FormElements/Button";
 import Card from "../../shared/components/UI/Card";
-import LoadingSpinner from "../../shared/components/UI/LoadingSpinner";
 import ValidationError from "../components/ValidationError";
 import GoogleLoginBtn from "../components/GoogleLoginBtn";
 import { useForm } from "../../shared/hooks/form-hook";
@@ -71,7 +70,6 @@ const Login = (props) => {
   return (
     <React.Fragment>
       <Card className="login">
-        {isLoading && <LoadingSpinner overlay />}
         <h2 className="login__header">Log in</h2>
         <hr />
         {error && <ValidationError message={error} />}
@@ -92,7 +90,7 @@ const Login = (props) => {
             errorText="Please enter a valid password."
             onInput={inputHandler}
           />
-          <Button type="submit" disabled={!formState.isValid || isLoading}>
+          <Button type="submit" disabled={!formState.isValid} loading={isLoading}>
             Log in
           </Button>
         </form>

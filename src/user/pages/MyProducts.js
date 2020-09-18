@@ -25,13 +25,19 @@ const MyProducts = (props) => {
     fetchProducts();
   }, [sendRequest, auth.token]);
 
+  const deleteProductHandler = (deletedProductId) => {
+    setFetchedProducts((prevProducts) =>
+      prevProducts.filter((product) => product._id !== deletedProductId)
+    );
+  };
+
   return (
     <div className="my-products">
       {isLoading && <LoadingSpinner overlay />}
       {!isLoading && !fetchedProducts.length && (
         <h2 style={{ fontSize: "3rem" }}>No Product Found.</h2>
       )}
-      <ProductList items={fetchedProducts} />
+      <ProductList items={fetchedProducts} onDelete={deleteProductHandler} />
     </div>
   );
 };

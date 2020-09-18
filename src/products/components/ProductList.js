@@ -15,6 +15,7 @@ const ProductList = (props) => {
           images={item.images}
           seller={item.seller}
           description={item.description}
+          onDelete={props.onDelete}
         />
       ))}
     </ul>

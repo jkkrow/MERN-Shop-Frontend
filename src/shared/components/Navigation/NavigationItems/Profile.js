@@ -15,7 +15,7 @@ const Profile = (props) => {
     <React.Fragment>
       <div className="profile" onBlur={closeDropdownHandler} tabIndex="0">
         <Avatar onClick={toggleDropdownHandler} width="3rem" height="3rem" />
-        <Dropdown show={showDropdown} />
+        {showDropdown && <Dropdown close={closeDropdownHandler} />}
       </div>
     </React.Fragment>
   );

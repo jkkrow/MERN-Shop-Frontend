@@ -17,8 +17,9 @@
   align-items: center;
   flex-direction: column;
   width: 100%;
-  height: 25rem;
+  height: 40rem;
   border: 1px solid #ccc;
+  border-radius: 4px;
   justify-content: center;
   text-align: center;
   margin: 10px 0;
@@ -36,8 +37,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
+.image-upload__preview p {
+  font-size: 2rem;
+}
 
 .image-upload__selectors {
   text-align: center;
@@ -45,10 +50,17 @@
 
 .image-upload__selector {
   display: inline-block;
-  width: 20px;
-  height: 20px;
-  background-color: #747474;
-  border-radius: 100%;
+  width: 4rem;
+  height: 4rem;
+  background-color: var(--bg-bright);
+  border: 1px solid #ccc;
+  border-radius: 4px;
   cursor: pointer;
   margin: 0 5px;
+}
+
+.image-upload__selector img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }

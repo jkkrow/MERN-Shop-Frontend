@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 
-const Option = (props) => {
-  const [options, setOptions] = useState([]);
+// const Option = (props) => {
+//   const [options, setOptions] = useState([]);
 
-  const addOptionHandler = () => {
+//   const addOptionHandler = () => {
       
-  };
+//   };
 
-  return (
-    <div className="option">
-      <label></label>
-      <button onClick={addOptionHandler}>Add Option</button>
-    </div>
-  );
-};
+//   return (
+//     <div className="option">
+//       <label></label>
+//       <button onClick={addOptionHandler}>Add Option</button>
+//     </div>
+//   );
+// };
 
-export default Option;
+// export default Option;

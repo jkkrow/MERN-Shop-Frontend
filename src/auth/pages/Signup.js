@@ -5,7 +5,6 @@ import { useHistory } from "react-router-dom";
 import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/FormElements/Button";
 import Card from "../../shared/components/UI/Card";
-import LoadingSpinner from "../../shared/components/UI/LoadingSpinner";
 import ValidationError from "../components/ValidationError";
 import { useForm } from "../../shared/hooks/form-hook";
 import { useHttpClient } from "../../shared/hooks/http-hook";
@@ -45,7 +44,6 @@ const Signup = (props) => {
 
   return (
     <Card className="signup">
-      {isLoading && <LoadingSpinner overlay />}
       <div>
         <h2 className="signup__header">Sign Up</h2>
         <hr />
@@ -76,7 +74,7 @@ const Signup = (props) => {
             errorText="Please enter a valid password."
             onInput={inputHandler}
           />
-          <Button type="submit" disabled={!formState.isValid || isLoading}>
+          <Button type="submit" disabled={!formState.isValid} loading={isLoading}>
             Sign Up
           </Button>
           <p>

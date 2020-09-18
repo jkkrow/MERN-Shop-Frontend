@@ -15,7 +15,7 @@ const ProductDetail = (props) => {
   useEffect(() => {
     const fetchProduct = async () => {
       const response = await sendRequest(
-        `http://localhost:5000/api/user/product-detail/${productId}`
+        `http://localhost:5000/api/user/${productId}`
       );
       setFetchedProduct(response.data.product);
       setSelectedImage(response.data.product.images[0]);

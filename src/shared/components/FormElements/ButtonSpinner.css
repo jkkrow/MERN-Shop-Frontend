@@ -1,4 +1,4 @@
-.loading-spinner__overlay {
+.button-spinner__overlay {
   height: 100%;
   width: 100%;
   position: absolute;
@@ -9,34 +9,37 @@
   justify-content: center;
   align-items: center;
 }
-.lds-ring {
+.btns-ring {
   display: inline-block;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 80px;
   height: 80px;
 }
-.lds-ring div {
+.btns-ring div {
   box-sizing: border-box;
   display: block;
   position: absolute;
-  width: 64px;
-  height: 64px;
-  margin: 8px;
-  border: 8px solid #fff;
+  width: 24px;
+  height: 24px;
+  margin: auto;
+  border: 4px solid #fff;
   border-radius: 50%;
-  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  animation: btns-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
   border-color: #fff transparent transparent transparent;
 }
-.lds-ring div:nth-child(1) {
+.btns-ring div:nth-child(1) {
   animation-delay: -0.45s;
 }
-.lds-ring div:nth-child(2) {
+.btns-ring div:nth-child(2) {
   animation-delay: -0.3s;
 }
-.lds-ring div:nth-child(3) {
+.btns-ring div:nth-child(3) {
   animation-delay: -0.15s;
 }
-@keyframes lds-ring {
+@keyframes btns-ring {
   0% {
     transform: rotate(0deg);
   }

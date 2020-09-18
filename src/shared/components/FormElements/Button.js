@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import ButtonSpinner from "./ButtonSpinner";
 import "./Button.css";
 
 const Button = (props) => {
@@ -38,9 +39,10 @@ const Button = (props) => {
       }`}
       type={props.type}
       onClick={props.onClick}
-      disabled={props.disabled}
+      disabled={props.disabled || props.loading}
     >
       {props.children}
+      {props.loading && <ButtonSpinner overlay />}
     </button>
   );
 };

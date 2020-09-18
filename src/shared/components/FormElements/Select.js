@@ -3,8 +3,8 @@ import React, { useState, useEffect } from "react";
 import "./Select.css";
 
 const Select = (props) => {
-  const [value, setValue] = useState();
-  const [isValid, setIsValid] = useState(false);
+  const [value, setValue] = useState(props.initialValue || "");
+  const [isValid, setIsValid] = useState(props.initialValid || "");
   const [isTouched, setIsTouched] = useState(false);
 
   const { onSelect, id } = props;
@@ -27,7 +27,7 @@ const Select = (props) => {
       <label htmlFor={props.id}>{props.label}</label>
       <select
         id={props.id}
-        defaultValue="default"
+        defaultValue={props.initialValue || "default"}
         onChange={changeHandler}
         onBlur={touchHandler}
       >

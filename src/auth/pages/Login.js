@@ -15,7 +15,7 @@ import {
 } from "../../shared/util/validators";
 import "./Login.css";
 
-const Login = (props) => {
+const Login = () => {
   const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest } = useHttpClient();
   const [formState, inputHandler] = useForm(

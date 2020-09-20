@@ -14,9 +14,9 @@ import "./SetProduct.css";
 
 const SetProduct = () => {
   const auth = useContext(AuthContext);
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [fetchedProduct, setFetchedProduct] = useState();
   const [editMode, setEditMode] = useState();
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [formState, inputHandler, setFormData] = useForm(
     {
       title: { value: "", isValid: false },
@@ -135,6 +135,7 @@ const SetProduct = () => {
               label="Product Images"
               onInput={inputHandler}
               initialValue={fetchedProduct.images}
+              initialValid={fetchedProduct.images.length}
             />
             <Button
               type="submit"

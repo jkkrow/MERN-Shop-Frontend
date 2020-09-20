@@ -10,6 +10,8 @@ const ImageUpload = (props) => {
   const [previewImage, setPreviewImage] = useState();
   const [selectorImages, setSelectorImages] = useState([]);
 
+  
+  
   const readFile = useCallback(() => {
     const arr = [];
     for (const file of validFiles) {
@@ -23,7 +25,6 @@ const ImageUpload = (props) => {
     setSelectorImages(arr);
   }, [validFiles]);
 
-  const { onInput, id } = props;
   useEffect(() => {
     const filteredFiles = selectedFiles.reduce((acc, current) => {
       const duplicatedFile = acc.find((file) => file.name === current.name);
@@ -34,12 +35,17 @@ const ImageUpload = (props) => {
       }
     }, []);
     setValidFiles(filteredFiles);
+  }, [selectedFiles]);
 
-    onInput(id, filteredFiles, isValid);
-  }, [onInput, id, isValid, selectedFiles]);
+  const { onInput, id } = props;
+  useEffect(() => {
+    onInput(id, validFiles, isValid);
+  }, [onInput, id, validFiles, isValid]);
 
   useEffect(() => {
     if (!validFiles.length) {
+      setIsValid(false);
+      setPreviewImage(null);
       return;
     }
     readFile();
@@ -62,22 +68,14 @@ const ImageUpload = (props) => {
     setIsValid(true);
   };
 
-  let selector;
-  if (validFiles.length > 1 && selectorImages.length !== 0) {
-    selector = (
-      <div className="image-upload__selectors">
-        {selectorImages.map((file) => (
-          <div
-            key={file.name}
-            className="image-upload__selector"
-            onClick={() => setPreviewImage(file.data)}
-          >
-            <img src={file.data} alt={file.name} />
-          </div>
-        ))}
-      </div>
-    );
-  }
+  const removeFile = (name) => {
+    const newValidFiles = validFiles.filter((e) => e.name !== name);
+    const newSelectedFiles = selectedFiles.filter((e) => e.name !== name);
+    const newSelectorImages = selectorImages.filter((e) => e.name !== name);
+    setValidFiles(newValidFiles);
+    setSelectedFiles(newSelectedFiles);
+    setSelectorImages(newSelectorImages);
+  };
 
   return (
     <div className={`form-control`}>
@@ -99,7 +97,34 @@ const ImageUpload = (props) => {
             : !previewImage && <p>Click to choose images</p>}
         </div>
       </div>
-      {selector}
+      {validFiles.length === 1 && (
+        <div
+          className="image-upload__selector-delete"
+          style={{ textAlign: "center", fontSize: "2rem", cursor: "pointer" }}
+          onClick={() => removeFile(validFiles[0].name)}
+        >
+          x
+        </div>
+      )}
+      {selectorImages.length > 1 && (
+        <div className="image-upload__selectors">
+          {selectorImages.map((file) => (
+            <div key={file.name} className="image-upload__selector">
+              <img
+                src={file.data}
+                alt={file.name}
+                onClick={() => setPreviewImage(file.data)}
+              />
+              <div
+                className="image-upload__selector-delete"
+                onClick={() => removeFile(file.name)}
+              >
+                x
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

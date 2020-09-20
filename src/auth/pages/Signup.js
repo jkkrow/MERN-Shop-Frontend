@@ -15,7 +15,7 @@ import {
 } from "../../shared/util/validators";
 import "./Signup.css";
 
-const Signup = (props) => {
+const Signup = () => {
   const { isLoading, error, sendRequest } = useHttpClient();
   const [formState, inputHandler] = useForm(
     {

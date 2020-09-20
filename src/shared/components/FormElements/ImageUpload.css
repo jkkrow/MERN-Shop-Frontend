@@ -59,6 +59,10 @@
   margin: 0 5px;
 }
 
+.image-upload__selector-delete {
+  color: var(--text-danger);
+}
+
 .image-upload__selector img {
   width: 100%;
   height: 100%;

@@ -6,7 +6,7 @@ import LoadingSpinner from "../../shared/components/UI/LoadingSpinner";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import "./ProductDetail.css";
 
-const ProductDetail = (props) => {
+const ProductDetail = () => {
   const { isLoading, sendRequest } = useHttpClient();
   const [fetchedProduct, setFetchedProduct] = useState();
   const [selectedImage, setSelectedImage] = useState();

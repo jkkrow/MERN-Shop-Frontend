@@ -36,7 +36,7 @@ const ProductItem = (props) => {
         header="Are your sure?"
         footer={
           <React.Fragment>
-            <Button inverse onClick={closeWarningHandler}>
+            <Button onClick={closeWarningHandler}>
               Cancel
             </Button>
             <Button danger onClick={deleteProductHandler} loading={isLoading}>

@@ -10,8 +10,6 @@ const ImageUpload = (props) => {
   const [previewImage, setPreviewImage] = useState();
   const [selectorImages, setSelectorImages] = useState([]);
 
-  
-  
   const readFile = useCallback(() => {
     const arr = [];
     for (const file of validFiles) {
@@ -47,6 +45,10 @@ const ImageUpload = (props) => {
       setIsValid(false);
       setPreviewImage(null);
       return;
+    }
+    setIsValid(true);
+    if (validFiles.length > 10) {
+      setIsValid(false);
     }
     readFile();
   }, [validFiles, readFile]);
@@ -123,6 +125,11 @@ const ImageUpload = (props) => {
               </div>
             </div>
           ))}
+        </div>
+      )}
+      {validFiles.length > 10 && (
+        <div className="image-upload__warning">
+          Maximum number of image file is 10.
         </div>
       )}
     </div>

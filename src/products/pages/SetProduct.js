@@ -39,7 +39,6 @@ const SetProduct = () => {
           `http://localhost:5000/api/user/${productId}`
         );
         const product = response.data.product;
-        console.log(product);
 
         // populate form
         setFetchedProduct(product);
@@ -62,33 +61,48 @@ const SetProduct = () => {
 
   const createProductHandler = async (event) => {
     event.preventDefault();
-    try {
-      const formData = new FormData();
-      formData.append("title", formState.inputs.title.value);
-      formData.append("price", formState.inputs.price.value);
-      formData.append("category", formState.inputs.category.value);
-      for (const image of formState.inputs.images.value) {
-        formData.append("images", image);
-      }
-      formData.append("description", formState.inputs.description.value);
-
-      await sendRequest(
-        "http://localhost:5000/api/seller/add-product",
-        "post",
-        formData,
-        { Authorization: "Bearer " + auth.token }
-      );
-      history.push("/");
-    } catch (err) {
-      console.log(err);
+    const formData = new FormData();
+    formData.append("title", formState.inputs.title.value);
+    formData.append("price", formState.inputs.price.value);
+    formData.append("category", formState.inputs.category.value);
+    for (const image of formState.inputs.images.value) {
+      formData.append("images", image);
     }
+    formData.append("description", formState.inputs.description.value);
+
+    await sendRequest(
+      "http://localhost:5000/api/seller/add-product",
+      "post",
+      formData,
+      { Authorization: "Bearer " + auth.token }
+    );
+    history.push("/");
+  };
+
+  const updateProductHandler = async (event) => {
+    event.preventDefault();
+    await sendRequest(
+      `http://localhost:5000/api/seller/${productId}`,
+      "patch",
+      {
+        title: formState.inputs.title.value,
+        price: formState.inputs.price.value,
+        category: formState.inputs.category.value,
+        description: formState.inputs.description.value,
+      },
+      { Authorization: "Bearer " + auth.token }
+    );
+    history.push("/my-products");
   };
 
   return (
     <React.Fragment>
       <ErrorModal error={error} onClear={clearError} />
       {fetchedProduct && (
-        <form className="set-product" onSubmit={createProductHandler}>
+        <form
+          className="set-product"
+          onSubmit={editMode ? updateProductHandler : createProductHandler}
+        >
           <div className="set-product__section-1">
             <Input
               id="title"
@@ -127,25 +141,33 @@ const SetProduct = () => {
               initialValue={fetchedProduct.description}
               initialValid={!!fetchedProduct.description}
             />
+            {editMode && (
+              <Button
+                type="submit"
+                disabled={!formState.isValid}
+                loading={isLoading}
+              >
+                Edit Product
+              </Button>
+            )}
           </div>
-          <div className="set-product__section-2">
-            <ImageUpload
-              id="images"
-              type="product"
-              label="Product Images"
-              onInput={inputHandler}
-              initialValue={fetchedProduct.images}
-              initialValid={fetchedProduct.images.length}
-            />
-            <Button
-              type="submit"
-              disabled={!formState.isValid}
-              loading={isLoading}
-            >
-              {editMode ? "Edit" : "Add"} Product
-            </Button>
-          </div>
-          <p onClick={() => console.log(formState)}>test</p>
+          {!editMode && (
+            <div className="set-product__section-2">
+              <ImageUpload
+                id="images"
+                type="product"
+                label="Product Images"
+                onInput={inputHandler}
+              />
+              <Button
+                type="submit"
+                disabled={!formState.isValid}
+                loading={isLoading}
+              >
+                Add Product
+              </Button>
+            </div>
+          )}
         </form>
       )}
     </React.Fragment>

@@ -29,6 +29,7 @@ const ProductDetail = () => {
       {!isLoading && fetchedProduct && (
         <div className="product-detail">
           <div className="product-detail__section-1">
+            <img src={selectedImage} alt={fetchedProduct.title} />
             <div className="product-detail__image-selector">
               {fetchedProduct.images.map((image) => (
                 <img
@@ -40,7 +41,6 @@ const ProductDetail = () => {
                 />
               ))}
             </div>
-            <img src={selectedImage} alt={fetchedProduct.title} />
           </div>
           <div className="product-detail__section-2">
             <h1>{fetchedProduct.title}</h1>

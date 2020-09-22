@@ -1,0 +1,50 @@
+.number-input {
+  height: 3rem;
+  margin: 0.5rem;
+  display: flex;
+  justify-content: center;
+  border: 1px solid var(--text-secondary);
+  border-radius: 4px;
+}
+
+.number-input input {
+  width: 40%;
+  height: 100%;
+  border: hidden;
+  text-align: center;
+  margin: auto;
+}
+
+.number-input button {
+  width: 25%;
+  height: 100%;
+  background-color: var(--bg-bright);
+  border: hidden;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: 200ms;
+}
+
+.number-input input:focus,
+.number-input button:focus {
+  outline: none;
+}
+
+.number-input button:hover {
+  filter: brightness(0.95);
+}
+
+.number-input button:active {
+  filter: brightness(0.9);
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}

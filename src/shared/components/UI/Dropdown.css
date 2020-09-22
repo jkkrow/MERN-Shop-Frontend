@@ -3,10 +3,10 @@
   top: 4rem;
   right: -20%;
   width: 20rem;
-  color: var(--text-reverse);
+  color: var(--text-primary);
   padding: 0 2rem 0 2rem;
-  background-color: var(--bg-dark);
-  border: 1px solid var(--text-primary);
+  background-color: var(--bg-bright);
+  border: 1px solid var(--text-secondary);
   border-radius: 5px;
   overflow: hidden;
   transition: height 300ms ease;

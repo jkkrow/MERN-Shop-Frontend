@@ -10,6 +10,7 @@
   margin: 0.5rem;
   text-decoration: none;
   display: inline-block;
+  transition: 200ms;
 }
 
 .button:focus {

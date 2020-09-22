@@ -29,42 +29,34 @@ const Login = () => {
   const loginHandler = async (event) => {
     event.preventDefault();
 
-    try {
-      const response = await sendRequest(
-        "http://localhost:5000/api/auth/login",
-        "post",
-        {
-          email: formState.inputs.email.value,
-          password: formState.inputs.password.value,
-        }
-      );
-      auth.login(
-        response.data.token,
-        response.data.userData.userId,
-        response.data.userData.image
-      );
-    } catch (err) {
-      console.log(err);
-    }
+    const response = await sendRequest(
+      "http://localhost:5000/api/auth/login",
+      "post",
+      {
+        email: formState.inputs.email.value,
+        password: formState.inputs.password.value,
+      }
+    );
+    auth.login(
+      response.data.token,
+      response.data.userData.userId,
+      response.data.userData.image
+    );
   };
 
   const googleLoginHandler = async (googleResponse) => {
-    try {
-      const response = await sendRequest(
-        "http://localhost:5000/api/auth/google-login",
-        "post",
-        {
-          tokenId: googleResponse.tokenId,
-        }
-      );
-      auth.login(
-        response.data.token,
-        response.data.userData.userId,
-        response.data.userData.image
-      );
-    } catch (err) {
-      console.log(err);
-    }
+    const response = await sendRequest(
+      "http://localhost:5000/api/auth/google-login",
+      "post",
+      {
+        tokenId: googleResponse.tokenId,
+      }
+    );
+    auth.login(
+      response.data.token,
+      response.data.userData.userId,
+      response.data.userData.image
+    );
   };
 
   return (
@@ -90,7 +82,11 @@ const Login = () => {
             errorText="Please enter a valid password."
             onInput={inputHandler}
           />
-          <Button type="submit" disabled={!formState.isValid} loading={isLoading}>
+          <Button
+            type="submit"
+            disabled={!formState.isValid}
+            loading={isLoading}
+          >
             Log in
           </Button>
         </form>

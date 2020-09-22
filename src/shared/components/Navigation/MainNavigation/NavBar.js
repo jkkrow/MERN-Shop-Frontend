@@ -5,6 +5,7 @@ import DrawerToggler from "../NavigationItems/DrawerToggler";
 import Logo from "../NavigationItems/Logo";
 // import SearchBar from "./NavigationItems/SearchBar";
 import NavLinks from "../NavigationItems/NavLinks";
+import CartNav from "../NavigationItems/CartNav";
 import Profile from "../NavigationItems/Profile";
 import { AuthContext } from "../../../context/auth-context";
 import "./NavBar.css";
@@ -26,6 +27,7 @@ const NavBar = () => {
         <nav className="navbar__nav">
           <NavLinks />
         </nav>
+        <CartNav />
         {auth.token && <Profile />}
         {/* <SearchBar /> */}
       </div>

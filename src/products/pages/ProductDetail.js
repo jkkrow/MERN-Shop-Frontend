@@ -1,27 +1,35 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import NumberInput from "../../shared/components/FormElements/NumberInput";
 import Button from "../../shared/components/FormElements/Button";
 import LoadingSpinner from "../../shared/components/UI/LoadingSpinner";
 import { useHttpClient } from "../../shared/hooks/http-hook";
+import { CartContext } from "../../shared/context/cart-context";
 import "./ProductDetail.css";
 
 const ProductDetail = () => {
+  const cart = useContext(CartContext);
   const { isLoading, sendRequest } = useHttpClient();
   const [fetchedProduct, setFetchedProduct] = useState();
   const [selectedImage, setSelectedImage] = useState();
+  const [quantity, setQuantity] = useState(1);
   const { productId } = useParams();
 
   useEffect(() => {
     const fetchProduct = async () => {
       const response = await sendRequest(
-        `http://localhost:5000/api/user/${productId}`
+        `http://localhost:5000/api/user/detail/${productId}`
       );
       setFetchedProduct(response.data.product);
       setSelectedImage(response.data.product.images[0]);
     };
     fetchProduct();
   }, [sendRequest, productId]);
+
+  const addToCartHandler = () => {
+    cart.addItem(fetchedProduct, quantity);
+  };
 
   return (
     <React.Fragment>
@@ -48,7 +56,8 @@ const ProductDetail = () => {
             <p>{fetchedProduct.description}</p>
           </div>
           <div className="product-detail__section-3">
-            <Button>Add To Cart</Button>
+            <NumberInput value={setQuantity} />
+            <Button onClick={addToCartHandler}>Add To Cart</Button>
             <Button>Buy Now</Button>
           </div>
         </div>

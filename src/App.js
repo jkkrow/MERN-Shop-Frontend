@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useContext } from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 
 import NavBar from "./shared/components/Navigation/MainNavigation/NavBar";
@@ -13,25 +13,11 @@ import { AuthContext } from "./shared/context/auth-context";
 import "./App.css";
 
 const App = () => {
-  const [token, setToken] = useState();
-  const [userId, setUserId] = useState();
-  const [image, setImage] = useState();
-
-  const login = useCallback((token, userId, image) => {
-    setToken(token);
-    setUserId(userId);
-    setImage(image);
-  }, []);
-
-  const logout = useCallback(() => {
-    setToken(null);
-    setUserId(null);
-    setImage(null);
-  }, []);
+  const auth = useContext(AuthContext);
 
   let routes;
 
-  if (token) {
+  if (auth.isLoggedIn) {
     routes = (
       <Switch>
         <Route path="/" component={Products} exact />
@@ -56,21 +42,10 @@ const App = () => {
   }
 
   return (
-    <AuthContext.Provider
-      value={{
-        isLoggedIn: !!token,
-        token: token,
-        userId: userId,
-        image: image,
-        login: login,
-        logout: logout,
-      }}
-    >
-      <BrowserRouter>
-        <NavBar />
-        <main>{routes}</main>
-      </BrowserRouter>
-    </AuthContext.Provider>
+    <BrowserRouter>
+      <NavBar />
+      <main>{routes}</main>
+    </BrowserRouter>
   );
 };
 

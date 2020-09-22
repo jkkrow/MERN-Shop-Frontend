@@ -16,11 +16,6 @@ const NavLinks = (props) => {
           Products
         </NavLink>
       </li>
-      <li>
-        <NavLink exact to="/cart">
-          Cart
-        </NavLink>
-      </li>
       {auth.isLoggedIn && (
         <li>
           <NavLink exact to="/new-product">

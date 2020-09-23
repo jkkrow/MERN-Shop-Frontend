@@ -3,12 +3,12 @@ import React, { useEffect, useState } from "react";
 import "./NumberInput.css";
 
 const NumberInput = (props) => {
-  const [number, setNumber] = useState(1);
+  const [number, setNumber] = useState(props.initialValue || 1);
 
   const { value } = props;
   useEffect(() => {
-    value(number);
-  });
+    value && value(number);
+  }, [value, number]);
 
   const inputChangeHandler = (event) => {
     if (event.target.value < 1) {

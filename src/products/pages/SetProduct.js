@@ -36,7 +36,7 @@ const SetProduct = () => {
       setEditMode(true);
       const fetchProduct = async () => {
         const response = await sendRequest(
-          `http://localhost:5000/api/user/${productId}`
+          `http://localhost:5000/api/user/detail/${productId}`
         );
         const product = response.data.product;
 

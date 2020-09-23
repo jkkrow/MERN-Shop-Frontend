@@ -11,7 +11,9 @@ const CartNav = (props) => {
   return (
     <NavLink to="/cart" className="cart-nav">
       <CartIcon />
-      <div className="cart-nav__number">{cart.items.length}</div>
+      <div className="cart-nav__number">
+        {cart.items.reduce((acc, currentItem) => acc + currentItem.quantity, 0)}
+      </div>
     </NavLink>
   );
 };

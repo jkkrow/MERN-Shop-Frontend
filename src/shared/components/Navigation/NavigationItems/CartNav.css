@@ -14,7 +14,9 @@
 .cart-nav__number {
   position: absolute;
   top: -.3rem;
-  right: .8rem;
+  right: .3rem;
   color: #fd662b;
+  border-radius: 50%;
+  width: 2rem;
   text-align: center;
 }

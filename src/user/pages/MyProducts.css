@@ -1,0 +1,21 @@
+.my-products {
+}
+
+.my-products__add-btn {
+  display: flex;
+}
+
+.my-products__add-btn a {
+  margin: 1rem 2rem 1rem auto;
+  background-color: rgb(255, 51, 0);
+  border-color: rgb(255, 51, 0);
+}
+
+.my-products ul {
+    width: 80%;
+    margin: auto;
+}
+
+.my-products li {
+    height: 20rem;
+}

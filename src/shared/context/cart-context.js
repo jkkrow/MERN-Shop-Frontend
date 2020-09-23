@@ -25,6 +25,8 @@ export default (props) => {
       const storedData = JSON.parse(localStorage.getItem("cart"));
       if (storedData && storedData.cart) {
         setItems(storedData.cart);
+      } else {
+        setItems([]);
       }
     } else {
       const fetchCart = async () => {
@@ -54,12 +56,12 @@ export default (props) => {
         setItems(response.data.cart);
       } else {
         let newCart = [...items];
-        const index = items.findIndex((i) => i.item._id === item._id);
+        const index = items.findIndex((i) => i.product._id === item._id);
         if (index !== -1) {
           const newQuantity = items[index].quantity + quantity;
           newCart[index].quantity = newQuantity;
         } else {
-          newCart.push({ item, quantity });
+          newCart.push({ product: item, quantity });
         }
         setItems(newCart);
         localStorage.setItem("cart", JSON.stringify({ cart: newCart }));

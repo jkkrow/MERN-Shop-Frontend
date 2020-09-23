@@ -2,8 +2,10 @@ import React, { useEffect, useContext, useState } from "react";
 
 import ProductList from "../../products/components/ProductList";
 import LoadingSpinner from "../../shared/components/UI/LoadingSpinner";
+import Button from "../../shared/components/FormElements/Button";
 import { AuthContext } from "../../shared/context/auth-context";
 import { useHttpClient } from "../../shared/hooks/http-hook";
+import "./MyProducts.css";
 
 const MyProducts = (props) => {
   const auth = useContext(AuthContext);
@@ -34,6 +36,9 @@ const MyProducts = (props) => {
   return (
     <div className="my-products">
       {isLoading && <LoadingSpinner overlay />}
+      <div className="my-products__add-btn">
+        <Button to="/new-product">+ Add Product</Button>
+      </div>
       {!isLoading && !fetchedProducts.length && (
         <h2 style={{ fontSize: "3rem" }}>No Product Found.</h2>
       )}

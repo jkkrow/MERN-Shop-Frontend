@@ -40,7 +40,7 @@ const MyProducts = (props) => {
         <Button to="/new-product">+ Add Product</Button>
       </div>
       {!isLoading && !fetchedProducts.length && (
-        <h2 style={{ fontSize: "3rem" }}>No Product Found.</h2>
+        <h2 className="my-products__message">No Product Found.</h2>
       )}
       <ProductList items={fetchedProducts} onDelete={deleteProductHandler} />
     </div>

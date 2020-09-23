@@ -70,9 +70,28 @@ export default (props) => {
     [items, auth, sendRequest]
   );
 
-  const removeItem = useCallback((item) => {
-    setItems((prevCart) => prevCart.filter((i) => i.item._id !== item._id));
-  }, []);
+  const removeItem = useCallback(
+    async (item) => {
+      if (auth.isLoggedIn) {
+        const response = await sendRequest(
+          `http://localhost:5000/api/user/remove-from-cart/${item._id}`,
+          "delete",
+          null,
+          { Authorization: "Bearer " + auth.token }
+        );
+        setItems(response.data.cart);
+      } else {
+        const newCart = items.filter((i) => i.product._id !== item._id);
+        setItems(newCart);
+        if (!newCart.length) {
+          localStorage.removeItem("cart");
+        } else {
+          localStorage.setItem("cart", JSON.stringify({ cart: newCart }));
+        }
+      }
+    },
+    [items, auth, sendRequest]
+  );
 
   return (
     <CartContext.Provider

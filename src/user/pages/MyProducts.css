@@ -11,11 +11,16 @@
   border-color: rgb(255, 51, 0);
 }
 
-.my-products ul {
-    width: 80%;
-    margin: auto;
+.my-products__message {
+  padding: 2rem;
+  width: 70%;
+  margin: 1rem auto 0 auto;
+  border: 2px solid var(--text-secondary);
+  border-radius: 4px;
+  text-align: center;
 }
 
-.my-products li {
-    height: 20rem;
+.my-products ul {
+  width: 80%;
+  margin: auto;
 }

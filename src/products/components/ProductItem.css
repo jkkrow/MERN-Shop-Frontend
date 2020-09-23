@@ -2,7 +2,7 @@
   margin: 1rem;
   padding: 1rem;
   width: calc(100% - 2rem);
-  height: 28rem;
+  height: 20rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   display: flex;
   align-items: center;
@@ -37,15 +37,4 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-@media (max-width: 700px) {
-  .product-item {
-    height: 20rem;
-  }
-
-  .product-item__image {
-    width: 18rem;
-  }
-
 }

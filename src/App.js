@@ -4,7 +4,7 @@ import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import NavBar from "./shared/components/Navigation/MainNavigation/NavBar";
 import Products from "./products/pages/Products";
 import ProductDetail from "./products/pages/ProductDetail";
-import Cart from "./user/pages/Cart";
+import Cart from "./cart/pages/Cart";
 import Login from "./auth/pages/Login";
 import Signup from "./auth/pages/Signup";
 import SetProduct from "./products/pages/SetProduct";

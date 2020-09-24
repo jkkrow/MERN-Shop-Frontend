@@ -1,59 +1,39 @@
-import React, {
-  useState,
-  useCallback,
-  createContext,
-  useContext,
-  useEffect,
-} from "react";
+import React, { useState, useCallback, createContext, useContext } from "react";
 
-import { useHttpClient } from "../hooks/http-hook";
 import { AuthContext } from "./auth-context";
 
 export const CartContext = createContext({
   items: [],
+  getItems: () => {},
   addItem: () => {},
   removeItem: () => {},
 });
 
 export default (props) => {
   const auth = useContext(AuthContext);
-  const { sendRequest } = useHttpClient();
   const [items, setItems] = useState([]);
 
-  useEffect(() => {
-    if (!auth.isLoggedIn) {
-      const storedData = JSON.parse(localStorage.getItem("cart"));
-      if (storedData && storedData.cart) {
-        setItems(storedData.cart);
+  const getItems = useCallback(
+    (items) => {
+      if (auth.isLoggedIn) {
+        setItems(items);
       } else {
-        setItems([]);
+        const storedData = JSON.parse(localStorage.getItem("cart"));
+        if (storedData && storedData.cart) {
+          setItems(storedData.cart);
+        } else {
+          setItems([]);
+        }
       }
-    } else {
-      const fetchCart = async () => {
-        const response = await sendRequest(
-          "http://localhost:5000/api/user/cart",
-          "get",
-          null,
-          {
-            Authorization: "Bearer " + auth.token,
-          }
-        );
-        setItems(response.data.cart);
-      };
-      fetchCart();
-    }
-  }, [auth, sendRequest]);
+    },
+    [auth]
+  );
 
   const addItem = useCallback(
     async (item, quantity) => {
       if (auth.isLoggedIn) {
-        const response = await sendRequest(
-          "http://localhost:5000/api/user/add-to-cart",
-          "post",
-          { item, quantity },
-          { Authorization: "Bearer " + auth.token }
-        );
-        setItems(response.data.cart);
+        // item is updated cart
+        setItems(item);
       } else {
         let newCart = [...items];
         const index = items.findIndex((i) => i.product._id === item._id);
@@ -67,21 +47,16 @@ export default (props) => {
         localStorage.setItem("cart", JSON.stringify({ cart: newCart }));
       }
     },
-    [items, auth, sendRequest]
+    [items, auth]
   );
 
   const removeItem = useCallback(
-    async (item) => {
+    async (itemId) => {
       if (auth.isLoggedIn) {
-        const response = await sendRequest(
-          `http://localhost:5000/api/user/remove-from-cart/${item._id}`,
-          "delete",
-          null,
-          { Authorization: "Bearer " + auth.token }
-        );
-        setItems(response.data.cart);
+        // itemId is updated cart
+        setItems(itemId);
       } else {
-        const newCart = items.filter((i) => i.product._id !== item._id);
+        const newCart = items.filter((i) => i.product._id !== itemId);
         setItems(newCart);
         if (!newCart.length) {
           localStorage.removeItem("cart");
@@ -90,13 +65,14 @@ export default (props) => {
         }
       }
     },
-    [items, auth, sendRequest]
+    [items, auth]
   );
 
   return (
     <CartContext.Provider
       value={{
         items,
+        getItems,
         addItem,
         removeItem,
       }}

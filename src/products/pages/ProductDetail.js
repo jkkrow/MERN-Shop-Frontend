@@ -1,19 +1,23 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 import NumberInput from "../../shared/components/FormElements/NumberInput";
 import Button from "../../shared/components/FormElements/Button";
 import LoadingSpinner from "../../shared/components/UI/LoadingSpinner";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import { CartContext } from "../../shared/context/cart-context";
+import { AuthContext } from "../../shared/context/auth-context";
 import "./ProductDetail.css";
 
 const ProductDetail = () => {
+  const auth = useContext(AuthContext);
   const cart = useContext(CartContext);
   const { isLoading, sendRequest } = useHttpClient();
   const [fetchedProduct, setFetchedProduct] = useState();
   const [selectedImage, setSelectedImage] = useState();
   const [quantity, setQuantity] = useState(1);
+  const [addToCartLoading, setAddToCartLoading] = useState(false);
   const { productId } = useParams();
 
   useEffect(() => {
@@ -27,8 +31,20 @@ const ProductDetail = () => {
     fetchProduct();
   }, [sendRequest, productId]);
 
-  const addToCartHandler = () => {
-    cart.addItem(fetchedProduct, quantity);
+  const addToCartHandler = async () => {
+    if (auth.isLoggedIn) {
+      setAddToCartLoading(true);
+      const response = await axios({
+        url: "http://localhost:5000/api/user/add-to-cart",
+        method: "post",
+        data: { item: fetchedProduct, quantity },
+        headers: { Authorization: "Bearer " + auth.token },
+      });
+      setAddToCartLoading(false);
+      cart.addItem(response.data.cart);
+    } else {
+      cart.addItem(fetchedProduct, quantity);
+    }
   };
 
   return (
@@ -57,7 +73,9 @@ const ProductDetail = () => {
           </div>
           <div className="product-detail__section-3">
             <NumberInput value={setQuantity} />
-            <Button onClick={addToCartHandler}>Add To Cart</Button>
+            <Button onClick={addToCartHandler} loading={addToCartLoading}>
+              Add To Cart
+            </Button>
             <Button>Buy Now</Button>
           </div>
         </div>

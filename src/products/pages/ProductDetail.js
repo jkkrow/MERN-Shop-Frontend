@@ -72,7 +72,7 @@ const ProductDetail = () => {
             <p>{fetchedProduct.description}</p>
           </div>
           <div className="product-detail__section-3">
-            <NumberInput value={setQuantity} />
+            <NumberInput onValue={setQuantity} />
             <Button onClick={addToCartHandler} loading={addToCartLoading}>
               Add To Cart
             </Button>

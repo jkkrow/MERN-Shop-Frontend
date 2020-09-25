@@ -1,0 +1,18 @@
+.cart-summary {
+  width: 30%;
+  height: 15rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem;
+  padding: 2rem;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.26);
+  text-align: center;
+}
+
+.cart-summary__total {
+}
+
+.cart-summary__checkout {
+  margin-top: auto;
+}

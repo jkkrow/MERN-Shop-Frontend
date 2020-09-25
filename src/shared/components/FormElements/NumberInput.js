@@ -1,32 +1,34 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import "./NumberInput.css";
 
 const NumberInput = (props) => {
   const [number, setNumber] = useState(props.initialValue || 1);
 
-  const { value } = props;
-  useEffect(() => {
-    value && value(number);
-  }, [value, number]);
-
   const inputChangeHandler = (event) => {
+    let updatedNumber;
     if (event.target.value < 1) {
-      setNumber(1);
+      updatedNumber = 1;
     } else {
-      setNumber(event.target.value);
+      updatedNumber = parseFloat(event.target.value);
     }
+    setNumber(updatedNumber);
+    props.onValue(updatedNumber);
   };
 
   const decrement = () => {
     if (number === 1) {
       return;
     }
-    setNumber((prevNumber) => prevNumber - 1);
+    const updatedNumber = number - 1;
+    setNumber(updatedNumber);
+    props.onValue(updatedNumber);
   };
 
   const increment = () => {
-    setNumber((prevNumber) => prevNumber + 1);
+    const updatedNumber = number + 1;
+    setNumber(updatedNumber);
+    props.onValue(updatedNumber);
   };
 
   return (

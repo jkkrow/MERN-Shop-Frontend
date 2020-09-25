@@ -19,8 +19,7 @@ export default (props) => {
     setUserId(userId);
     setImage(image);
     const tokenExpiresIn =
-      expirationDate ||
-      new Date(new Date().getTime() + 1000 * 60 * 60);
+      expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60 * 24);
     localStorage.setItem(
       "userData",
       JSON.stringify({
@@ -52,6 +51,8 @@ export default (props) => {
         storedData.image,
         new Date(storedData.expiration)
       );
+    } else {
+      localStorage.removeItem("userData");
     }
   }, [login]);
 

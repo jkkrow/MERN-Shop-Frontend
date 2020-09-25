@@ -1,10 +1,11 @@
 import React from "react";
 
 import Button from "../../shared/components/FormElements/Button";
+import "./CartSummary.css";
 
 const CartSummary = (props) => (
   <div className="cart-summary">
-    <h3 className="cart-summary__total">
+    <h2 className="cart-summary__total">
       Total: $
       {props.items
         .reduce(
@@ -13,7 +14,7 @@ const CartSummary = (props) => (
           0
         )
         .toFixed(2)}
-    </h3>
+    </h2>
     <div className="cart-summary__checkout">
       <Button>Checkout</Button>
     </div>

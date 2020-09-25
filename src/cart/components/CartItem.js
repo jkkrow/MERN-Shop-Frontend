@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
-// import NumberInput from "../../shared/components/FormElements/NumberInput";
+import NumberInput from "../../shared/components/FormElements/NumberInput";
 import LoadingSpinner from "../../shared/components/UI/LoadingSpinner";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import { AuthContext } from "../../shared/context/auth-context";
@@ -12,6 +12,24 @@ const CartItem = (props) => {
   const auth = useContext(AuthContext);
   const cart = useContext(CartContext);
   const { isLoading, sendRequest } = useHttpClient();
+
+  let timer;
+  const quantityChangeHandler = async (num) => {
+    if (auth.isLoggedIn) {
+      clearTimeout(timer);
+      timer = setTimeout(async () => {
+        const response = await sendRequest(
+          "http://localhost:5000/api/user/change-quantity",
+          "post",
+          { productId: props.id, quantity: num },
+          { Authorization: "Bearer " + auth.token }
+        );
+        cart.changeQuantity(response.data.cart);
+      }, 500);
+    } else {
+      cart.changeQuantity(props.id, num);
+    }
+  };
 
   const removeItemHandler = async () => {
     if (auth.isLoggedIn) {
@@ -37,12 +55,15 @@ const CartItem = (props) => {
       </div>
       <div className="cart-item__info">
         <Link to={`/detail/${props.id}`}>
-          <h3 className="cart-item__info-title">{props.title}</h3>
+          <h2 className="cart-item__info-title">{props.title}</h2>
         </Link>
-        <h4 className="cart-item__info-price">${props.price}</h4>
+        <h3 className="cart-item__info-price">${props.price}</h3>
         <div className="cart-item__info-quantity">
-          <p>quantity: {props.quantity}</p>
-          {/* <NumberInput initialValue={item.quantity} /> */}
+          <p>quantity: </p>
+          <NumberInput
+            initialValue={props.quantity}
+            onValue={quantityChangeHandler}
+          />
         </div>
         <p className="cart-item__info-delete" onClick={removeItemHandler}>
           remove

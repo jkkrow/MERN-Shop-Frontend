@@ -11,7 +11,7 @@
 }
 
 .cart-item__image {
-  width: 40%;
+  width: 30%;
   height: 100%;
 }
 
@@ -44,10 +44,18 @@
 }
 
 .cart-item__info-quantity {
+  display: flex;
+  align-items: center;
+  margin-top: auto;
+}
+
+.cart-item__info-quantity div {
   width: 10rem;
-  margin-bottom: 0.5rem;
+  bottom: -1.15rem;
+  left: 6rem;
 }
 
 .cart-item__info-delete {
+  width: 5rem;
   cursor: pointer;
 }

@@ -20,17 +20,3 @@
   color: var(--text-link);
 }
 
-.cart-summary {
-  width: 30%;
-  height: 10rem;
-  display: flex;
-  flex-direction: column;
-  margin: 1rem;
-  padding: 1rem;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.26);
-  text-align: center;
-}
-
-.cart-summary__checkout {
-  margin-top: auto;
-}

@@ -27,24 +27,30 @@ export default (props) => {
     if (auth.isLoggedIn) {
       const fetchCart = async () => {
         setCartLoading(true);
-        // if (
-        //   storedData &&
-        //   storedData.cart &&
-        //   new Date(storedData.expiration) > new Date()
-        // ) {
-        //   await axios({
-        //     url: "http://localhost:5000/api/user/add-to-cart",
-        //     method: "post",
-        //     data: { cart: storedData },
-        //   });
-        // }
-        const response = await axios({
-          url: "http://localhost:5000/api/user/cart",
-          method: "get",
-          headers: {
-            Authorization: "Bearer " + auth.token,
-          },
-        });
+        let response;
+        if (
+          storedData &&
+          storedData.cart &&
+          new Date(storedData.expiration) > new Date()
+        ) {
+          response = await axios({
+            url: "http://localhost:5000/api/user/move-items",
+            method: "post",
+            data: { cart: storedData.cart },
+            headers: {
+              Authorization: "Bearer " + auth.token,
+            },
+          });
+          localStorage.removeItem('cart')
+        } else {
+          response = await axios({
+            url: "http://localhost:5000/api/user/cart",
+            method: "get",
+            headers: {
+              Authorization: "Bearer " + auth.token,
+            },
+          });
+        }
         setItems(response.data.cart);
         setCartLoading(false);
       };

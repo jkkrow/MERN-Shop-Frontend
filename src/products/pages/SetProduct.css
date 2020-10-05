@@ -13,7 +13,7 @@
 }
 
 .set-product__section-1 textarea {
-    height: 30rem;
+  height: 30rem;
 }
 
 .set-product__section-2 {
@@ -23,5 +23,5 @@
 }
 
 .set-product__section-2 button {
-    margin-top: auto;
+  margin: auto 0 1.5rem 0;
 }

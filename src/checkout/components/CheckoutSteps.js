@@ -2,10 +2,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import "./CheckoutSteps.css";
 
-import Card from "../../shared/components/UI/Card";
-
 const CheckoutSteps = (props) => (
-  <Card className="checkout-steps">
+  <div className="checkout-steps">
     <NavLink to="#">Login</NavLink>
     <span>{">>"}</span>
     <NavLink
@@ -32,7 +30,7 @@ const CheckoutSteps = (props) => (
     >
       Place Order
     </NavLink>
-  </Card>
+  </div>
 );
 
 export default CheckoutSteps;

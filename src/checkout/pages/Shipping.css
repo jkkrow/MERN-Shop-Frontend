@@ -1,15 +1,15 @@
 .shipping {
-    width: 70%;
-    margin: auto;
-    padding: 3rem;
+  width: 70%;
+  margin: auto;
+  padding: 2.5rem;
 }
 
 .shipping h2 {
-    letter-spacing: .3rem;
-    font-size: 3rem;
-    margin-bottom: 3rem;
+  letter-spacing: 0.3rem;
+  font-size: 3.5rem;
+  margin: 4rem 0 3rem 0;
 }
 
 .shipping button {
-    margin-top: 2rem;
+  margin: 2rem 0 0 0;
 }

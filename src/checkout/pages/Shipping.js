@@ -25,49 +25,47 @@ const Shipping = ({ history }) => {
   };
 
   return (
-    <React.Fragment>
+    <Card className="shipping">
       <CheckoutSteps step2 />
-      <Card className="shipping">
-        <form>
-          <h2>Shipping</h2>
-          <Input
-            id="address"
-            type="text"
-            label="Address"
-            validators={[VALIDATOR_REQUIRE()]}
-            onInput={inputHandler}
-          />
-          <Input
-            id="city"
-            type="text"
-            label="City"
-            validators={[VALIDATOR_REQUIRE()]}
-            onInput={inputHandler}
-          />
-          <Input
-            id="postalCode"
-            type="number"
-            label="Postal Code"
-            validators={[VALIDATOR_LENGTH(5)]}
-            onInput={inputHandler}
-          />
-          <Input
-            id="country"
-            type="text"
-            label="Country"
-            validators={[VALIDATOR_REQUIRE()]}
-            onInput={inputHandler}
-          />
-          <Button
-            type="submit"
-            onClick={submitHandler}
-            disabled={!formState.isValid}
-          >
-            Continue
-          </Button>
-        </form>
-      </Card>
-    </React.Fragment>
+      <form>
+        <h2>Shipping</h2>
+        <Input
+          id="address"
+          type="text"
+          label="Address"
+          validators={[VALIDATOR_REQUIRE()]}
+          onInput={inputHandler}
+        />
+        <Input
+          id="city"
+          type="text"
+          label="City"
+          validators={[VALIDATOR_REQUIRE()]}
+          onInput={inputHandler}
+        />
+        <Input
+          id="postalCode"
+          type="number"
+          label="Postal Code"
+          validators={[VALIDATOR_LENGTH(5)]}
+          onInput={inputHandler}
+        />
+        <Input
+          id="country"
+          type="text"
+          label="Country"
+          validators={[VALIDATOR_REQUIRE()]}
+          onInput={inputHandler}
+        />
+        <Button
+          type="submit"
+          onClick={submitHandler}
+          disabled={!formState.isValid}
+        >
+          Continue
+        </Button>
+      </form>
+    </Card>
   );
 };
 

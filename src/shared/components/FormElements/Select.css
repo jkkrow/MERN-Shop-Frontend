@@ -1,15 +1,5 @@
-.form-control {
-  margin: 1rem 0;
-}
-
-.form-control label,
 .form-control select {
   display: block;
-}
-
-.form-control label {
-  font-weight: bold;
-  margin-bottom: 0.5rem;
 }
 
 .form-control select {
@@ -26,11 +16,6 @@
   outline: none;
   background: #ebebeb;
   border-color: #004177;
-}
-
-.form-control--invalid label,
-.form-control--invalid p {
-  color: red;
 }
 
 .form-control--invalid select {

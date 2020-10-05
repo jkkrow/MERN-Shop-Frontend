@@ -30,8 +30,21 @@ body {
 }
 
 main {
-  margin-top: 7rem;
+  min-height: calc(100vh - 16rem);
+  margin-top: 9rem;
   width: 100%;
+}
+
+footer {
+  position: relative;
+  width: 100%;
+  bottom: 0;
+  overflow: hidden;
+  height: 7rem;
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 1.3rem;
 }
 
 a {
@@ -44,10 +57,13 @@ a:hover {
   filter: brightness(1.2);
 }
 
+li {
+  list-style: none;
+}
+
 .center {
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-

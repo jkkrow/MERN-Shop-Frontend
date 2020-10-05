@@ -12,14 +12,26 @@
   z-index: 5;
 }
 
-.navbar__nav {
+.navbar-nav {
   height: 100%;
   display: block;
-  margin-left: auto;
+  margin-left: 3rem;
+}
+
+.navbar-nav__login a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  padding: 0.5rem;
+  font-weight: 600;
+}
+
+.navbar-nav__login a:active,
+.navbar-nav__login a.active {
+  color: var(--text-reverse);
 }
 
 @media (max-width: 700px) {
-  .navbar__nav {
+  .navbar-nav {
     display: none;
   }
 }

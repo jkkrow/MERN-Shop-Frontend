@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/FormElements/Button";
@@ -12,7 +12,7 @@ import { AuthContext } from "../../shared/context/auth-context";
 import { VALIDATOR_REQUIRE } from "../../shared/util/validators";
 import "./SetProduct.css";
 
-const SetProduct = () => {
+const SetProduct = ({history}) => {
   const auth = useContext(AuthContext);
   const [fetchedProduct, setFetchedProduct] = useState();
   const [editMode, setEditMode] = useState();
@@ -27,7 +27,6 @@ const SetProduct = () => {
     },
     false
   );
-  const history = useHistory();
   const { productId } = useParams();
 
   useEffect(() => {

@@ -1,0 +1,19 @@
+.checkout-steps {
+  width: 70%;
+  margin: 0 auto 2rem auto;
+  display: flex;
+  align-items: center;
+}
+
+.checkout-steps a {
+  margin: auto;
+}
+
+.checkout-steps a.active {
+}
+
+.checkout-steps_link-disabled {
+  pointer-events: none;
+  cursor: default;
+  color: var(--text-secondary);
+}

@@ -1,4 +1,4 @@
-import React, { useState, useCallback, createContext, useEffect } from "react";
+import React, { useState, useCallback, createContext } from "react";
 
 export const AuthContext = createContext({
   isLoggedIn: false,
@@ -10,23 +10,29 @@ export const AuthContext = createContext({
 });
 
 export default (props) => {
-  const [token, setToken] = useState();
-  const [userId, setUserId] = useState();
-  const [image, setImage] = useState();
+  const [token, setToken] = useState(
+    JSON.parse(localStorage.getItem("userData")) &&
+      JSON.parse(localStorage.getItem("userData")).token
+  );
+  const [userId, setUserId] = useState(
+    JSON.parse(localStorage.getItem("userData")) &&
+      JSON.parse(localStorage.getItem("userData")).userId
+  );
+  const [image, setImage] = useState(
+    JSON.parse(localStorage.getItem("userData")) &&
+      JSON.parse(localStorage.getItem("userData")).image
+  );
 
-  const login = useCallback((token, userId, image, expirationDate) => {
+  const login = useCallback((token, userId, image) => {
     setToken(token);
     setUserId(userId);
     setImage(image);
-    const tokenExpiresIn =
-      expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60 * 24);
     localStorage.setItem(
       "userData",
       JSON.stringify({
         token,
         userId,
         image,
-        expiration: tokenExpiresIn.toISOString(),
       })
     );
   }, []);
@@ -37,24 +43,6 @@ export default (props) => {
     setImage(null);
     localStorage.removeItem("userData");
   }, []);
-
-  useEffect(() => {
-    const storedData = JSON.parse(localStorage.getItem("userData"));
-    if (
-      storedData &&
-      storedData.token &&
-      new Date(storedData.expiration) > new Date()
-    ) {
-      login(
-        storedData.token,
-        storedData.userId,
-        storedData.image,
-        new Date(storedData.expiration)
-      );
-    } else {
-      localStorage.removeItem("userData");
-    }
-  }, [login]);
 
   return (
     <AuthContext.Provider

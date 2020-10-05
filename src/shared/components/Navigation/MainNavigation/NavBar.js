@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 
 import Drawer from "./Drawer";
 import DrawerToggler from "../NavigationItems/DrawerToggler";
@@ -12,11 +13,10 @@ import "./NavBar.css";
 
 const NavBar = () => {
   const auth = useContext(AuthContext);
-
   const [showDrawer, setShowDrawer] = useState(false);
-
   const openDrawerHandler = () => setShowDrawer(true);
   const closeDrawerHandler = () => setShowDrawer(false);
+  const { pathname } = useLocation();
 
   return (
     <React.Fragment>
@@ -24,11 +24,22 @@ const NavBar = () => {
       <div className="navbar">
         <DrawerToggler onClick={openDrawerHandler} />
         <Logo />
-        <nav className="navbar__nav">
+        <nav className="navbar-nav">
           <NavLinks />
         </nav>
         <CartNav />
-        {auth.token && <Profile />}
+        {auth.token ? (
+          <Profile />
+        ) : (
+          <li className="navbar-nav__login">
+            <NavLink
+              to="/login"
+              isActive={() => ["/login", "/signup"].includes(pathname)}
+            >
+              Log in
+            </NavLink>
+          </li>
+        )}
         {/* <SearchBar /> */}
       </div>
     </React.Fragment>

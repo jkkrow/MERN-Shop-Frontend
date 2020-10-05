@@ -67,8 +67,8 @@ const ProductDetail = () => {
             </div>
           </div>
           <div className="product-detail__section-2">
-            <h1>{fetchedProduct.title}</h1>
-            <h2>${fetchedProduct.price}</h2>
+            <h2>{fetchedProduct.title}</h2>
+            <h3>${fetchedProduct.price}</h3>
             <p>{fetchedProduct.description}</p>
           </div>
           <div className="product-detail__section-3">

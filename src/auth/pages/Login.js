@@ -15,7 +15,7 @@ import {
 } from "../../shared/util/validators";
 import "./Login.css";
 
-const Login = () => {
+const Login = ({ history, location }) => {
   const auth = useContext(AuthContext);
   const { isLoading, error, sendRequest } = useHttpClient();
   const [formState, inputHandler] = useForm(
@@ -25,6 +25,8 @@ const Login = () => {
     },
     false
   );
+
+  const redirect = location && location.search.split("=")[1];
 
   const loginHandler = async (event) => {
     event.preventDefault();
@@ -42,6 +44,8 @@ const Login = () => {
       response.data.userData.userId,
       response.data.userData.image
     );
+
+    redirect && history.push(redirect);
   };
 
   const googleLoginHandler = async (googleResponse) => {
@@ -57,6 +61,8 @@ const Login = () => {
       response.data.userData.userId,
       response.data.userData.image
     );
+
+    redirect && history.push(redirect);
   };
 
   return (
@@ -92,7 +98,10 @@ const Login = () => {
         </form>
         <p>
           Don't have an account?{" "}
-          <NavLink to="/signup" style={{ color: "#0094f7" }}>
+          <NavLink
+            to={redirect ? `/signup?redirect=${redirect}` : `/signup`}
+            style={{ color: "#0094f7" }}
+          >
             Sign up
           </NavLink>
         </p>

@@ -9,6 +9,7 @@ import Login from "./auth/pages/Login";
 import Signup from "./auth/pages/Signup";
 import SetProduct from "./products/pages/SetProduct";
 import MyProducts from "./user/pages/MyProducts";
+import Shipping from "./checkout/pages/Shipping";
 import { AuthContext } from "./shared/context/auth-context";
 import "./App.css";
 
@@ -26,6 +27,7 @@ const App = () => {
         <Route path="/new-product" component={SetProduct} />
         <Route path="/my-products" component={MyProducts} />
         <Route path="/edit-product/:productId" component={SetProduct} />
+        <Route path="/shipping" component={Shipping} />
         <Redirect to="/" />
       </Switch>
     );
@@ -44,8 +46,11 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <NavBar />
+      <header>
+        <NavBar />
+      </header>
       <main>{routes}</main>
+      <footer>Copyright &copy; MERN Shop</footer>
     </BrowserRouter>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 
+import Rating from "./Rating";
 import Button from "../../shared/components/FormElements/Button";
 import Modal from "../../shared/components/UI/Modal";
 import ErrorModal from "../../shared/components/UI/ErrorModal";
@@ -36,9 +37,7 @@ const ProductItem = (props) => {
         header="Are your sure?"
         footer={
           <React.Fragment>
-            <Button onClick={closeWarningHandler}>
-              Cancel
-            </Button>
+            <Button onClick={closeWarningHandler}>Cancel</Button>
             <Button danger onClick={deleteProductHandler} loading={isLoading}>
               Delete
             </Button>
@@ -55,15 +54,17 @@ const ProductItem = (props) => {
         </div>
         <div className="product-item__info">
           <Link to={`/detail/${props.id}`}>
-            <h2>{props.title}</h2>
-            <h3>${props.price}</h3>
+            <h3>{props.title}</h3>
+            <h4>${props.price}</h4>
+            <Rating
+              value={0}
+              text={` (${props.reviews ? props.reviews.length : 0})`}
+            />
           </Link>
           {auth.userId === props.seller &&
             location.pathname === "/my-products" && (
               <div className="product-item__action">
-                <Button to={`/edit-product/${props.id}`}>
-                  Edit Product
-                </Button>
+                <Button to={`/edit-product/${props.id}`}>Edit Product</Button>
                 <Button danger onClick={openWarningHandler}>
                   Delete Product
                 </Button>

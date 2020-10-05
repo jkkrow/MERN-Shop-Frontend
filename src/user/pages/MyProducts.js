@@ -7,7 +7,7 @@ import { AuthContext } from "../../shared/context/auth-context";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import "./MyProducts.css";
 
-const MyProducts = (props) => {
+const MyProducts = () => {
   const auth = useContext(AuthContext);
   const { isLoading, sendRequest } = useHttpClient();
   const [fetchedProducts, setFetchedProducts] = useState([]);

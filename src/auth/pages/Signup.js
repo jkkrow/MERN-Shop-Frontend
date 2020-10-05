@@ -1,6 +1,5 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { useHistory } from "react-router-dom";
 
 import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/FormElements/Button";
@@ -15,7 +14,7 @@ import {
 } from "../../shared/util/validators";
 import "./Signup.css";
 
-const Signup = () => {
+const Signup = ({ history, location }) => {
   const { isLoading, error, sendRequest } = useHttpClient();
   const [formState, inputHandler] = useForm(
     {
@@ -25,8 +24,7 @@ const Signup = () => {
     },
     false
   );
-
-  const history = useHistory();
+  const redirect = location && location.search.split("=")[1];
 
   const signupHandler = async (event) => {
     event.preventDefault();
@@ -74,12 +72,19 @@ const Signup = () => {
             errorText="Please enter a valid password."
             onInput={inputHandler}
           />
-          <Button type="submit" disabled={!formState.isValid} loading={isLoading}>
+          <Button
+            type="submit"
+            disabled={!formState.isValid}
+            loading={isLoading}
+          >
             Sign Up
           </Button>
           <p>
             Already have an account?{" "}
-            <NavLink to="/login" style={{ color: "#0094f7" }}>
+            <NavLink
+              to={redirect ? `/login?redirect=${redirect}` : `/login`}
+              style={{ color: "#0094f7" }}
+            >
               Log in
             </NavLink>
           </p>

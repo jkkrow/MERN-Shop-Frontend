@@ -32,9 +32,13 @@
   overflow: hidden;
 }
 
-.product-item__info h2 {
+.product-item__info h3 {
   margin-bottom: 1rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.product-item__info h4 {
+  margin-bottom: 1rem;
 }

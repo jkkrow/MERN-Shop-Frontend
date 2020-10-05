@@ -10,6 +10,7 @@
   border-radius: 5px;
   overflow: hidden;
   transition: height 300ms ease;
+  animation: show-dropdown 200ms ease-out;
 }
 
 .dropdown-menu {
@@ -34,6 +35,17 @@
 
 .dropdown-menu__item a {
   color: var(--text-reverse);
+}
+
+@keyframes show-dropdown {
+  0% {
+    opacity: 0;
+    transform: translateY(-10%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
 }
 
 /* CSS Transition */

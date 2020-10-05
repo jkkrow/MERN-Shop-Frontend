@@ -1,13 +1,7 @@
-.signup__header {
-  color: var(--text-primary);
-  text-align: center;
-  margin: 2rem 0;
-}
-
 .signup {
   width: 100%;
   max-width: 40rem;
-  margin: 10rem auto;
+  margin: auto;
   text-align: center;
 }
 
@@ -23,4 +17,10 @@
 
 .signup form {
   margin-bottom: 1rem;
+}
+
+.signup__header {
+  color: var(--text-primary);
+  text-align: center;
+  margin: 2rem 0;
 }

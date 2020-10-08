@@ -20,28 +20,28 @@ const CartItem = (props) => {
       timer = setTimeout(async () => {
         const response = await sendRequest(
           "http://localhost:5000/api/user/change-quantity",
-          "post",
-          { productId: props.id, quantity: num },
+          "patch",
+          { productId: props._id, quantity: num },
           { Authorization: "Bearer " + auth.token }
         );
         cart.changeQuantity(response.data.cart);
       }, 500);
     } else {
-      cart.changeQuantity(props.id, num);
+      cart.changeQuantity(props._id, num);
     }
   };
 
   const removeItemHandler = async () => {
     if (auth.isLoggedIn) {
       const response = await sendRequest(
-        `http://localhost:5000/api/user/remove-from-cart/${props.id}`,
+        `http://localhost:5000/api/user/remove-from-cart/${props._id}`,
         "delete",
         null,
         { Authorization: "Bearer " + auth.token }
       );
       cart.removeItem(response.data.cart);
     } else {
-      cart.removeItem(props.id);
+      cart.removeItem(props._id);
     }
   };
 
@@ -49,12 +49,12 @@ const CartItem = (props) => {
     <li className="cart-item" key={props._id}>
       {isLoading && <LoadingSpinner overlay />}
       <div className="cart-item__image">
-        <Link to={`/detail/${props.id}`}>
+        <Link to={`/detail/${props._id}`}>
           <img src={props.images[0]} alt={props.title} />
         </Link>
       </div>
       <div className="cart-item__info">
-        <Link to={`/detail/${props.id}`}>
+        <Link to={`/detail/${props._id}`}>
           <h2 className="cart-item__info-title">{props.title}</h2>
         </Link>
         <h3 className="cart-item__info-price">${props.price}</h3>

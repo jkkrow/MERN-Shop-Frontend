@@ -1,0 +1,26 @@
+.address-list {
+  width: 70%;
+  margin: auto;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.address-list__add-address {
+  width: 30rem;
+  min-height: 15rem;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  border: 2px dashed var(--text-secondary);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.address-list__add-address i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}

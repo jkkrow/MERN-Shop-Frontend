@@ -30,8 +30,8 @@ const SetProduct = ({history}) => {
   const { productId } = useParams();
 
   useEffect(() => {
-    // edit mode
     if (productId) {
+      // edit mode
       setEditMode(true);
       const fetchProduct = async () => {
         const response = await sendRequest(

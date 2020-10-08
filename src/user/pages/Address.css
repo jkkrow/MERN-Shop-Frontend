@@ -1,0 +1,58 @@
+.address {
+  overflow: hidden;
+}
+
+.address-list-section {
+  width: 100%;
+}
+
+.address-form-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.address-form-section i {
+  cursor: pointer;
+  font-size: 5rem;
+  margin: 3rem auto auto auto;
+}
+
+/* CSS Transition */
+
+.address-list-move-enter {
+  position: absolute;
+  transform: translateY(-110%);
+}
+
+.address-list-move-enter-active {
+  transform: translateY(0);
+  transition: all 300ms ease-out;
+}
+
+.address-list-move-exit {
+  position: absolute;
+  transform: translateY(0);
+}
+
+.address-list-move-exit-active {
+  transform: translateY(-110%);
+  transition: all 300ms ease-out;
+}
+
+.address-form-move-enter {
+  transform: translateY(110%);
+}
+
+.address-form-move-enter-active {
+  transform: translateY(0);
+  transition: all 300ms ease-out;
+}
+
+.address-form-move-exit {
+  transform: translateY(0);
+}
+
+.address-form-move-exit-active {
+  transform: translateY(110%);
+  transition: all 300ms ease-out;
+}

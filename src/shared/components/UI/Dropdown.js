@@ -33,6 +33,10 @@ const Dropdown = (props) => {
     history.push("/my-products");
     props.close();
   };
+  const addressHandler = () => {
+    history.push("/address");
+    props.close();
+  };
   const logoutHandler = () => {
     auth.logout();
     props.close();
@@ -68,7 +72,8 @@ const Dropdown = (props) => {
           </DropdownItem>
           <DropdownItem>Profile</DropdownItem>
           <DropdownItem onClick={myProductsHandler}>Products</DropdownItem>
-          <DropdownItem>Orders</DropdownItem>
+          <DropdownItem onClick={addressHandler}>Address</DropdownItem>
+          <DropdownItem>Order History</DropdownItem>
         </div>
       </CSSTransition>
     </div>

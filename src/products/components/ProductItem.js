@@ -20,12 +20,12 @@ const ProductItem = (props) => {
 
   const deleteProductHandler = async () => {
     await sendRequest(
-      `http://localhost:5000/api/seller/${props.id}`,
+      `http://localhost:5000/api/seller/${props._id}`,
       "delete",
       null,
       { Authorization: "Bearer " + auth.token }
     );
-    props.onDelete(props.id);
+    props.onDelete(props._id);
   };
 
   return (
@@ -48,12 +48,12 @@ const ProductItem = (props) => {
       </Modal>
       <li className="product-item">
         <div className="product-item__image">
-          <Link to={`/detail/${props.id}`}>
+          <Link to={`/detail/${props._id}`}>
             <img src={props.images[0]} alt={props.title} />
           </Link>
         </div>
         <div className="product-item__info">
-          <Link to={`/detail/${props.id}`}>
+          <Link to={`/detail/${props._id}`}>
             <h3>{props.title}</h3>
             <h4>${props.price}</h4>
             <Rating
@@ -64,7 +64,7 @@ const ProductItem = (props) => {
           {auth.userId === props.seller &&
             location.pathname === "/my-products" && (
               <div className="product-item__action">
-                <Button to={`/edit-product/${props.id}`}>Edit Product</Button>
+                <Button to={`/edit-product/${props._id}`}>Edit Product</Button>
                 <Button danger onClick={openWarningHandler}>
                   Delete Product
                 </Button>

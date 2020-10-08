@@ -8,7 +8,7 @@ const CartList = (props) => (
     {props.items.map((item) => (
       <CartItem
         key={item.product._id}
-        id={item.product._id}
+        _id={item.product._id}
         title={item.product.title}
         price={item.product.price}
         images={item.product.images}

@@ -9,7 +9,7 @@ const ProductList = (props) => {
       {props.items.map((item) => (
         <ProductItem
           key={item._id}
-          id={item._id}
+          _id={item._id}
           title={item.title}
           price={item.price}
           images={item.images}

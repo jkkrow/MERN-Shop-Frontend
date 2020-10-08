@@ -1,0 +1,14 @@
+.address-item {
+  width: 30rem;
+  min-height: 15rem;
+  margin: 0.5rem;
+  padding: 0.5rem;
+  border: 2px solid var(--text-secondary);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+}
+
+.address-item__button {
+  margin-top: auto;
+}

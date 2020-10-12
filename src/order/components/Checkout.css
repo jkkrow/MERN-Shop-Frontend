@@ -1,0 +1,53 @@
+.checkout {
+  display: flex;
+}
+
+.checkout-section {
+  width: 70%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.checkout-section:last-of-type {
+  width: 30%;
+  border: 1px solid var(--text-secondary);
+  border-radius: 4px;
+}
+
+.checkout-section__menu {
+  border-bottom: 1px solid var(--text-secondary);
+  margin-bottom: 2rem;
+}
+
+.checkout-section__menu:last-of-type {
+  border-bottom: none;
+}
+
+.checkout-section h2 {
+  margin-bottom: 1rem;
+  letter-spacing: 0.3rem;
+  font-size: 2.5rem;
+}
+
+.checkout-section p {
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+
+.checkout-section__item {
+  display: flex;
+  align-items: center;
+}
+
+.checkout-section__item img {
+  margin: 1rem;
+  width: 3rem;
+  height: 3rem;
+  object-fit: contain;
+}
+
+.checkout-section__item p:last-of-type {
+  margin-left: auto;
+}

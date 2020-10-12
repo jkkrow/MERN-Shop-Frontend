@@ -14,8 +14,8 @@ const Cart = ({ history }) => {
 
   const checkoutHandler = () => {
     auth.isLoggedIn
-      ? history.push("/shipping")
-      : history.push("/login?redirect=shipping");
+      ? history.push("/place-order")
+      : history.push("/login?redirect=place-order");
   };
 
   return (

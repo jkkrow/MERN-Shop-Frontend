@@ -69,7 +69,7 @@ const AddressForm = (props) => {
       {initialFormData && (
         <Card className="address-form">
           <form>
-            <h2>Address</h2>
+            <h2>New Address</h2>
             <Input
               id="address"
               type="text"

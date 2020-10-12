@@ -10,7 +10,7 @@ import Signup from "./auth/pages/Signup";
 import SetProduct from "./products/pages/SetProduct";
 import MyProducts from "./user/pages/MyProducts";
 import Address from "./user/pages/Address";
-import Shipping from "./checkout/pages/Shipping";
+import PlaceOrder from "./order/pages/PlaceOrder";
 import { AuthContext } from "./shared/context/auth-context";
 import "./App.css";
 
@@ -29,7 +29,7 @@ const App = () => {
         <Route path="/my-products" component={MyProducts} />
         <Route path="/address" component={Address} />
         <Route path="/edit-product/:productId" component={SetProduct} />
-        <Route path="/shipping" component={Shipping} />
+        <Route path="/place-order" component={PlaceOrder} />
         <Redirect to="/" />
       </Switch>
     );

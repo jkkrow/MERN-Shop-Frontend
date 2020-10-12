@@ -8,12 +8,13 @@ import { useHttpClient } from "../../shared/hooks/http-hook";
 import { AuthContext } from "../../shared/context/auth-context";
 import "./Address.css";
 
-const Address = (props) => {
+const Address = () => {
   const auth = useContext(AuthContext);
   const [addresses, setAddresses] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [initialData, setInitialData] = useState();
   const { isLoading, sendRequest } = useHttpClient();
+  
   useEffect(() => {
     const fetchAddresses = async () => {
       const response = await sendRequest(

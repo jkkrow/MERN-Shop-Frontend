@@ -1,19 +1,19 @@
-.checkout-steps {
+.order-process {
   padding: 1rem;
+  margin: auto;
   display: flex;
   align-items: center;
   border: 2px solid var(--text-secondary);
   border-radius: 4px;
+  margin-bottom: 2rem;
 }
 
-.checkout-steps a {
+.order-process div {
   margin: auto;
+  cursor: pointer;
 }
 
-.checkout-steps a.active {
-}
-
-.checkout-steps_link-disabled {
+.order-process_link-disabled {
   pointer-events: none;
   cursor: default;
   color: var(--text-secondary);

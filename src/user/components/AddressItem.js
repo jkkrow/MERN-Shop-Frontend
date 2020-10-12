@@ -1,13 +1,17 @@
 import React, { useContext } from "react";
+import { useLocation } from "react-router-dom";
 
 import Button from "../../shared/components/FormElements/Button";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import { AuthContext } from "../../shared/context/auth-context";
+import { CartContext } from "../../shared/context/cart-context";
 import "./AddressItem.css";
 
 const AddressItem = (props) => {
   const auth = useContext(AuthContext);
+  const cart = useContext(CartContext);
   const { isLoading, sendRequest } = useHttpClient();
+  const location = useLocation();
 
   const editHandler = () => {
     props.onEdit({
@@ -18,7 +22,7 @@ const AddressItem = (props) => {
       country: props.country,
     });
   };
-  
+
   const deleteHandler = async () => {
     const response = await sendRequest(
       `http://localhost:5000/api/user/delete-address/${props._id}`,
@@ -27,6 +31,17 @@ const AddressItem = (props) => {
       { Authorization: "Bearer " + auth.token }
     );
     props.onDelete(response.data.addresses);
+  };
+
+  const continueHandler = () => {
+    cart.saveShippingAddress({
+      _id: props._id,
+      address: props.address,
+      city: props.city,
+      postalCode: props.postalCode,
+      country: props.country,
+    });
+    cart.updateOrderProcess("payment");
   };
 
   return (
@@ -38,10 +53,17 @@ const AddressItem = (props) => {
         <p>{props.country}</p>
       </div>
       <div className="address-item__button">
-        <Button onClick={editHandler}>Edit</Button>
-        <Button onClick={deleteHandler} loading={isLoading}>
-          Delete
-        </Button>
+        {location.pathname === "/address" && (
+          <Button onClick={editHandler}>Edit</Button>
+        )}
+        {location.pathname === "/address" && (
+          <Button onClick={deleteHandler} loading={isLoading}>
+            Delete
+          </Button>
+        )}
+        {location.pathname === "/place-order" && (
+          <Button onClick={continueHandler}>Continue</Button>
+        )}
       </div>
     </li>
   );

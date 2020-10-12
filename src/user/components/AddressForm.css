@@ -1,12 +1,12 @@
 .address-form {
   width: 70%;
-  margin: 5rem auto auto auto;
+  margin: auto;
   padding: 2.5rem;
 }
 
 .address-form h2 {
   letter-spacing: 0.3rem;
-  font-size: 3.5rem;
+  font-size: 3rem;
   margin: 0 0 3rem 0;
 }
 

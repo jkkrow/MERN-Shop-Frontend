@@ -1,0 +1,27 @@
+.payment {
+  padding: 0 3rem;
+}
+
+.payment h1 {
+  padding: 1rem;
+  letter-spacing: 0.3rem;
+  font-size: 3.5rem;
+}
+
+.payment form {
+  padding: 2rem;
+}
+
+.payment-method {
+  display: flex;
+  margin: 0 0 1rem 0.5rem;
+  cursor: pointer;
+}
+
+.payment-method input {
+  width: 2rem;
+  height: 2rem;
+  margin-right: 1rem;
+  cursor: pointer;
+}
+

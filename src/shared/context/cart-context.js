@@ -15,12 +15,21 @@ export const CartContext = createContext({
   addItem: () => {},
   changeQuantity: () => {},
   removeItem: () => {},
+  orderProcess: null,
+  shippingAddress: null,
+  paymentMethod: null,
+  updateOrderProcess: () => {},
+  saveShippingAddress: () => {},
+  savePaymentMethod: () => {},
 });
 
 export default (props) => {
   const auth = useContext(AuthContext);
   const [items, setItems] = useState([]);
   const [cartLoading, setCartLoading] = useState(false);
+  const [orderProcess, setOrderProcess] = useState('shipping');
+  const [shippingAddress, setShippingAddress] = useState();
+  const [paymentMethod, setPaymentMethod] = useState();
 
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem("cart"));
@@ -41,7 +50,7 @@ export default (props) => {
               Authorization: "Bearer " + auth.token,
             },
           });
-          localStorage.removeItem('cart')
+          localStorage.removeItem("cart");
         } else {
           response = await axios({
             url: "http://localhost:5000/api/user/cart",
@@ -140,6 +149,18 @@ export default (props) => {
     [items, auth]
   );
 
+  const updateOrderProcess = useCallback((process) => {
+    setOrderProcess(process);
+  }, []);
+
+  const saveShippingAddress = useCallback((address) => {
+    setShippingAddress(address);
+  }, []);
+
+  const savePaymentMethod = useCallback((method) => {
+    setPaymentMethod(method);
+  }, []);
+
   return (
     <CartContext.Provider
       value={{
@@ -148,6 +169,12 @@ export default (props) => {
         addItem,
         changeQuantity,
         removeItem,
+        orderProcess,
+        shippingAddress,
+        paymentMethod,
+        updateOrderProcess,
+        saveShippingAddress,
+        savePaymentMethod,
       }}
     >
       {props.children}

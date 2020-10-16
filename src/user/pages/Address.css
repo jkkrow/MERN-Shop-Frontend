@@ -1,4 +1,11 @@
+.my-address {
+  width: 70%;
+  margin: 0 auto 3rem auto;
+  letter-spacing: 0.3rem;
+}
+
 .address {
+  position: relative;
   overflow: hidden;
 }
 

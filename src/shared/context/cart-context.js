@@ -21,13 +21,14 @@ export const CartContext = createContext({
   updateOrderProcess: () => {},
   saveShippingAddress: () => {},
   savePaymentMethod: () => {},
+  clearCart: () => {},
 });
 
 export default (props) => {
   const auth = useContext(AuthContext);
   const [items, setItems] = useState([]);
   const [cartLoading, setCartLoading] = useState(false);
-  const [orderProcess, setOrderProcess] = useState('shipping');
+  const [orderProcess, setOrderProcess] = useState("shipping");
   const [shippingAddress, setShippingAddress] = useState();
   const [paymentMethod, setPaymentMethod] = useState();
 
@@ -161,6 +162,13 @@ export default (props) => {
     setPaymentMethod(method);
   }, []);
 
+  const clearCart = useCallback(() => {
+    setItems([]);
+    setOrderProcess("shipping");
+    setShippingAddress("null");
+    setPaymentMethod("null");
+  }, []);
+
   return (
     <CartContext.Provider
       value={{
@@ -175,6 +183,7 @@ export default (props) => {
         updateOrderProcess,
         saveShippingAddress,
         savePaymentMethod,
+        clearCart,
       }}
     >
       {props.children}

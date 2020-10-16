@@ -11,6 +11,8 @@ import SetProduct from "./products/pages/SetProduct";
 import MyProducts from "./user/pages/MyProducts";
 import Address from "./user/pages/Address";
 import PlaceOrder from "./order/pages/PlaceOrder";
+import Orders from "./order/pages/Orders";
+import OrderDetail from "./order/pages/OrderDetail";
 import { AuthContext } from "./shared/context/auth-context";
 import "./App.css";
 
@@ -30,6 +32,8 @@ const App = () => {
         <Route path="/address" component={Address} />
         <Route path="/edit-product/:productId" component={SetProduct} />
         <Route path="/place-order" component={PlaceOrder} />
+        <Route path="/orders" component={Orders} />
+        <Route path="/order-detail/:orderId" component={OrderDetail} />
         <Redirect to="/" />
       </Switch>
     );

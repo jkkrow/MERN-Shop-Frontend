@@ -6,7 +6,7 @@ import "./Payment.css";
 
 const Payment = () => {
   const cart = useContext(CartContext);
-  const [paymentMethod, setPaymentMethod] = useState("Paypal");
+  const [paymentMethod, setPaymentMethod] = useState("PayPal");
 
   const submitHandler = (event) => {
     event.preventDefault();

@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 
 import LoadingSpinner from "../../shared/components/UI/LoadingSpinner";
@@ -14,7 +15,8 @@ const Address = () => {
   const [showForm, setShowForm] = useState(false);
   const [initialData, setInitialData] = useState();
   const { isLoading, sendRequest } = useHttpClient();
-  
+  const location = useLocation();
+
   useEffect(() => {
     const fetchAddresses = async () => {
       const response = await sendRequest(
@@ -51,40 +53,45 @@ const Address = () => {
     <React.Fragment>
       {isLoading && <LoadingSpinner overlay />}
       {!isLoading && (
-        <div className="address">
-          <CSSTransition
-            in={!showForm}
-            classNames="address-list-move"
-            timeout={300}
-            mountOnEnter
-            unmountOnExit
-          >
-            <div className="address-list-section">
-              <AddressList
-                items={addresses}
-                onAdd={addHandler}
-                onEdit={editHandler}
-                onDelete={deleteHandler}
-              />
-            </div>
-          </CSSTransition>
+        <React.Fragment>
+          {location.pathname === "/address" && (
+            <h1 className="my-address">My Address</h1>
+          )}
+          <div className="address">
+            <CSSTransition
+              in={!showForm}
+              classNames="address-list-move"
+              timeout={300}
+              mountOnEnter
+              unmountOnExit
+            >
+              <div className="address-list-section">
+                <AddressList
+                  items={addresses}
+                  onAdd={addHandler}
+                  onEdit={editHandler}
+                  onDelete={deleteHandler}
+                />
+              </div>
+            </CSSTransition>
 
-          <CSSTransition
-            in={showForm}
-            classNames="address-form-move"
-            timeout={300}
-            mountOnEnter
-            unmountOnExit
-          >
-            <div className="address-form-section">
-              <AddressForm onSave={saveHandler} initialData={initialData} />
-              <i
-                className="fas fa-chevron-circle-up"
-                onClick={() => setShowForm(false)}
-              ></i>
-            </div>
-          </CSSTransition>
-        </div>
+            <CSSTransition
+              in={showForm}
+              classNames="address-form-move"
+              timeout={300}
+              mountOnEnter
+              unmountOnExit
+            >
+              <div className="address-form-section">
+                <AddressForm onSave={saveHandler} initialData={initialData} />
+                <i
+                  className="fas fa-chevron-circle-up"
+                  onClick={() => setShowForm(false)}
+                ></i>
+              </div>
+            </CSSTransition>
+          </div>
+        </React.Fragment>
       )}
     </React.Fragment>
   );

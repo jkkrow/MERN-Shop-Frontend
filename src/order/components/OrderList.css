@@ -1,5 +1,4 @@
-.product-list {
-  width: 100%;
+.order-list {
   display: flex;
   flex-direction: column;
   justify-content: center;

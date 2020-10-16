@@ -1,24 +1,98 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
+import { PayPalButton } from "react-paypal-button-v2";
 
 import Button from "../../shared/components/FormElements/Button";
+import LoadingSpinner from "../../shared/components/UI/LoadingSpinner";
+import { AuthContext } from "../../shared/context/auth-context";
 import { CartContext } from "../../shared/context/cart-context";
 import "./Checkout.css";
 
 const Checkout = () => {
+  const auth = useContext(AuthContext);
   const cart = useContext(CartContext);
+  const [sdkReady, setSdkReady] = useState(false);
+  const [pageLoading, setPageLoading] = useState(false);
+  const history = useHistory();
 
-  const itemsTotal = cart.items
+  const itemsPrice = cart.items
     .reduce(
       (acc, currentItem) =>
         acc + currentItem.product.price * currentItem.quantity,
       0
-    );
-  const shippingFee = itemsTotal > 100 ? 0 : 5;
-  const tax = itemsTotal > 100 ? (itemsTotal * 0.08) : 0;
-  const total = itemsTotal + shippingFee + tax;
+    )
+    .toFixed(2);
+  const shippingPrice = (Number(itemsPrice) > 100 ? 0 : 5).toFixed(2);
+  const tax = (Number(itemsPrice) > 100
+    ? Number(itemsPrice) * 0.08
+    : 0
+  ).toFixed(2);
+  const totalPrice = (
+    Number(itemsPrice) +
+    Number(shippingPrice) +
+    Number(tax)
+  ).toFixed(2);
+
+  useEffect(() => {
+    if (cart.items.length === 0) {
+      return history.push("/cart");
+    }
+    if (cart.paymentMethod === "PayPal") {
+      const addPayPalScript = async () => {
+        setPageLoading(true);
+        const response = await axios("http://localhost:5000/api/config/paypal");
+        const script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = `https://www.paypal.com/sdk/js?client-id=${response.data.clientId}`;
+        script.async = true;
+        script.onload = () => {
+          setSdkReady(true);
+          setPageLoading(false);
+        };
+        document.body.appendChild(script);
+      };
+      addPayPalScript();
+    }
+  }, [cart, history]);
+
+  const successPaymentHandler = async (paymentResult) => {
+    setPageLoading(true);
+    await axios({
+      url: "http://localhost:5000/api/user/create-order",
+      method: "post",
+      data: {
+        orderItems: cart.items.map((item) => ({
+          title: item.product.title,
+          price: item.product.price,
+          image: item.product.images[0],
+          quantity: item.quantity,
+          product: item.product._id,
+        })),
+        shippingAddress: cart.shippingAddress,
+        payment: {
+          id: paymentResult.id,
+          method: cart.paymentMethod,
+          status: paymentResult.status,
+          email_address: paymentResult.payer.email_address,
+        },
+        itemsPrice,
+        shippingPrice,
+        tax,
+        totalPrice,
+      },
+      headers: {
+        Authorization: "Bearer " + auth.token,
+      },
+    });
+    setPageLoading(false);
+    cart.clearCart();
+    history.push("/cart");
+  };
 
   return (
     <div className="checkout">
+      {pageLoading && <LoadingSpinner overlay />}
       <div className="checkout-section">
         <div className="checkout-section__menu">
           <h2>Shipping</h2>
@@ -45,21 +119,24 @@ const Checkout = () => {
         <h2>Order Summary</h2>
         <div className="checkout-section__item">
           <p>Items</p>
-          <p>${itemsTotal.toFixed(2)}</p>
+          <p>${itemsPrice}</p>
         </div>
         <div className="checkout-section__item">
           <p>Shipping</p>
-          <p>${shippingFee.toFixed(2)}</p>
+          <p>${shippingPrice}</p>
         </div>
         <div className="checkout-section__item">
           <p>Tax</p>
-          <p>${tax.toFixed(2)}</p>
+          <p>${tax}</p>
         </div>
         <div className="checkout-section__item">
           <p>Total</p>
-          <p>${total.toFixed(2)}</p>
+          <p>${totalPrice}</p>
         </div>
-        <Button>Checkout</Button>
+        {cart.paymentMethod === "PayPal" && sdkReady && !pageLoading && (
+          <PayPalButton amount={totalPrice} onSuccess={successPaymentHandler} />
+        )}
+        {cart.paymentMethod === "Stripe" && <Button>Checkout</Button>}
       </div>
     </div>
   );

@@ -1,0 +1,28 @@
+.admin-users {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  margin: auto;
+}
+
+.admin-users__table {
+  overflow: auto;
+}
+
+.admin-users table {
+  border: 1px solid var(--text-secondary);
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.admin-users th,
+.admin-users td {
+  text-align: start;
+  padding: 1rem 2rem;
+  border: 1px solid var(--text-secondary);
+}
+
+.admin-users h1 {
+  letter-spacing: 0.3rem;
+  margin-bottom: 3rem;
+}

@@ -13,7 +13,6 @@ const ProductList = (props) => {
           title={item.title}
           price={item.price}
           images={item.images}
-          seller={item.seller}
           description={item.description}
           onDelete={props.onDelete}
         />

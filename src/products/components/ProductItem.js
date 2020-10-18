@@ -20,7 +20,7 @@ const ProductItem = (props) => {
 
   const deleteProductHandler = async () => {
     await sendRequest(
-      `http://localhost:5000/api/seller/${props._id}`,
+      `http://localhost:5000/api/admin/${props._id}`,
       "delete",
       null,
       { Authorization: "Bearer " + auth.token }
@@ -61,15 +61,14 @@ const ProductItem = (props) => {
               text={` (${props.reviews ? props.reviews.length : 0})`}
             />
           </Link>
-          {auth.userId === props.seller &&
-            location.pathname === "/my-products" && (
-              <div className="product-item__action">
-                <Button to={`/edit-product/${props._id}`}>Edit Product</Button>
-                <Button danger onClick={openWarningHandler}>
-                  Delete Product
-                </Button>
-              </div>
-            )}
+          {location.pathname === "/admin-products" && (
+            <div className="product-item__action">
+              <Button to={`/edit-product/${props._id}`}>Edit Product</Button>
+              <Button danger onClick={openWarningHandler}>
+                Delete Product
+              </Button>
+            </div>
+          )}
         </div>
       </li>
     </React.Fragment>

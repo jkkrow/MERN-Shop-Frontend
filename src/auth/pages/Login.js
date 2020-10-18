@@ -41,8 +41,7 @@ const Login = ({ history, location }) => {
     );
     auth.login(
       response.data.token,
-      response.data.userData.userId,
-      response.data.userData.image
+      response.data.user,
     );
 
     redirect && history.push(redirect);
@@ -58,8 +57,7 @@ const Login = ({ history, location }) => {
     );
     auth.login(
       response.data.token,
-      response.data.userData.userId,
-      response.data.userData.image
+      response.data.user,
     );
 
     redirect && history.push(redirect);
@@ -68,7 +66,7 @@ const Login = ({ history, location }) => {
   return (
     <React.Fragment>
       <Card className="login">
-        <h2 className="login__header">Log in</h2>
+        <h2 className="login__header">Log In</h2>
         <hr />
         {error && <ValidationError message={error} />}
         <form onSubmit={loginHandler}>

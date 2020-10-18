@@ -5,7 +5,7 @@ import LoadingSpinner from "../../shared/components/UI/LoadingSpinner";
 import Button from "../../shared/components/FormElements/Button";
 import { AuthContext } from "../../shared/context/auth-context";
 import { useHttpClient } from "../../shared/hooks/http-hook";
-import "./MyProducts.css";
+import "./AdminProducts.css";
 
 const MyProducts = () => {
   const auth = useContext(AuthContext);
@@ -15,7 +15,7 @@ const MyProducts = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       const response = await sendRequest(
-        "http://localhost:5000/api/seller/my-products",
+        "http://localhost:5000/api/admin/products",
         "get",
         null,
         {

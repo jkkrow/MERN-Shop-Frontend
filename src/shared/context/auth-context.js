@@ -4,6 +4,7 @@ export const AuthContext = createContext({
   isLoggedIn: false,
   token: null,
   userId: null,
+  isAdmin: null,
   image: null,
   login: () => {},
   logout: () => {},
@@ -11,28 +12,34 @@ export const AuthContext = createContext({
 
 export default (props) => {
   const [token, setToken] = useState(
-    JSON.parse(localStorage.getItem("userData")) &&
-      JSON.parse(localStorage.getItem("userData")).token
+    JSON.parse(localStorage.getItem("user")) &&
+      JSON.parse(localStorage.getItem("user")).token
   );
   const [userId, setUserId] = useState(
-    JSON.parse(localStorage.getItem("userData")) &&
-      JSON.parse(localStorage.getItem("userData")).userId
+    JSON.parse(localStorage.getItem("user")) &&
+      JSON.parse(localStorage.getItem("user")).userId
   );
   const [image, setImage] = useState(
-    JSON.parse(localStorage.getItem("userData")) &&
-      JSON.parse(localStorage.getItem("userData")).image
+    JSON.parse(localStorage.getItem("user")) &&
+      JSON.parse(localStorage.getItem("user")).image
+  );
+  const [isAdmin, setIsAdmin] = useState(
+    JSON.parse(localStorage.getItem("user")) &&
+      JSON.parse(localStorage.getItem("user")).isAdmin
   );
 
-  const login = useCallback((token, userId, image) => {
+  const login = useCallback((token, userData) => {
     setToken(token);
-    setUserId(userId);
-    setImage(image);
+    setUserId(userData.userId);
+    setIsAdmin(userData.isAdmin);
+    setImage(userData.image);
     localStorage.setItem(
-      "userData",
+      "user",
       JSON.stringify({
         token,
-        userId,
-        image,
+        userId: userData.userId,
+        isAdmin: userData.isAdmin,
+        image: userData.image,
       })
     );
   }, []);
@@ -40,8 +47,9 @@ export default (props) => {
   const logout = useCallback(() => {
     setToken(null);
     setUserId(null);
+    setIsAdmin(null);
     setImage(null);
-    localStorage.removeItem("userData");
+    localStorage.removeItem("user");
   }, []);
 
   return (
@@ -50,6 +58,7 @@ export default (props) => {
         isLoggedIn: !!token,
         token,
         userId,
+        isAdmin,
         image,
         login,
         logout,

@@ -7,7 +7,7 @@ import Logo from "../NavigationItems/Logo";
 // import SearchBar from "./NavigationItems/SearchBar";
 import NavLinks from "../NavigationItems/NavLinks";
 import CartNav from "../NavigationItems/CartNav";
-import Profile from "../NavigationItems/Profile";
+import Avatar from "../NavigationItems/Avatar";
 import { AuthContext } from "../../../context/auth-context";
 import "./NavBar.css";
 
@@ -29,7 +29,7 @@ const NavBar = () => {
         </nav>
         <CartNav />
         {auth.token ? (
-          <Profile />
+          <Avatar />
         ) : (
           <li className="navbar-nav__login">
             <NavLink

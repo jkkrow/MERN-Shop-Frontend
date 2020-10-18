@@ -70,7 +70,7 @@ const SetProduct = ({history}) => {
     formData.append("description", formState.inputs.description.value);
 
     await sendRequest(
-      "http://localhost:5000/api/seller/add-product",
+      "http://localhost:5000/api/admin/add-product",
       "post",
       formData,
       { Authorization: "Bearer " + auth.token }
@@ -81,7 +81,7 @@ const SetProduct = ({history}) => {
   const updateProductHandler = async (event) => {
     event.preventDefault();
     await sendRequest(
-      `http://localhost:5000/api/seller/${productId}`,
+      `http://localhost:5000/api/admin/${productId}`,
       "patch",
       {
         title: formState.inputs.title.value,

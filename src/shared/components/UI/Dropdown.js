@@ -29,22 +29,45 @@ const Dropdown = (props) => {
 
   const toAccountMenu = () => setActiveMenu("account");
   const toMainMenu = () => setActiveMenu("main");
-  const myProductsHandler = () => {
-    history.push("/my-products");
-    props.close();
-  };
-  const addressHandler = () => {
-    history.push("/address");
-    props.close();
-  };
-  const orderHistoryHandler = () => {
-    history.push("/orders");
+  const navigateHandler = (route) => {
+    history.push(route);
     props.close();
   };
   const logoutHandler = () => {
     auth.logout();
     props.close();
   };
+
+  let accountMenuTitle = auth.isAdmin ? "Administrator" : "My Account";
+  let accountMenu = auth.isAdmin ? (
+    <div className="dropdown-menu">
+      <DropdownItem onClick={toMainMenu}>
+        <h3>{accountMenuTitle}</h3>
+      </DropdownItem>
+      <DropdownItem onClick={() => navigateHandler("/admin-products")}>
+        Products
+      </DropdownItem>
+      <DropdownItem onClick={() => navigateHandler("/admin-users")}>
+        Users
+      </DropdownItem>
+      <DropdownItem onClick={() => navigateHandler("/admin-orders")}>
+        Orders
+      </DropdownItem>
+    </div>
+  ) : (
+    <div className="dropdown-menu">
+      <DropdownItem onClick={toMainMenu}>
+        <h3>{accountMenuTitle}</h3>
+      </DropdownItem>
+      <DropdownItem>Profile</DropdownItem>
+      <DropdownItem onClick={() => navigateHandler("/address")}>
+        Address
+      </DropdownItem>
+      <DropdownItem onClick={() => navigateHandler("/orders")}>
+        Order History
+      </DropdownItem>
+    </div>
+  );
 
   return (
     <div className="dropdown" style={{ height: menuHeight }} ref={dropdownRef}>
@@ -57,7 +80,9 @@ const Dropdown = (props) => {
         onEnter={calcHeight}
       >
         <div className="dropdown-menu">
-          <DropdownItem onClick={toAccountMenu}>My Account</DropdownItem>
+          <DropdownItem onClick={toAccountMenu}>
+            {accountMenuTitle}
+          </DropdownItem>
           <DropdownItem onClick={logoutHandler}>Log out</DropdownItem>
         </div>
       </CSSTransition>
@@ -70,17 +95,7 @@ const Dropdown = (props) => {
         unmountOnExit
         onEnter={calcHeight}
       >
-        <div className="dropdown-menu">
-          <DropdownItem onClick={toMainMenu}>
-            <h3>My Account</h3>
-          </DropdownItem>
-          <DropdownItem>Profile</DropdownItem>
-          <DropdownItem onClick={myProductsHandler}>Products</DropdownItem>
-          <DropdownItem onClick={addressHandler}>Address</DropdownItem>
-          <DropdownItem onClick={orderHistoryHandler}>
-            Order History
-          </DropdownItem>
-        </div>
+        {accountMenu}
       </CSSTransition>
     </div>
   );

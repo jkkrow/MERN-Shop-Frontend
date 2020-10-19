@@ -32,7 +32,8 @@ const OrderDetail = () => {
         <div className="order">
           <div className="order-section">
             <div className="order-section__menu">
-              <h2>ID: {fetchedOrder._id}</h2>
+              <h2>Date: {fetchedOrder.createdAt.substring(0, 10)}</h2>
+              <p>Order ID: {fetchedOrder._id}</p>
             </div>
             <div className="order-section__menu">
               <h2>Shipping</h2>
@@ -43,10 +44,10 @@ const OrderDetail = () => {
                   style={
                     fetchedOrder.isDelivered
                       ? { color: "#269e42" }
-                      : { color: "#dc3545" }
+                      : { color: "red" }
                   }
                 >
-                  {fetchedOrder.isDelivered ? "O" : "X"}
+                  {fetchedOrder.isDelivered ? "O" : "Not Yet"}
                 </span>
               </p>
             </div>

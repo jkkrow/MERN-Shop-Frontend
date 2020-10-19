@@ -25,3 +25,14 @@
 .set-product__section-2 button {
   margin: auto 0 1.5rem 0;
 }
+
+@media (max-width: 700px) {
+  .set-product {
+    flex-direction: column;
+  }
+
+  .set-product__section-1,
+  .set-product__section-2 {
+    width: 100%;
+  }
+}

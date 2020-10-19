@@ -9,11 +9,12 @@ import { useHttpClient } from "../../shared/hooks/http-hook";
 import { CartContext } from "../../shared/context/cart-context";
 import { AuthContext } from "../../shared/context/auth-context";
 import "./ProductDetail.css";
+import ErrorModal from "../../shared/components/UI/ErrorModal";
 
 const ProductDetail = () => {
   const auth = useContext(AuthContext);
   const cart = useContext(CartContext);
-  const { isLoading, sendRequest } = useHttpClient();
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [fetchedProduct, setFetchedProduct] = useState();
   const [selectedImage, setSelectedImage] = useState();
   const [quantity, setQuantity] = useState(1);
@@ -50,6 +51,7 @@ const ProductDetail = () => {
   return (
     <React.Fragment>
       {isLoading && <LoadingSpinner overlay />}
+      <ErrorModal error={error} onClear={clearError} />
       {!isLoading && fetchedProduct && (
         <div className="product-detail">
           <div className="product-detail__section-1">

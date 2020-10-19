@@ -48,7 +48,7 @@ const AddressForm = (props) => {
     event.preventDefault();
     const response = await sendRequest(
       editMode
-        ? `http://localhost:5000/api/user/edit-address/${initialData._id}`
+        ? `http://localhost:5000/api/user/update-address/${initialData._id}`
         : "http://localhost:5000/api/user/add-address",
       editMode ? "patch" : "post",
       {

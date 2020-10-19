@@ -1,0 +1,19 @@
+.edit-user {
+  width: 70%;
+  margin: auto;
+  padding: 3rem;
+}
+
+.edit-user__checkbox {
+  margin: 2rem 0;
+}
+
+.edit-user input[type="checkbox"] {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 1rem;
+}
+
+.edit-user button {
+  margin: 0;
+}

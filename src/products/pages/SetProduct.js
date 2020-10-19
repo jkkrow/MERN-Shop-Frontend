@@ -11,11 +11,13 @@ import { useHttpClient } from "../../shared/hooks/http-hook";
 import { AuthContext } from "../../shared/context/auth-context";
 import { VALIDATOR_REQUIRE } from "../../shared/util/validators";
 import "./SetProduct.css";
+import LoadingSpinner from "../../shared/components/UI/LoadingSpinner";
 
-const SetProduct = ({history}) => {
+const SetProduct = ({ history }) => {
   const auth = useContext(AuthContext);
   const [fetchedProduct, setFetchedProduct] = useState();
   const [editMode, setEditMode] = useState();
+  const [pageLoading, setPageloading] = useState();
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [formState, inputHandler, setFormData] = useForm(
     {
@@ -34,6 +36,7 @@ const SetProduct = ({history}) => {
       // edit mode
       setEditMode(true);
       const fetchProduct = async () => {
+        setPageloading(true);
         const response = await sendRequest(
           `http://localhost:5000/api/user/detail/${productId}`
         );
@@ -51,6 +54,7 @@ const SetProduct = ({history}) => {
           },
           true
         );
+        setPageloading(false);
       };
       fetchProduct();
     } else {
@@ -70,18 +74,18 @@ const SetProduct = ({history}) => {
     formData.append("description", formState.inputs.description.value);
 
     await sendRequest(
-      "http://localhost:5000/api/admin/add-product",
+      "http://localhost:5000/api/admin/create-product",
       "post",
       formData,
       { Authorization: "Bearer " + auth.token }
     );
-    history.push("/");
+    history.push("/admin-products");
   };
 
   const updateProductHandler = async (event) => {
     event.preventDefault();
     await sendRequest(
-      `http://localhost:5000/api/admin/${productId}`,
+      `http://localhost:5000/api/admin/update-product/${productId}`,
       "patch",
       {
         title: formState.inputs.title.value,
@@ -91,11 +95,12 @@ const SetProduct = ({history}) => {
       },
       { Authorization: "Bearer " + auth.token }
     );
-    history.push("/my-products");
+    history.push("/admin-products");
   };
 
   return (
     <React.Fragment>
+      {pageLoading && <LoadingSpinner overlay />}
       <ErrorModal error={error} onClear={clearError} />
       {fetchedProduct && (
         <form
@@ -163,7 +168,7 @@ const SetProduct = ({history}) => {
                 disabled={!formState.isValid}
                 loading={isLoading}
               >
-                Add Product
+                Create Product
               </Button>
             </div>
           )}

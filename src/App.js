@@ -14,6 +14,7 @@ import Orders from "./order/pages/Orders";
 import OrderDetail from "./order/pages/OrderDetail";
 import AdminProducts from "./admin/pages/AdminProducts";
 import AdminUsers from "./admin/pages/AdminUsers";
+import EditUser from "./admin/pages/EditUser";
 import AdminOrders from "./admin/pages/AdminOrders";
 import { AuthContext } from "./shared/context/auth-context";
 import "./App.css";
@@ -35,6 +36,7 @@ const App = () => {
           <Route path="/edit-product/:productId" component={SetProduct} />
           <Route path="/place-order" component={PlaceOrder} />
           <Route path="/admin-users" component={AdminUsers} />
+          <Route path="/edit-user/:userId" component={EditUser} />
           <Route path="/admin-orders" component={AdminOrders} />
           <Route path="/order-detail/:orderId" component={OrderDetail} />
           <Redirect to="/" />

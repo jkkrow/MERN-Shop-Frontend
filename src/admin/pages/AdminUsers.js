@@ -13,8 +13,8 @@ import "./AdminUsers.css";
 
 const AdminUsers = () => {
   const auth = useContext(AuthContext);
-  const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [fetchedUsers, setFetchedUsers] = useState([]);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [targetUser, setTargetUser] = useState({});
   const [deleteLoading, setDeleteLoading] = useState(false);
   const { isLoading, sendRequest } = useHttpClient();
@@ -47,7 +47,7 @@ const AdminUsers = () => {
     setShowConfirmModal(false);
   };
 
-  const deleteProductHandler = async () => {
+  const deleteUserHandler = async () => {
     setDeleteLoading(true);
     await axios({
       url: `http://localhost:5000/api/admin/delete-user/${targetUser._id}`,
@@ -73,7 +73,7 @@ const AdminUsers = () => {
             <Button onClick={closeWarningHandler}>Cancel</Button>
             <Button
               danger
-              onClick={deleteProductHandler}
+              onClick={deleteUserHandler}
               loading={deleteLoading}
               disabled={!formState.isValid}
             >
@@ -120,12 +120,17 @@ const AdminUsers = () => {
                   )}
                 </td>
                 <td>
-                  <Button to="#">
-                    <i className="fas fa-edit"></i>
-                  </Button>
-                  <Button danger onClick={() => openWarninigHandler(user._id)}>
-                    <i className="fas fa-trash"></i>
-                  </Button>
+                  <div className="admin-users__table__button">
+                    <Button to={`/edit-user/${user._id}`}>
+                      <i className="fas fa-edit"></i>
+                    </Button>
+                    <Button
+                      danger
+                      onClick={() => openWarninigHandler(user._id)}
+                    >
+                      <i className="fas fa-trash"></i>
+                    </Button>
+                  </div>
                 </td>
               </tr>
             ))}

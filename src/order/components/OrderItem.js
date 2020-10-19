@@ -11,10 +11,10 @@ const OrderItem = (props) => {
         <span>Delievered: </span>
         <span
           style={
-            props.isDelivered ? { color: "#269e42" } : { color: "#dc3545" }
+            props.isDelivered ? { color: "#269e42" } : { color: "red" }
           }
         >
-          {props.isDelivered ? "O" : "X"}
+          {props.isDelivered ? "O" : "Not Yet"}
         </span>
       </h4>
       {props.orderItems.map((item) => (

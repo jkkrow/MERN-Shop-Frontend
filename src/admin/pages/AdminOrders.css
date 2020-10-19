@@ -1,0 +1,22 @@
+.admin-orders {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  margin: auto;
+}
+
+.admin-orders__table {
+  overflow: auto;
+}
+
+.admin-orders table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.admin-orders th,
+.admin-orders td {
+  text-align: start;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid var(--text-secondary);
+}

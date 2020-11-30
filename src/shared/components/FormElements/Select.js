@@ -32,7 +32,7 @@ const Select = (props) => {
         onBlur={touchHandler}
       >
         <option value="default" disabled hidden>
-          select a {props.id}
+          Select a {props.id}
         </option>
         {props.options.map((option) => (
           <option key={option} value={option}>

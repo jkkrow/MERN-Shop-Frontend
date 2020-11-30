@@ -4,7 +4,7 @@ const Rating = (props) => (
   <div className="rating">
     <span>
       <i
-        style={{ color: props.color }}
+        style={{ color: props.color, fontSize: props.fontSize }}
         className={
           props.value >= 1
             ? "fa fa-star"
@@ -16,7 +16,7 @@ const Rating = (props) => (
     </span>
     <span>
       <i
-        style={{ color: props.color }}
+        style={{ color: props.color, fontSize: props.fontSize }}
         className={
           props.value >= 2
             ? "fas fa-star"
@@ -28,7 +28,7 @@ const Rating = (props) => (
     </span>
     <span>
       <i
-        style={{ color: props.color }}
+        style={{ color: props.color, fontSize: props.fontSize }}
         className={
           props.value >= 3
             ? "fas fa-star"
@@ -40,7 +40,7 @@ const Rating = (props) => (
     </span>
     <span>
       <i
-        style={{ color: props.color }}
+        style={{ color: props.color, fontSize: props.fontSize }}
         className={
           props.value >= 4
             ? "fas fa-star"
@@ -52,7 +52,7 @@ const Rating = (props) => (
     </span>
     <span>
       <i
-        style={{ color: props.color }}
+        style={{ color: props.color, fontSize: props.fontSize }}
         className={
           props.value >= 5
             ? "fas fa-star"
@@ -67,7 +67,7 @@ const Rating = (props) => (
 );
 
 Rating.defaultProps = {
-  color: "#f8e825",
+  color: "#f9ea35",
 };
 
 export default Rating;

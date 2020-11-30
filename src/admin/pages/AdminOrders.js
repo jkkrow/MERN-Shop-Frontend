@@ -19,7 +19,6 @@ const AdminOrders = () => {
         null,
         { Authorization: "Bearer " + auth.token }
       );
-      console.log(response.data.orders);
       setFetchedOrders(response.data.orders);
     };
     fetchOrders();

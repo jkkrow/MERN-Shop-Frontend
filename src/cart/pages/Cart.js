@@ -35,7 +35,7 @@ const Cart = ({ history }) => {
       {!cart.cartLoading && cart.items.length > 0 && (
         <div className="cart-summary">
           <h2 className="cart-summary__total">
-            Total: $
+            Total $
             {cart.items
               .reduce(
                 (acc, currentItem) =>

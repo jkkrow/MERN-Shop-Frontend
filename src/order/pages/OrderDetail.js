@@ -1,6 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import axios from "axios";
 
+import Button from "../../shared/components/FormElements/Button";
 import LoadingSpinner from "../../shared/components/UI/LoadingSpinner";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import { AuthContext } from "../../shared/context/auth-context";
@@ -9,6 +11,7 @@ import "./OrderDetail.css";
 const OrderDetail = () => {
   const auth = useContext(AuthContext);
   const [fetchedOrder, setFetchedOrder] = useState();
+  const [buttonLoading, setButtonLoading] = useState(false);
   const { isLoading, sendRequest } = useHttpClient();
   const { orderId } = useParams();
 
@@ -24,6 +27,17 @@ const OrderDetail = () => {
     };
     fetchOrder();
   }, [auth, sendRequest, orderId]);
+
+  const deliveredHandler = async () => {
+    setButtonLoading(true);
+    const response = await axios({
+      url: `http://localhost:5000/api/admin/update-delivered/${orderId}`,
+      method: "patch",
+      headers: { Authorization: "Bearer " + auth.token },
+    });
+    setFetchedOrder(response.data.order);
+    setButtonLoading(false);
+  };
 
   return (
     <React.Fragment>
@@ -47,7 +61,9 @@ const OrderDetail = () => {
                       : { color: "red" }
                   }
                 >
-                  {fetchedOrder.isDelivered ? "O" : "Not Yet"}
+                  {fetchedOrder.isDelivered
+                    ? fetchedOrder.deliveredAt
+                    : "Not Yet"}
                 </span>
               </p>
             </div>
@@ -97,6 +113,17 @@ const OrderDetail = () => {
               <p>Total</p>
               <p>${fetchedOrder.totalPrice.toFixed(2)}</p>
             </div>
+            {auth.isAdmin && (
+              <Button
+                onClick={deliveredHandler}
+                disabled={fetchedOrder.isDelivered}
+                loading={buttonLoading}
+              >
+                {!fetchedOrder.isDelivered
+                  ? "Update as Delivered"
+                  : "Delivered"}
+              </Button>
+            )}
           </div>
         </div>
       )}

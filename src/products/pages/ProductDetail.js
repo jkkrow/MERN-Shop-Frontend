@@ -2,16 +2,17 @@ import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
+import ProductReviews from "../components/ProductReviews";
 import NumberInput from "../../shared/components/FormElements/NumberInput";
 import Button from "../../shared/components/FormElements/Button";
 import LoadingSpinner from "../../shared/components/UI/LoadingSpinner";
+import ErrorModal from "../../shared/components/UI/ErrorModal";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import { CartContext } from "../../shared/context/cart-context";
 import { AuthContext } from "../../shared/context/auth-context";
 import "./ProductDetail.css";
-import ErrorModal from "../../shared/components/UI/ErrorModal";
 
-const ProductDetail = () => {
+const ProductDetail = ({ history }) => {
   const auth = useContext(AuthContext);
   const cart = useContext(CartContext);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -46,6 +47,7 @@ const ProductDetail = () => {
     } else {
       cart.addItem(fetchedProduct, quantity);
     }
+    history.push("/cart");
   };
 
   return (
@@ -54,32 +56,38 @@ const ProductDetail = () => {
       <ErrorModal error={error} onClear={clearError} />
       {!isLoading && fetchedProduct && (
         <div className="product-detail">
-          <div className="product-detail__section-1">
-            <img src={selectedImage} alt={fetchedProduct.title} />
-            <div className="product-detail__image-selector">
-              {fetchedProduct.images.map((image) => (
-                <img
-                  key={image}
-                  src={image}
-                  onFocus={() => setSelectedImage(image)}
-                  alt={fetchedProduct.alt}
-                  tabIndex="0"
-                />
-              ))}
+          <div className="product-detail__main">
+            <div className="product-detail__main-images">
+              <img
+                className="product-detail__main-images__preview"
+                src={selectedImage}
+                alt={fetchedProduct.title}
+              />
+              <div className="product-detail__main-images__selector">
+                {fetchedProduct.images.map((image) => (
+                  <img
+                    key={image}
+                    src={image}
+                    onFocus={() => setSelectedImage(image)}
+                    alt={fetchedProduct.alt}
+                    tabIndex="0"
+                  />
+                ))}
+              </div>
+            </div>
+            <div className="product-detail__main-info">
+              <h2>{fetchedProduct.title}</h2>
+              <h3>${fetchedProduct.price}</h3>
+              <p style={{whiteSpace: "pre-line"}}>{fetchedProduct.description}</p>
+            </div>
+            <div className="product-detail__main-action">
+              <NumberInput onValue={setQuantity} />
+              <Button onClick={addToCartHandler} loading={addToCartLoading}>
+                Add To Cart
+              </Button>
             </div>
           </div>
-          <div className="product-detail__section-2">
-            <h2>{fetchedProduct.title}</h2>
-            <h3>${fetchedProduct.price}</h3>
-            <p>{fetchedProduct.description}</p>
-          </div>
-          <div className="product-detail__section-3">
-            <NumberInput onValue={setQuantity} />
-            <Button onClick={addToCartHandler} loading={addToCartLoading}>
-              Add To Cart
-            </Button>
-            <Button>Buy Now</Button>
-          </div>
+          <ProductReviews fetchedProduct={fetchedProduct} />
         </div>
       )}
     </React.Fragment>

@@ -2,7 +2,7 @@
   position: relative;
   font: inherit;
   padding: 0.7rem 1.8rem;
-  border: 1px solid var(--text-primary);
+  border: 2px solid var(--text-secondary);
   border-radius: 4px;
   background: var(--bg-dark);
   color: var(--text-reverse);

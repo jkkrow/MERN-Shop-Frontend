@@ -34,7 +34,7 @@ const Signup = ({ history, location }) => {
         email: formState.inputs.email.value,
         password: formState.inputs.password.value,
       });
-      history.push("/login");
+      history.push(redirect ? `/login?redirect=${redirect}` : `/login`);
     } catch (err) {
       console.log(err);
     }

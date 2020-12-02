@@ -87,7 +87,7 @@ const Checkout = () => {
     });
     setPageLoading(false);
     cart.clearCart();
-    history.push("/cart");
+    history.push("/orders");
   };
 
   return (

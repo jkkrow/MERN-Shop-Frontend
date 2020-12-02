@@ -78,7 +78,7 @@ const ProductDetail = ({ history }) => {
             <div className="product-detail__main-info">
               <h2>{fetchedProduct.title}</h2>
               <h3>${fetchedProduct.price}</h3>
-              <p style={{whiteSpace: "pre-line"}}>{fetchedProduct.description}</p>
+              <p>{fetchedProduct.description}</p>
             </div>
             <div className="product-detail__main-action">
               <NumberInput onValue={setQuantity} />
@@ -87,7 +87,10 @@ const ProductDetail = ({ history }) => {
               </Button>
             </div>
           </div>
-          <ProductReviews fetchedProduct={fetchedProduct} />
+          <ProductReviews
+            fetchedProduct={fetchedProduct}
+            onReviewed={setFetchedProduct}
+          />
         </div>
       )}
     </React.Fragment>

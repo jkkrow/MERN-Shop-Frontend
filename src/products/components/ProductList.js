@@ -14,6 +14,8 @@ const ProductList = (props) => {
           price={item.price}
           images={item.images}
           description={item.description}
+          numReviews={item.reviews.length}
+          rating={item.rating}
         />
       ))}
     </ul>

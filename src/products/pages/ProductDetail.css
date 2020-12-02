@@ -1,7 +1,7 @@
 .product-detail {
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 90%;
   padding: 1rem;
   margin: auto;
 }

@@ -41,6 +41,7 @@
 
 .cart-item__info-price {
   text-align: end;
+  font-size: 2rem;
 }
 
 .cart-item__info-quantity {

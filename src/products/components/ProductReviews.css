@@ -1,8 +1,9 @@
 .product-reviews {
   position: relative;
   overflow: hidden;
-  border: 2px solid var(--text-secondary);
-  border-radius: 5px;
+  border-top: 2px solid var(--text-secondary);
+  transition: all 200ms ease;
+  min-height: 30rem;
 }
 
 .product-reviews__main {
@@ -53,7 +54,7 @@
   right: 2rem;
   font-size: 4rem;
   cursor: pointer;
-  z-index: 20;
+  z-index: 5;
   transition: transform 200ms;
 }
 
@@ -64,31 +65,41 @@
   justify-content: center;
   width: 100%;
   height: 100%;
-  top: 0;
-  right: 0;
-  background-color: #ccc;
+  background-color: var(--bg-bright);
   border-radius: 5px;
-  transform-origin: top right;
-  transition: transform 200ms;
-  z-index: 10;
+  transition: all 200ms ease-out;
+  z-index: 3;
+}
+
+.product-reviews__write-form form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.product-reviews__write-form textarea {
+  margin: 2rem 1rem 1rem 1rem;
 }
 
 /* CSS Transition */
 
 .write-review-enter {
-  transform: scale(0);
+  opacity: 0;
 }
 
 .write-review-enter-active {
-  transform: scale(1);
+  opacity: 1;
 }
 
 .write-review-exit {
-  transform: scale(1);
+  opacity: 1;
 }
 
 .write-review-exit-active {
-  transform: scale(0);
+  opacity: 0;
 }
 
 /*  */

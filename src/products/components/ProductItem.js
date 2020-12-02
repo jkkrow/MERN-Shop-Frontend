@@ -16,8 +16,8 @@ const ProductItem = (props) => (
         <h3>{props.title}</h3>
         <h4>${props.price}</h4>
         <Rating
-          value={0}
-          text={` (${props.reviews ? props.reviews.length : 0})`}
+          value={props.rating}
+          text={` (${props.numReviews})`}
         />
       </Link>
     </div>

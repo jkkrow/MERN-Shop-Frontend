@@ -71,6 +71,23 @@ p {
   white-space: pre-line;
 }
 
+button {
+  cursor: pointer;
+  transition: 200ms;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:hover {
+  filter: brightness(1.2);
+}
+
+button:active {
+  filter: brightness(1.5);
+}
+
 .center {
   text-align: center;
   display: flex;

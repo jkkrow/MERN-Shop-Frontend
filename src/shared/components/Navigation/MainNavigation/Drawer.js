@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import { CSSTransition } from "react-transition-group";
 
 import Backdrop from "../../UI/Backdrop";
-import DrawerToggler from "../NavigationItems/DrawerToggler";
+import DrawerToggle from "../NavigationItems/DrawerToggle";
 import Logo from "../NavigationItems/Logo";
 import NavLinks from "../NavigationItems/NavLinks";
 import "./Drawer.css";
@@ -21,7 +21,7 @@ const Drawer = (props) =>
       >
         <aside className="drawer" onClick={props.onClick}>
           <div className="drawer__header">
-            <DrawerToggler />
+            <DrawerToggle />
             <Logo />
           </div>
           <hr />

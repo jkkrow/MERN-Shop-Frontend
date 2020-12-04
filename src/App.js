@@ -29,6 +29,7 @@ const App = () => {
       routes = (
         <Switch>
           <Route path="/" component={Products} exact />
+          <Route path="/products/search/:keyword" component={Products} />
           <Route path="/detail/:productId" component={ProductDetail} />
           <Route path="/cart" component={Cart} />
           <Route path="/admin-products" component={AdminProducts} />
@@ -46,6 +47,7 @@ const App = () => {
       routes = (
         <Switch>
           <Route path="/" component={Products} exact />
+          <Route path="/products/search/:keyword" component={Products} />
           <Route path="/detail/:productId" component={ProductDetail} />
           <Route path="/cart" component={Cart} />
           <Route path="/address" component={Address} />
@@ -60,6 +62,7 @@ const App = () => {
     routes = (
       <Switch>
         <Route path="/" component={Products} exact />
+        <Route path="/products/search/:keyword" component={Products} />
         <Route path="/detail/:productId" component={ProductDetail} />
         <Route path="/cart" component={Cart} />
         <Route path="/login" component={Login} />

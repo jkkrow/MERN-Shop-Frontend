@@ -9,13 +9,13 @@
   background: var(--bg-dark);
   border-bottom: 1px solid var(--text-secondary);
   padding: 0 1rem;
-  z-index: 5;
+  z-index: 30;
 }
 
 .navbar-nav {
   height: 100%;
   display: block;
-  margin-left: 3rem;
+  margin: 0 1rem;
 }
 
 .navbar-nav__login a {

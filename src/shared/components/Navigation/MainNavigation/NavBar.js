@@ -2,9 +2,9 @@ import React, { useContext, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
 import Drawer from "./Drawer";
-import DrawerToggler from "../NavigationItems/DrawerToggler";
+import DrawerToggle from "../NavigationItems/DrawerToggle";
 import Logo from "../NavigationItems/Logo";
-// import SearchBar from "./NavigationItems/SearchBar";
+import SearchBar from "../NavigationItems/SearchBar";
 import NavLinks from "../NavigationItems/NavLinks";
 import CartNav from "../NavigationItems/CartNav";
 import Avatar from "../NavigationItems/Avatar";
@@ -22,11 +22,12 @@ const NavBar = () => {
     <React.Fragment>
       <Drawer show={showDrawer} onClick={closeDrawerHandler} />
       <div className="navbar">
-        <DrawerToggler onClick={openDrawerHandler} />
+        <DrawerToggle onClick={openDrawerHandler} />
         <Logo />
         <nav className="navbar-nav">
           <NavLinks />
         </nav>
+        <SearchBar />
         <CartNav />
         {auth.token ? (
           <Avatar />
@@ -40,7 +41,6 @@ const NavBar = () => {
             </NavLink>
           </li>
         )}
-        {/* <SearchBar /> */}
       </div>
     </React.Fragment>
   );

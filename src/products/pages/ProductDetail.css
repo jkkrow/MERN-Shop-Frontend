@@ -54,12 +54,12 @@
   word-wrap: break-word;
 }
 
-.product-detail__main-info h2,
-.product-detail__main-info h3 {
+.product-detail__main-info h2 {
   margin-bottom: 2rem;
 }
 
 .product-detail__main-action {
+  text-align: center;
   min-width: 14rem;
   display: flex;
   flex-direction: column;
@@ -71,6 +71,11 @@
 .product-detail__main-action button {
   margin-left: 0;
   margin-right: 0;
+}
+
+.product-detail__main-action h2 {
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.2rem;
 }
 
 /*  */

@@ -1,4 +1,4 @@
-.drawer-toggler {
+.drawer-toggle {
   width: 3rem;
   height: 3rem;
   display: none;
@@ -10,14 +10,14 @@
   cursor: pointer;
 }
 
-.drawer-toggler__bar {
+.drawer-toggle__bar {
   width: 90%;
   height: 0.5rem;
   background-color: var(--text-secondary);
 }
 
 @media (max-width: 700px) {
-  .drawer-toggler {
+  .drawer-toggle {
     display: flex;
   }
 }

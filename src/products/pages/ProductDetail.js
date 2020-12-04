@@ -77,10 +77,10 @@ const ProductDetail = ({ history }) => {
             </div>
             <div className="product-detail__main-info">
               <h2>{fetchedProduct.title}</h2>
-              <h3>${fetchedProduct.price}</h3>
               <p>{fetchedProduct.description}</p>
             </div>
             <div className="product-detail__main-action">
+              <h2>${(fetchedProduct.price * quantity).toFixed(2)}</h2>
               <NumberInput onValue={setQuantity} />
               <Button onClick={addToCartHandler} loading={addToCartLoading}>
                 Add To Cart

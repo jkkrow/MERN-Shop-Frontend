@@ -63,7 +63,7 @@ const ProductReview = (props) => {
               mountOnEnter
               unmountOnExit
             >
-              <i className="fas fa-times-circle product-reviews__toggler"></i>
+              <i className="fas fa-times-circle product-reviews__toggle"></i>
             </CSSTransition>
             <CSSTransition
               in={!writeMode}
@@ -72,13 +72,13 @@ const ProductReview = (props) => {
               mountOnEnter
               unmountOnExit
             >
-              <i className="fas fa-plus-circle product-reviews__toggler"></i>
+              <i className="fas fa-plus-circle product-reviews__toggle"></i>
             </CSSTransition>
           </div>
         )}
         <CSSTransition
           in={writeMode}
-          classNames="write-review"
+          classNames="fade-in"
           timeout={200}
           mountOnEnter
           unmountOnExit

@@ -5,19 +5,20 @@ import ProductList from "../components/ProductList";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import "./Products.css";
 
-const Products = () => {
-  const { isLoading, sendRequest } = useHttpClient();
+const Products = ({ match }) => {
+  const keyword = match.params.keyword || "";
   const [fetchedProducts, setFetchedProducts] = useState([]);
+  const { isLoading, sendRequest } = useHttpClient();
 
   useEffect(() => {
     const fetchProducts = async () => {
       const response = await sendRequest(
-        "http://localhost:5000/api/user/products"
+        `http://localhost:5000/api/user/products?keyword=${keyword}`
       );
       setFetchedProducts(response.data.products);
     };
     fetchProducts();
-  }, [sendRequest]);
+  }, [sendRequest, keyword]);
 
   return (
     <div className="products">

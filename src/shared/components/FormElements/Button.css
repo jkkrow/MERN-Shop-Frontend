@@ -4,25 +4,11 @@
   padding: 0.7rem 1.8rem;
   border: 2px solid var(--text-secondary);
   border-radius: 4px;
-  background: var(--bg-dark);
+  background-color: var(--bg-dark);
   color: var(--text-reverse);
-  cursor: pointer;
   margin: 0.5rem;
   text-decoration: none;
   display: inline-block;
-  transition: 200ms;
-}
-
-.button:focus {
-  outline: none;
-}
-
-.button:hover {
-  filter: brightness(0.95);
-}
-
-.button:active {
-  filter: brightness(0.9);
 }
 
 .button--inverse {

@@ -57,7 +57,7 @@ const CartItem = (props) => {
         <Link to={`/detail/${props._id}`}>
           <h2 className="cart-item__info-title">{props.title}</h2>
         </Link>
-        <h3 className="cart-item__info-price">${props.price}</h3>
+        <h3 className="cart-item__info-price">${props.price.toFixed(2)}</h3>
         <div className="cart-item__info-quantity">
           <p>quantity: </p>
           <NumberInput

@@ -70,7 +70,6 @@ const AdminUsers = () => {
         header="Delete User"
         footer={
           <React.Fragment>
-            <Button onClick={closeWarningHandler}>Cancel</Button>
             <Button
               danger
               onClick={deleteUserHandler}
@@ -79,6 +78,7 @@ const AdminUsers = () => {
             >
               Delete
             </Button>
+            <Button onClick={closeWarningHandler}>Cancel</Button>
           </React.Fragment>
         }
       >
@@ -92,7 +92,7 @@ const AdminUsers = () => {
           onInput={inputHandler}
         />
       </Modal>
-      <h1>Users</h1>
+      <h2>Users</h2>
       <div className="admin-users__table">
         <table>
           <thead>

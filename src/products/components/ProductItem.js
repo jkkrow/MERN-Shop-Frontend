@@ -14,11 +14,8 @@ const ProductItem = (props) => (
     <div className="product-item__info">
       <Link to={`/detail/${props._id}`}>
         <h3>{props.title}</h3>
-        <h4>${props.price}</h4>
-        <Rating
-          value={props.rating}
-          text={` (${props.numReviews})`}
-        />
+        <h4>${props.price.toFixed(2)}</h4>
+        <Rating value={props.rating} text={` (${props.numReviews})`} />
       </Link>
     </div>
   </li>

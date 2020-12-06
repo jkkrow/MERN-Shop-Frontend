@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useState } from "react";
 import { useParams } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 
@@ -12,26 +12,11 @@ import "./ProductReviews.css";
 
 const ProductReview = (props) => {
   const auth = useContext(AuthContext);
-  const reviewRef = useRef();
   const [writeMode, setWriteMode] = useState(false);
-  const [reviewHeight, setReviewHeight] = useState(
-    reviewRef.current?.offsetHeight
-  );
   const [rating, setRating] = useState(null);
   const [comment, setComment] = useState("");
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const { productId } = useParams();
-
-  let reviewListHeight;
-
-  const onEnterWriteMode = () => {
-    reviewListHeight = reviewRef.current?.offsetHeight;
-    setReviewHeight("30rem");
-  };
-
-  const onExitWriteMode = () => {
-    setReviewHeight(reviewListHeight);
-  };
 
   const writeReviewHandler = async (event) => {
     event.preventDefault();
@@ -49,11 +34,7 @@ const ProductReview = (props) => {
   return (
     <React.Fragment>
       <ErrorModal error={error} onClear={clearError} header="Review Failed!" />
-      <div
-        className="product-reviews"
-        style={{ height: reviewHeight }}
-        ref={reviewRef}
-      >
+      <div className="product-reviews">
         {auth.isLoggedIn && (
           <div onClick={() => setWriteMode((prevMode) => !prevMode)}>
             <CSSTransition
@@ -82,8 +63,6 @@ const ProductReview = (props) => {
           timeout={200}
           mountOnEnter
           unmountOnExit
-          onEnter={onEnterWriteMode}
-          onExit={onExitWriteMode}
         >
           <div className="product-reviews__write-form">
             <form className="form-control" onSubmit={writeReviewHandler}>

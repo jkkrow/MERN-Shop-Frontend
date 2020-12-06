@@ -75,7 +75,6 @@ const AdminProducts = () => {
         header="Delete Product"
         footer={
           <React.Fragment>
-            <Button onClick={closeWarningHandler}>Cancel</Button>
             <Button
               danger
               onClick={deleteProductHandler}
@@ -84,6 +83,7 @@ const AdminProducts = () => {
             >
               Delete
             </Button>
+            <Button onClick={closeWarningHandler}>Cancel</Button>
           </React.Fragment>
         }
       >
@@ -99,7 +99,7 @@ const AdminProducts = () => {
         />
       </Modal>
       <div className="admin-products__header">
-        <h1>Products</h1>
+        <h2>Products</h2>
         <Button to="/new-product">
           <i className="fas fa-plus"></i> Create Product
         </Button>
@@ -122,7 +122,7 @@ const AdminProducts = () => {
                 <td>
                   <Link to={`/detail/${product._id}`}>{product.title}</Link>
                 </td>
-                <td>${product.price}</td>
+                <td>${product.price.toFixed(2)}</td>
                 <td>{product.category}</td>
                 <td>
                   <div className="admin-products__table__button">

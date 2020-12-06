@@ -29,13 +29,20 @@ const App = () => {
       routes = (
         <Switch>
           <Route path="/" component={Products} exact />
-          <Route path="/products/search/:keyword" component={Products} />
-          <Route path="/detail/:productId" component={ProductDetail} />
+          <Route path="/products/page/:pageNumber" component={Products} exact />
+          <Route path="/products/search/:keyword" component={Products} exact />
+          <Route
+            path="/products/search/:keyword/page/:pageNumber"
+            component={Products}
+            exact
+          />
+          <Route path="/detail/:productId" component={ProductDetail} exact />
           <Route path="/cart" component={Cart} />
+
+          <Route path="/place-order" component={PlaceOrder} />
           <Route path="/admin-products" component={AdminProducts} />
           <Route path="/new-product" component={SetProduct} />
           <Route path="/edit-product/:productId" component={SetProduct} />
-          <Route path="/place-order" component={PlaceOrder} />
           <Route path="/admin-users" component={AdminUsers} />
           <Route path="/edit-user/:userId" component={EditUser} />
           <Route path="/admin-orders" component={AdminOrders} />
@@ -47,11 +54,18 @@ const App = () => {
       routes = (
         <Switch>
           <Route path="/" component={Products} exact />
-          <Route path="/products/search/:keyword" component={Products} />
-          <Route path="/detail/:productId" component={ProductDetail} />
+          <Route path="/products/page/:pageNumber" component={Products} exact />
+          <Route path="/products/search/:keyword" component={Products} exact />
+          <Route
+            path="/products/search/:keyword/page/:pageNumber"
+            component={Products}
+            exact
+          />
+          <Route path="/detail/:productId" component={ProductDetail} exact />
           <Route path="/cart" component={Cart} />
-          <Route path="/address" component={Address} />
+
           <Route path="/place-order" component={PlaceOrder} />
+          <Route path="/address" component={Address} />
           <Route path="/orders" component={Orders} />
           <Route path="/order-detail/:orderId" component={OrderDetail} />
           <Redirect to="/" />
@@ -62,9 +76,16 @@ const App = () => {
     routes = (
       <Switch>
         <Route path="/" component={Products} exact />
-        <Route path="/products/search/:keyword" component={Products} />
-        <Route path="/detail/:productId" component={ProductDetail} />
+        <Route path="/products/page/:pageNumber" component={Products} exact />
+        <Route path="/products/search/:keyword" component={Products} exact />
+        <Route
+          path="/products/search/:keyword/page/:pageNumber"
+          component={Products}
+          exact
+        />
+        <Route path="/detail/:productId" component={ProductDetail} exact />
         <Route path="/cart" component={Cart} />
+
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Redirect to="/login" />

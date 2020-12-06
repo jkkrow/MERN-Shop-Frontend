@@ -27,7 +27,7 @@ const AdminOrders = () => {
   return (
     <div className="admin-orders">
       {isLoading && <LoadingSpinner overlay />}
-      <h1>Orders</h1>
+      <h2>Orders</h2>
       <div className="admin-orders__table">
         <table>
           <thead>

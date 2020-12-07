@@ -1,0 +1,11 @@
+.pagination {
+  display: flex;
+  margin-top: 3rem;
+  justify-content: center;
+}
+
+.pagination__button {
+  border: 2px solid var(--text-secondary);
+  padding: 0.5rem;
+  margin: .5rem;
+}

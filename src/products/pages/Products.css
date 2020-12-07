@@ -1,4 +1,5 @@
 .products {
+  position: relative;
   list-style: none;
   margin: 0 auto;
   padding: 1rem;
@@ -6,6 +7,7 @@
   height: 100%;
   max-width: 75rem;
   min-width: 60rem;
+  min-height: 20rem;
   border-radius: 6px;
   background: var(--bg-bright);
 }

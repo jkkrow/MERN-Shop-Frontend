@@ -13,13 +13,13 @@
 
 .button--inverse {
   background: transparent;
-  color: #0f5dbd;
+  color: var(--text-primary);
 }
 
 .button--inverse:hover,
 .button--inverse:active {
   color: white;
-  background: #0f5dbd;
+  background: var(--bg-dark);
 }
 
 .button--danger {
@@ -41,12 +41,4 @@
   border-color: #ccc;
   cursor: not-allowed;
   filter: none;
-}
-
-.button--small {
-  font-size: 0.8rem;
-}
-
-.button--big {
-  font-size: 1.5rem;
 }

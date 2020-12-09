@@ -12,7 +12,7 @@ const Products = ({ match }) => {
   const [totalPage, setTotalPage] = useState();
   const { isLoading, sendRequest } = useHttpClient();
   const keyword = match.params.keyword || "";
-  const currentPage = match.params.pageNumber || "";
+  const currentPage = match.params.currentPage || "";
 
   useEffect(() => {
     const fetchProducts = async () => {

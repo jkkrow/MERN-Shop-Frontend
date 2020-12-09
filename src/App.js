@@ -29,10 +29,10 @@ const App = () => {
       routes = (
         <Switch>
           <Route path="/" component={Products} exact />
-          <Route path="/products/page/:pageNumber" component={Products} exact />
+          <Route path="/products/page/:currentPage" component={Products} exact />
           <Route path="/products/search/:keyword" component={Products} exact />
           <Route
-            path="/products/search/:keyword/page/:pageNumber"
+            path="/products/search/:keyword/page/:currentPage"
             component={Products}
             exact
           />
@@ -54,10 +54,10 @@ const App = () => {
       routes = (
         <Switch>
           <Route path="/" component={Products} exact />
-          <Route path="/products/page/:pageNumber" component={Products} exact />
+          <Route path="/products/page/:currentPage" component={Products} exact />
           <Route path="/products/search/:keyword" component={Products} exact />
           <Route
-            path="/products/search/:keyword/page/:pageNumber"
+            path="/products/search/:keyword/page/:currentPage"
             component={Products}
             exact
           />
@@ -76,10 +76,10 @@ const App = () => {
     routes = (
       <Switch>
         <Route path="/" component={Products} exact />
-        <Route path="/products/page/:pageNumber" component={Products} exact />
+        <Route path="/products/page/:currentPage" component={Products} exact />
         <Route path="/products/search/:keyword" component={Products} exact />
         <Route
-          path="/products/search/:keyword/page/:pageNumber"
+          path="/products/search/:keyword/page/:currentPage"
           component={Products}
           exact
         />

@@ -12,7 +12,7 @@
 }
 
 .button--inverse {
-  background: transparent;
+  background: white;
   color: var(--text-primary);
 }
 

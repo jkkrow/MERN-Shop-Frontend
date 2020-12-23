@@ -7,7 +7,7 @@
   height: 100%;
   max-width: 75rem;
   min-width: 60rem;
-  min-height: 20rem;
+  min-height: 25rem;
   border-radius: 6px;
   background: var(--bg-bright);
 }

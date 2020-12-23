@@ -6,34 +6,24 @@ import "./Pagination.css";
 const Pagination = (props) => {
   const totalPage = Number(props.totalPage);
   const currentPage = Number(props.currentPage) || 1;
+  const linkTo = (arg) =>
+    !props.admin
+      ? props.keyword
+        ? `/products/search/${props.keyword}/page/${arg}`
+        : `/products/page/${arg}`
+      : `/admin-products/page/${arg}`;
 
   let paginate;
   if (totalPage <= 5) {
     paginate = [...Array(totalPage).keys()].map((p) => (
-      <Button
-        key={p + 1}
-        to={
-          props.keyword
-            ? `/products/search/${props.keyword}/page/${p + 1}`
-            : `/products/page/${p + 1}`
-        }
-        inverse={currentPage !== p + 1}
-      >
+      <Button key={p + 1} to={linkTo(p + 1)} inverse={currentPage !== p + 1}>
         {p + 1}
       </Button>
     ));
   } else {
     if (currentPage <= 3) {
       paginate = [...Array(5).keys()].map((p) => (
-        <Button
-          key={p + 1}
-          to={
-            props.keyword
-              ? `/products/search/${props.keyword}/page/${p + 1}`
-              : `/products/page/${p + 1}`
-          }
-          inverse={currentPage !== p + 1}
-        >
+        <Button key={p + 1} to={linkTo(p + 1)} inverse={currentPage !== p + 1}>
           {p + 1}
         </Button>
       ));
@@ -41,11 +31,7 @@ const Pagination = (props) => {
       paginate = [...Array(5).keys()].map((p) => (
         <Button
           key={totalPage - 4 + p}
-          to={
-            props.keyword
-              ? `/products/search/${props.keyword}/page/${totalPage - 4 + p}`
-              : `/products/page/${totalPage - 4 + p}`
-          }
+          to={linkTo(totalPage - 4 + p)}
           inverse={currentPage !== totalPage - 4 + p}
         >
           {totalPage - 4 + p}
@@ -55,11 +41,7 @@ const Pagination = (props) => {
       paginate = [...Array(5).keys()].map((p) => (
         <Button
           key={currentPage - 2 + p}
-          to={
-            props.keyword
-              ? `/products/search/${props.keyword}/page/${currentPage - 2 + p}`
-              : `/products/page/${currentPage - 2 + p}`
-          }
+          to={linkTo(currentPage - 2 + p)}
           inverse={currentPage !== currentPage - 2 + p}
         >
           {currentPage - 2 + p}
@@ -82,24 +64,10 @@ const Pagination = (props) => {
           </React.Fragment>
         ) : (
           <React.Fragment>
-            <Button
-              to={
-                props.keyword
-                  ? `/products/search/${props.keyword}/page/${1}`
-                  : `/products/page/${1}`
-              }
-              inverse
-            >
+            <Button to={linkTo(1)} inverse>
               <i className="fas fa-angle-double-left"></i>
             </Button>
-            <Button
-              to={
-                props.keyword
-                  ? `/products/search/${props.keyword}/page/${currentPage - 1}`
-                  : `/products/page/${currentPage - 1}`
-              }
-              inverse
-            >
+            <Button to={linkTo(currentPage - 1)} inverse>
               <i className="fas fa-angle-left"></i>
             </Button>
           </React.Fragment>
@@ -116,24 +84,10 @@ const Pagination = (props) => {
           </React.Fragment>
         ) : (
           <React.Fragment>
-            <Button
-              to={
-                props.keyword
-                  ? `/products/search/${props.keyword}/page/${currentPage + 1}`
-                  : `/products/page/${currentPage + 1}`
-              }
-              inverse
-            >
+            <Button to={linkTo(currentPage + 1)} inverse>
               <i className="fas fa-angle-right"></i>
             </Button>
-            <Button
-              to={
-                props.keyword
-                  ? `/products/search/${props.keyword}/page/${totalPage}`
-                  : `/products/page/${totalPage}`
-              }
-              inverse
-            >
+            <Button to={linkTo(totalPage)} inverse>
               <i className="fas fa-angle-double-right"></i>
             </Button>
           </React.Fragment>

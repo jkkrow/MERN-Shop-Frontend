@@ -6,15 +6,17 @@ import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/FormElements/Button";
 import Modal from "../../shared/components/UI/Modal";
 import LoadingSpinner from "../../shared/components/UI/LoadingSpinner";
+import Pagination from "../../shared/components/UI/Pagination";
 import { useForm } from "../../shared/hooks/form-hook";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import { AuthContext } from "../../shared/context/auth-context";
 import { VALIDATOR_EQUAL } from "../../shared/util/validators";
 import "./AdminProducts.css";
 
-const AdminProducts = () => {
+const AdminProducts = ({ match }) => {
   const auth = useContext(AuthContext);
   const [fetchedProducts, setFetchedProducts] = useState([]);
+  const [totalPage, setTotalPage] = useState();
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [targetProduct, setTargetProduct] = useState({});
   const [deleteLoading, setDeleteLoading] = useState(false);
@@ -25,11 +27,12 @@ const AdminProducts = () => {
     },
     false
   );
+  const currentPage = match.params.currentPage || "";
 
   useEffect(() => {
     const fetchProducts = async () => {
       const response = await sendRequest(
-        "http://localhost:5000/api/admin/products",
+        `http://localhost:5000/api/admin/products?page=${currentPage}`,
         "get",
         null,
         {
@@ -37,9 +40,10 @@ const AdminProducts = () => {
         }
       );
       setFetchedProducts(response.data.products);
+      setTotalPage(response.data.pages);
     };
     fetchProducts();
-  }, [sendRequest, auth.token]);
+  }, [sendRequest, auth.token, currentPage]);
 
   const openWarninigHandler = (userId) => {
     const selectedUser = fetchedProducts.find((user) => user._id === userId);
@@ -98,50 +102,53 @@ const AdminProducts = () => {
           onInput={inputHandler}
         />
       </Modal>
-      <div className="admin-products__header">
-        <h2>Products</h2>
-        <Button to="/new-product">
-          <i className="fas fa-plus"></i> Create Product
-        </Button>
-      </div>
-      <div className="admin-products__table">
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Title</th>
-              <th>Price</th>
-              <th>Category</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {fetchedProducts.map((product) => (
-              <tr key={product._id}>
-                <td>{product._id}</td>
-                <td>
-                  <Link to={`/detail/${product._id}`}>{product.title}</Link>
-                </td>
-                <td>${product.price.toFixed(2)}</td>
-                <td>{product.category}</td>
-                <td>
-                  <div className="admin-products__table__button">
-                    <Button to={`/edit-product/${product._id}`}>
-                      <i className="fas fa-edit"></i>
-                    </Button>
-                    <Button
-                      danger
-                      onClick={() => openWarninigHandler(product._id)}
-                    >
-                      <i className="fas fa-trash"></i>
-                    </Button>
-                  </div>
-                </td>
+      <React.Fragment>
+        <div className="admin-products__header">
+          <h2>Products</h2>
+          <Button to="/new-product">
+            <i className="fas fa-plus"></i> Create Product
+          </Button>
+        </div>
+        <div className="admin-products__table">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th></th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {fetchedProducts.map((product) => (
+                <tr key={product._id}>
+                  <td>{product._id}</td>
+                  <td>
+                    <Link to={`/detail/${product._id}`}>{product.title}</Link>
+                  </td>
+                  <td>${product.price.toFixed(2)}</td>
+                  <td>{product.category}</td>
+                  <td>
+                    <div className="admin-products__table__button">
+                      <Button to={`/edit-product/${product._id}`}>
+                        <i className="fas fa-edit"></i>
+                      </Button>
+                      <Button
+                        danger
+                        onClick={() => openWarninigHandler(product._id)}
+                      >
+                        <i className="fas fa-trash"></i>
+                      </Button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <Pagination totalPage={totalPage} currentPage={currentPage} admin />
+      </React.Fragment>
     </div>
   );
 };

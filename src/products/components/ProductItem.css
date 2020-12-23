@@ -36,7 +36,6 @@
   margin-bottom: 1rem;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .product-item__info h4 {

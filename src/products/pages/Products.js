@@ -20,7 +20,7 @@ const Products = ({ match }) => {
         `http://localhost:5000/api/user/products?keyword=${keyword}&page=${currentPage}`
       );
       setFetchedProducts(response.data.products);
-      setTotalPage(response.data.pages)
+      setTotalPage(response.data.pages);
       setPageLoaded(true);
     };
     fetchProducts();
@@ -33,7 +33,11 @@ const Products = ({ match }) => {
         <h2 style={{ fontSize: "3rem" }}>No Product Found.</h2>
       )}
       <ProductList items={fetchedProducts} />
-      <Pagination totalPage={totalPage} currentPage={currentPage} keyword={keyword} />
+      <Pagination
+        totalPage={totalPage}
+        currentPage={currentPage}
+        keyword={keyword}
+      />
     </div>
   );
 };

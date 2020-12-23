@@ -129,7 +129,7 @@ const SetProduct = ({ history }) => {
             <Select
               id="category"
               label="Category"
-              options={["computer", "book"]}
+              options={["Computer", "Electronics"]}
               onSelect={inputHandler}
               initialValue={fetchedProduct.category}
               initialValid={!!fetchedProduct.category}

@@ -52,9 +52,19 @@ const App = () => {
             component={AdminProducts}
             exact
           />
-          <Route path="/admin-users" component={AdminUsers} />
+          <Route path="/admin-users" component={AdminUsers} exact />
+          <Route
+            path="/admin-users/page/:currentPage"
+            component={AdminUsers}
+            exact
+          />
           <Route path="/edit-user/:userId" component={EditUser} />
-          <Route path="/admin-orders" component={AdminOrders} />
+          <Route path="/admin-orders" component={AdminOrders} exact />
+          <Route
+            path="/admin-orders/page/:currentPage"
+            component={AdminOrders}
+            exact
+          />
           <Route path="/order-detail/:orderId" component={OrderDetail} />
           <Redirect to="/" />
         </Switch>

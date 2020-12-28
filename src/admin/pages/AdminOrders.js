@@ -2,27 +2,31 @@ import React, { useContext, useEffect, useState } from "react";
 
 import Button from "../../shared/components/FormElements/Button";
 import LoadingSpinner from "../../shared/components/UI/LoadingSpinner";
+import Pagination from "../../shared/components/UI/Pagination";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import { AuthContext } from "../../shared/context/auth-context";
 import "./AdminOrders.css";
 
-const AdminOrders = () => {
+const AdminOrders = ({ match }) => {
   const auth = useContext(AuthContext);
   const [fetchedOrders, setFetchedOrders] = useState([]);
+  const [totalPage, setTotalPage] = useState();
   const { isLoading, sendRequest } = useHttpClient();
+  const currentPage = match.params.currentPage || "";
 
   useEffect(() => {
     const fetchOrders = async () => {
       const response = await sendRequest(
-        "http://localhost:5000/api/admin/orders",
+        `http://localhost:5000/api/admin/orders?page=${currentPage}`,
         "get",
         null,
         { Authorization: "Bearer " + auth.token }
       );
       setFetchedOrders(response.data.orders);
+      setTotalPage(response.data.pages);
     };
     fetchOrders();
-  }, [auth, sendRequest]);
+  }, [auth, sendRequest, currentPage]);
 
   return (
     <div className="admin-orders">
@@ -62,6 +66,11 @@ const AdminOrders = () => {
           </tbody>
         </table>
       </div>
+      <Pagination
+        totalPage={totalPage}
+        currentPage={currentPage}
+        admin={"orders"}
+      />
     </div>
   );
 };

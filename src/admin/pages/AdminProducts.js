@@ -43,7 +43,7 @@ const AdminProducts = ({ match }) => {
       setTotalPage(response.data.pages);
     };
     fetchProducts();
-  }, [sendRequest, auth.token, currentPage]);
+  }, [auth, sendRequest, currentPage]);
 
   const openWarninigHandler = (userId) => {
     const selectedUser = fetchedProducts.find((user) => user._id === userId);
@@ -106,7 +106,7 @@ const AdminProducts = ({ match }) => {
         <div className="admin-products__header">
           <h2>Products</h2>
           <Button to="/new-product">
-            <i className="fas fa-plus"></i> Create Product
+            <i className="fas fa-plus"></i> Add Product
           </Button>
         </div>
         <div className="admin-products__table">
@@ -147,7 +147,11 @@ const AdminProducts = ({ match }) => {
             </tbody>
           </table>
         </div>
-        <Pagination totalPage={totalPage} currentPage={currentPage} admin />
+        <Pagination
+          totalPage={totalPage}
+          currentPage={currentPage}
+          admin={"products"}
+        />
       </React.Fragment>
     </div>
   );

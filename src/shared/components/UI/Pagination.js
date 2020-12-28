@@ -6,13 +6,22 @@ import "./Pagination.css";
 const Pagination = (props) => {
   const totalPage = Number(props.totalPage);
   const currentPage = Number(props.currentPage) || 1;
-  const linkTo = (arg) =>
-    !props.admin
-      ? props.keyword
-        ? `/products/search/${props.keyword}/page/${arg}`
-        : `/products/page/${arg}`
-      : `/admin-products/page/${arg}`;
-
+  const linkTo = (arg) => {
+    switch (props.admin) {
+      case "products":
+        return `/admin-products/page/${arg}`;
+      case "users":
+        return `/admin-users/page/${arg}`
+      case "orders":
+        return `/admin-orders/page/${arg}`
+      default:
+        if (props.keyword) {
+          return `/products/search/${props.keyword}/page/${arg}`;
+        } else {
+          return `/products/page/${arg}`;
+        }
+    }
+  };
   let paginate;
   if (totalPage <= 5) {
     paginate = [...Array(totalPage).keys()].map((p) => (

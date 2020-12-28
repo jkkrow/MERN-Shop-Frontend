@@ -4,6 +4,7 @@ import axios from "axios";
 import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/FormElements/Button";
 import LoadingSpinner from "../../shared/components/UI/LoadingSpinner";
+import Pagination from "../../shared/components/UI/Pagination";
 import Modal from "../../shared/components/UI/Modal";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import { useForm } from "../../shared/hooks/form-hook";
@@ -11,9 +12,10 @@ import { AuthContext } from "../../shared/context/auth-context";
 import { VALIDATOR_EQUAL } from "../../shared/util/validators";
 import "./AdminUsers.css";
 
-const AdminUsers = () => {
+const AdminUsers = ({ match }) => {
   const auth = useContext(AuthContext);
   const [fetchedUsers, setFetchedUsers] = useState([]);
+  const [totalPage, setTotalPage] = useState();
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [targetUser, setTargetUser] = useState({});
   const [deleteLoading, setDeleteLoading] = useState(false);
@@ -22,19 +24,21 @@ const AdminUsers = () => {
     { user: { value: "", isValid: false } },
     false
   );
+  const currentPage = match.params.currentPage || "";
 
   useEffect(() => {
     const fetchUsers = async () => {
       const response = await sendRequest(
-        "http://localhost:5000/api/admin/users",
+        `http://localhost:5000/api/admin/users?page=${currentPage}`,
         "get",
         null,
         { Authorization: "Bearer " + auth.token }
       );
       setFetchedUsers(response.data.users);
+      setTotalPage(response.data.pages);
     };
     fetchUsers();
-  }, [auth, sendRequest]);
+  }, [auth, sendRequest, currentPage]);
 
   const openWarninigHandler = (userId) => {
     const selectedUser = fetchedUsers.find((user) => user._id === userId);
@@ -137,6 +141,11 @@ const AdminUsers = () => {
           </tbody>
         </table>
       </div>
+      <Pagination
+        totalPage={totalPage}
+        currentPage={currentPage}
+        admin={"users"}
+      />
     </div>
   );
 };

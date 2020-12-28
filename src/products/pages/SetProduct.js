@@ -62,7 +62,7 @@ const SetProduct = ({ history }) => {
     }
   }, [productId, sendRequest, setFormData]);
 
-  const createProductHandler = async (event) => {
+  const addProductHandler = async (event) => {
     event.preventDefault();
     const formData = new FormData();
     formData.append("title", formState.inputs.title.value);
@@ -74,7 +74,7 @@ const SetProduct = ({ history }) => {
     formData.append("description", formState.inputs.description.value);
 
     await sendRequest(
-      "http://localhost:5000/api/admin/create-product",
+      "http://localhost:5000/api/admin/add-product",
       "post",
       formData,
       { Authorization: "Bearer " + auth.token }
@@ -105,7 +105,7 @@ const SetProduct = ({ history }) => {
       {fetchedProduct && (
         <form
           className="set-product"
-          onSubmit={editMode ? updateProductHandler : createProductHandler}
+          onSubmit={editMode ? updateProductHandler : addProductHandler}
         >
           <div className="set-product__section-1">
             <Input
@@ -168,7 +168,7 @@ const SetProduct = ({ history }) => {
                 disabled={!formState.isValid}
                 loading={isLoading}
               >
-                Create Product
+                Add Product
               </Button>
             </div>
           )}

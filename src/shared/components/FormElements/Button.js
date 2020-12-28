@@ -40,6 +40,7 @@ const Button = (props) => {
       type={props.type}
       onClick={props.onClick}
       disabled={props.disabled || props.loading}
+      style={props.loading ? { position: "relative" } : { position: "static" }}
     >
       {props.children}
       {props.loading && <ButtonSpinner overlay />}

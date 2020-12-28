@@ -17,7 +17,7 @@ const NavLinks = () => {
       {auth.isAdmin && (
         <li>
           <NavLink exact to="/new-product">
-            Create Product
+            Add Product
           </NavLink>
         </li>
       )}

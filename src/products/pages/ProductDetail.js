@@ -4,6 +4,7 @@ import axios from "axios";
 
 import ProductReviews from "../components/ProductReviews";
 import NumberInput from "../../shared/components/FormElements/NumberInput";
+import Card from "../../shared/components/UI/Card";
 import Button from "../../shared/components/FormElements/Button";
 import LoadingSpinner from "../../shared/components/UI/LoadingSpinner";
 import ErrorModal from "../../shared/components/UI/ErrorModal";
@@ -79,13 +80,25 @@ const ProductDetail = ({ history }) => {
               <h2>{fetchedProduct.title}</h2>
               <p>{fetchedProduct.description}</p>
             </div>
-            <div className="product-detail__main-action">
+            <Card className="product-detail__main-action">
               <h2>${(fetchedProduct.price * quantity).toFixed(2)}</h2>
-              <NumberInput onValue={setQuantity} />
-              <Button onClick={addToCartHandler} loading={addToCartLoading}>
-                Add To Cart
+              {!!fetchedProduct.quantity && (
+                <p>{`${fetchedProduct.quantity} in stock`}</p>
+              )}
+              {!!fetchedProduct.quantity && (
+                <NumberInput
+                  onValue={setQuantity}
+                  maxValue={fetchedProduct.quantity}
+                />
+              )}
+              <Button
+                onClick={addToCartHandler}
+                loading={addToCartLoading}
+                disabled={!fetchedProduct.quantity}
+              >
+                {fetchedProduct.quantity ? "Add to Cart" : "Out of Stock"}
               </Button>
-            </div>
+            </Card>
           </div>
           <ProductReviews
             fetchedProduct={fetchedProduct}

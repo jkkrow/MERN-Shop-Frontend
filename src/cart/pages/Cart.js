@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import Button from "../../shared/components/FormElements/Button";
 import CartList from "../components/CartList";
 import LoadingSpinner from "../../shared/components/UI/LoadingSpinner";
+import ErrorModal from "../../shared/components/UI/ErrorModal";
+import { useHttpClient } from "../../shared/hooks/http-hook";
 import { AuthContext } from "../../shared/context/auth-context";
 import { CartContext } from "../../shared/context/cart-context";
 import "./Cart.css";
@@ -11,15 +13,26 @@ import "./Cart.css";
 const Cart = ({ history }) => {
   const auth = useContext(AuthContext);
   const cart = useContext(CartContext);
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
-  const checkoutHandler = () => {
-    auth.isLoggedIn
-      ? history.push("/place-order")
-      : history.push("/login?redirect=place-order");
+  const checkoutHandler = async () => {
+    if (!auth.isLoggedIn) {
+      history.push("/login?redirect=place-order");
+    } else {
+      const response = await sendRequest(
+        "http://localhost:5000/api/user/start-checkout",
+        "post",
+        { cart: cart.items },
+        { Authorization: "Bearer " + auth.token }
+      );
+      console.log(response.data.message);
+      history.push("/place-order");
+    }
   };
 
   return (
     <div className="cart">
+      <ErrorModal error={error} onClear={clearError} />
       {auth.isLoggedIn && cart.cartLoading && <LoadingSpinner overlay />}
       {!cart.cartLoading && !cart.items.length && (
         <div className="cart-message">
@@ -45,7 +58,9 @@ const Cart = ({ history }) => {
               .toFixed(2)}
           </h2>
           <div className="cart-summary__checkout">
-            <Button onClick={checkoutHandler}>Checkout</Button>
+            <Button onClick={checkoutHandler} loading={isLoading}>
+              Checkout
+            </Button>
           </div>
         </div>
       )}

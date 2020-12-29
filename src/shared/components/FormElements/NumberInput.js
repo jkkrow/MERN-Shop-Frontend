@@ -9,6 +9,8 @@ const NumberInput = (props) => {
     let updatedNumber;
     if (event.target.value < 1) {
       updatedNumber = 1;
+    } else if (event.target.value > props.maxValue) {
+      updatedNumber = props.maxValue;
     } else {
       updatedNumber = parseFloat(event.target.value);
     }
@@ -26,6 +28,9 @@ const NumberInput = (props) => {
   };
 
   const increment = () => {
+    if (number === props.maxValue) {
+      return;
+    }
     const updatedNumber = number + 1;
     setNumber(updatedNumber);
     props.onValue(updatedNumber);

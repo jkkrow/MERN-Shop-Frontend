@@ -63,6 +63,7 @@ const CartItem = (props) => {
           <NumberInput
             initialValue={props.quantity}
             onValue={quantityChangeHandler}
+            maxValue={props.stock}
           />
         </div>
         <p className="cart-item__info-delete" onClick={removeItemHandler}>

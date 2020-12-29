@@ -60,7 +60,7 @@
 
 .product-detail__main-action {
   text-align: center;
-  min-width: 14rem;
+  min-width: 15rem;
   display: flex;
   flex-direction: column;
   margin-left: auto;

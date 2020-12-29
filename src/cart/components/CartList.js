@@ -12,6 +12,7 @@ const CartList = (props) => (
         title={item.product.title}
         price={item.product.price}
         images={item.product.images}
+        stock={item.product.quantity}
         quantity={item.quantity}
       />
     ))}

@@ -22,8 +22,10 @@ const SetProduct = ({ history }) => {
   const [formState, inputHandler, setFormData] = useForm(
     {
       title: { value: "", isValid: false },
+      brand: { value: "", isValid: false },
       price: { value: "", isValid: false },
       category: { value: "", isValid: false },
+      quantity: { value: "", isValid: false },
       description: { value: "", isValid: false },
       images: { value: "", isValid: false },
     },
@@ -47,8 +49,10 @@ const SetProduct = ({ history }) => {
         setFormData(
           {
             title: { value: product.title, isValid: true },
+            brand: { value: product.brand, isValid: true },
             price: { value: product.price, isValid: true },
             category: { value: product.category, isValid: true },
+            quantity: { value: product.quantity, isValid: true },
             description: { value: product.description, isValid: true },
             images: { value: product.images, isValid: true },
           },
@@ -66,8 +70,10 @@ const SetProduct = ({ history }) => {
     event.preventDefault();
     const formData = new FormData();
     formData.append("title", formState.inputs.title.value);
+    formData.append("brand", formState.inputs.brand.value);
     formData.append("price", formState.inputs.price.value);
     formData.append("category", formState.inputs.category.value);
+    formData.append("quantity", formState.inputs.quantity.value);
     for (const image of formState.inputs.images.value) {
       formData.append("images", image);
     }
@@ -89,13 +95,15 @@ const SetProduct = ({ history }) => {
       "patch",
       {
         title: formState.inputs.title.value,
+        brand: formState.inputs.brand.value,
         price: formState.inputs.price.value,
         category: formState.inputs.category.value,
+        quantity: formState.inputs.quantity.value,
         description: formState.inputs.description.value,
       },
       { Authorization: "Bearer " + auth.token }
     );
-    history.push("/admin-products");
+    history.goBack();
   };
 
   return (
@@ -118,6 +126,15 @@ const SetProduct = ({ history }) => {
               initialValid={!!fetchedProduct.title}
             />
             <Input
+              id="brand"
+              type="text"
+              label="Brand"
+              validators={[VALIDATOR_REQUIRE()]}
+              onInput={inputHandler}
+              initialValue={fetchedProduct.brand}
+              initialValid={!!fetchedProduct.brand}
+            />
+            <Input
               id="price"
               type="number"
               label="Price"
@@ -134,7 +151,15 @@ const SetProduct = ({ history }) => {
               initialValue={fetchedProduct.category}
               initialValid={!!fetchedProduct.category}
             />
-
+            <Input
+              id="quantity"
+              type="number"
+              label="Quantity"
+              validators={[VALIDATOR_REQUIRE()]}
+              onInput={inputHandler}
+              initialValue={fetchedProduct.quantity}
+              initialValid={!!fetchedProduct.quantity}
+            />
             <Input
               element="textarea"
               id="description"

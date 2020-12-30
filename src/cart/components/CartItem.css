@@ -1,13 +1,9 @@
 .cart-item {
-  position: relative;
-  margin: 1rem;
-  padding: 1rem;
   height: 15rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--bg-bright);
+  margin: 1rem;
 }
 
 .cart-item__image {
@@ -59,4 +55,10 @@
 .cart-item__info-delete {
   width: 5rem;
   cursor: pointer;
+}
+
+@media (max-width: 700px) {
+  .cart-item {
+    width: 100%;
+  }
 }

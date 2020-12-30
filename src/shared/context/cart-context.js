@@ -88,7 +88,12 @@ export default (props) => {
         let newCart = [...items];
         const index = items.findIndex((i) => i.product._id === item._id);
         if (index !== -1) {
-          const newQuantity = items[index].quantity + quantity;
+          let newQuantity;
+          if (item.quantity < items[index].quantity + quantity) {
+            newQuantity = item.quantity;
+          } else {
+            newQuantity = items[index].quantity + quantity;
+          }
           newCart[index].quantity = newQuantity;
         } else {
           newCart.push({ product: item, quantity });

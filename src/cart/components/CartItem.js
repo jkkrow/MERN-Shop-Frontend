@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
+import Card from "../../shared/components/UI/Card";
 import NumberInput from "../../shared/components/FormElements/NumberInput";
 import LoadingSpinner from "../../shared/components/UI/LoadingSpinner";
 import { useHttpClient } from "../../shared/hooks/http-hook";
@@ -46,7 +47,7 @@ const CartItem = (props) => {
   };
 
   return (
-    <li className="cart-item" key={props._id}>
+    <Card className="cart-item" key={props._id}>
       {isLoading && <LoadingSpinner overlay />}
       <div className="cart-item__image">
         <Link to={`/detail/${props._id}`}>
@@ -58,19 +59,32 @@ const CartItem = (props) => {
           <h2 className="cart-item__info-title">{props.title}</h2>
         </Link>
         <h3 className="cart-item__info-price">${props.price.toFixed(2)}</h3>
-        <div className="cart-item__info-quantity">
-          <p>quantity: </p>
-          <NumberInput
-            initialValue={props.quantity}
-            onValue={quantityChangeHandler}
-            maxValue={props.stock}
-          />
-        </div>
+        {props.stock === 0 ? (
+          <div className="cart-item__info-quantity">
+            <p style={{ color: "red" }}>This product is out of stock.</p>
+          </div>
+        ) : (
+          <div className="cart-item__info-quantity">
+            <p>quantity: </p>
+            <NumberInput
+              initialValue={props.quantity}
+              onValue={quantityChangeHandler}
+              maxValue={props.stock}
+            />
+            <p
+              style={
+                props.stock >= props.quantity
+                  ? { color: "green", fontSize: "small" }
+                  : { color: "red", fontSize: "small" }
+              }
+            >{`${props.stock} in stock`}</p>
+          </div>
+        )}
         <p className="cart-item__info-delete" onClick={removeItemHandler}>
           remove
         </p>
       </div>
-    </li>
+    </Card>
   );
 };
 

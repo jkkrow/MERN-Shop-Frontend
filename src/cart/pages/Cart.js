@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
+import Card from "../../shared/components/UI/Card";
 import Button from "../../shared/components/FormElements/Button";
 import CartList from "../components/CartList";
 import LoadingSpinner from "../../shared/components/UI/LoadingSpinner";
@@ -32,7 +33,11 @@ const Cart = ({ history }) => {
 
   return (
     <div className="cart">
-      <ErrorModal error={error} onClear={clearError} />
+      <ErrorModal
+        error={error}
+        onClear={clearError}
+        header={"Checkout Failed!"}
+      />
       {auth.isLoggedIn && cart.cartLoading && <LoadingSpinner overlay />}
       {!cart.cartLoading && !cart.items.length && (
         <div className="cart-message">
@@ -46,7 +51,7 @@ const Cart = ({ history }) => {
         <CartList items={cart.items} />
       )}
       {!cart.cartLoading && cart.items.length > 0 && (
-        <div className="cart-summary">
+        <Card className="cart-summary">
           <h2 className="cart-summary__total">
             Total $
             {cart.items
@@ -58,11 +63,17 @@ const Cart = ({ history }) => {
               .toFixed(2)}
           </h2>
           <div className="cart-summary__checkout">
-            <Button onClick={checkoutHandler} loading={isLoading}>
+            <Button
+              onClick={checkoutHandler}
+              loading={isLoading}
+              disabled={cart.items.find(
+                (item) => item.quantity > item.product.quantity
+              )}
+            >
               Checkout
             </Button>
           </div>
-        </div>
+        </Card>
       )}
     </div>
   );

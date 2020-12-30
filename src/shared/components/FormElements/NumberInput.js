@@ -28,7 +28,7 @@ const NumberInput = (props) => {
   };
 
   const increment = () => {
-    if (number === props.maxValue) {
+    if (number >= props.maxValue) {
       return;
     }
     const updatedNumber = number + 1;

@@ -31,7 +31,7 @@ const AdminOrders = ({ match }) => {
   return (
     <div className="admin-orders">
       {isLoading && <LoadingSpinner overlay />}
-      <h2>Orders</h2>
+      <h2 className="page-title">Orders</h2>
       <div className="admin-orders__table">
         <table>
           <thead>
@@ -48,7 +48,7 @@ const AdminOrders = ({ match }) => {
             {fetchedOrders.map((order) => (
               <tr key={order._id}>
                 <td>{order._id}</td>
-                <td>{order.createdAt.substring(0, 10)}</td>
+                <td>{order.createdAt.substring(0, 10).replaceAll("-", ".")}</td>
                 <td>{order.user.name}</td>
                 <td>${order.totalPrice}</td>
                 <td>

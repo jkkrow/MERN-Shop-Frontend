@@ -5,7 +5,7 @@ import Dropdown from "../../UI/Dropdown";
 import { AuthContext } from "../../../context/auth-context";
 import "./Avatar.css";
 
-const Profile = () => {
+const Avatar = () => {
   const auth = useContext(AuthContext);
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -26,4 +26,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Avatar;

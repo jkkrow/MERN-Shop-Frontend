@@ -106,7 +106,8 @@ const ProductReview = (props) => {
                     </div>
                     <Rating value={review.rating} />
                     <p className="product-reviews__list-item__date">
-                      Reviewed on {review.createdAt.substring(0, 10)}
+                      Reviewed on{" "}
+                      {review.createdAt.substring(0, 10).replaceAll("-", ".")}
                     </p>
                     <p className="product-reviews__list-item__comment">
                       {review.comment}

@@ -59,7 +59,9 @@ const Dropdown = (props) => {
       <DropdownItem onClick={toMainMenu}>
         <h3>{accountMenuTitle}</h3>
       </DropdownItem>
-      <DropdownItem>Profile</DropdownItem>
+      <DropdownItem onClick={() => navigateHandler("/profile")}>
+        Profile
+      </DropdownItem>
       <DropdownItem onClick={() => navigateHandler("/address")}>
         Address
       </DropdownItem>

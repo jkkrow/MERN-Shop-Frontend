@@ -104,7 +104,7 @@ const AdminProducts = ({ match }) => {
       </Modal>
       <React.Fragment>
         <div className="admin-products__header">
-          <h2>Products</h2>
+          <h2 className="page-title">Products</h2>
           <Button to="/new-product">
             <i className="fas fa-plus"></i> Add Product
           </Button>
@@ -117,6 +117,7 @@ const AdminProducts = ({ match }) => {
                 <th>Title</th>
                 <th>Price</th>
                 <th>Category</th>
+                <th>Stock</th>
                 <th></th>
               </tr>
             </thead>
@@ -129,6 +130,7 @@ const AdminProducts = ({ match }) => {
                   </td>
                   <td>${product.price.toFixed(2)}</td>
                   <td>{product.category}</td>
+                  <td>{product.quantity}</td>
                   <td>
                     <div className="admin-products__table__button">
                       <Button to={`/edit-product/${product._id}`}>

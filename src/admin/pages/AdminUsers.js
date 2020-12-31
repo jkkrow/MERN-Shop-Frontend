@@ -96,7 +96,7 @@ const AdminUsers = ({ match }) => {
           onInput={inputHandler}
         />
       </Modal>
-      <h2>Users</h2>
+      <h2 className="page-title">Users</h2>
       <div className="admin-users__table">
         <table>
           <thead>

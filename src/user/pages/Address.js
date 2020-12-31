@@ -55,7 +55,12 @@ const Address = () => {
       {!isLoading && (
         <React.Fragment>
           {location.pathname === "/address" && (
-            <h1 className="my-address">My Address</h1>
+            <h2
+              className="page-title"
+              style={{ width: "70%", margin: "auto auto 2rem auto" }}
+            >
+              My Address
+            </h2>
           )}
           <div className="address">
             <CSSTransition

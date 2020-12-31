@@ -20,13 +20,12 @@ const Cart = ({ history }) => {
     if (!auth.isLoggedIn) {
       history.push("/login?redirect=place-order");
     } else {
-      const response = await sendRequest(
+      await sendRequest(
         "http://localhost:5000/api/user/start-checkout",
         "post",
         { cart: cart.items },
         { Authorization: "Bearer " + auth.token }
       );
-      console.log(response.data.message);
       history.push("/place-order");
     }
   };

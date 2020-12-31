@@ -27,7 +27,7 @@ const Orders = () => {
   return (
     <div className="orders">
       {isLoading && <LoadingSpinner overlay />}
-      <h1>Order History</h1>
+      <h2 className="page-title">Order History</h2>
       <OrderList items={orders} />
     </div>
   );

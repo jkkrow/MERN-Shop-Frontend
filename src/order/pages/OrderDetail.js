@@ -4,6 +4,7 @@ import axios from "axios";
 
 import Button from "../../shared/components/FormElements/Button";
 import LoadingSpinner from "../../shared/components/UI/LoadingSpinner";
+import ErrorModal from "../../shared/components/UI/ErrorModal";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import { AuthContext } from "../../shared/context/auth-context";
 import "./OrderDetail.css";
@@ -12,7 +13,7 @@ const OrderDetail = () => {
   const auth = useContext(AuthContext);
   const [fetchedOrder, setFetchedOrder] = useState();
   const [buttonLoading, setButtonLoading] = useState(false);
-  const { isLoading, sendRequest } = useHttpClient();
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const { orderId } = useParams();
 
   useEffect(() => {
@@ -41,12 +42,16 @@ const OrderDetail = () => {
 
   return (
     <React.Fragment>
+      <ErrorModal error={error} onClear={clearError} />
       {isLoading && <LoadingSpinner overlay />}
       {!isLoading && fetchedOrder && (
         <div className="order">
           <div className="order-section">
             <div className="order-section__menu">
-              <h2>Date: {fetchedOrder.createdAt.substring(0, 10)}</h2>
+              <h2>
+                Date:{" "}
+                {fetchedOrder.createdAt.substring(0, 10).replaceAll("-", ".")}
+              </h2>
               <p>Order ID: {fetchedOrder._id}</p>
             </div>
             <div className="order-section__menu">

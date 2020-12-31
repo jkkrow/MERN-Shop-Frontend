@@ -8,6 +8,7 @@ import Cart from "./cart/pages/Cart";
 import Login from "./auth/pages/Login";
 import Signup from "./auth/pages/Signup";
 import SetProduct from "./products/pages/SetProduct";
+import Profile from "./user/pages/Profile";
 import Address from "./user/pages/Address";
 import PlaceOrder from "./order/pages/PlaceOrder";
 import Orders from "./order/pages/Orders";
@@ -26,6 +27,7 @@ const App = () => {
 
   if (auth.isLoggedIn) {
     if (auth.isAdmin) {
+      // Administrator
       routes = (
         <Switch>
           <Route path="/" component={Products} exact />
@@ -44,6 +46,7 @@ const App = () => {
           <Route path="/cart" component={Cart} />
 
           <Route path="/place-order" component={PlaceOrder} />
+
           <Route path="/new-product" component={SetProduct} />
           <Route path="/edit-product/:productId" component={SetProduct} />
           <Route path="/admin-products" component={AdminProducts} exact />
@@ -70,6 +73,7 @@ const App = () => {
         </Switch>
       );
     } else {
+      // Logged-in User
       routes = (
         <Switch>
           <Route path="/" component={Products} exact />
@@ -88,6 +92,7 @@ const App = () => {
           <Route path="/cart" component={Cart} />
 
           <Route path="/place-order" component={PlaceOrder} />
+          <Route path="/profile" component={Profile} />
           <Route path="/address" component={Address} />
           <Route path="/orders" component={Orders} />
           <Route path="/order-detail/:orderId" component={OrderDetail} />
@@ -96,6 +101,7 @@ const App = () => {
       );
     }
   } else {
+    // Unlogged-in User
     routes = (
       <Switch>
         <Route path="/" component={Products} exact />

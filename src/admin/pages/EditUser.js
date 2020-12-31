@@ -70,7 +70,7 @@ const EditUser = () => {
       },
     });
     setSubmitLoading(true);
-    history.push("/admin-users");
+    history.goBack();
   };
 
   return (

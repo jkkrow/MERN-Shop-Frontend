@@ -68,6 +68,8 @@ const OrderDetail = () => {
                 >
                   {fetchedOrder.isDelivered
                     ? fetchedOrder.deliveredAt
+                        .substring(0, 10)
+                        .replaceAll("-", ".")
                     : "Not Yet"}
                 </span>
               </p>

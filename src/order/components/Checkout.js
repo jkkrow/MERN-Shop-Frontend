@@ -2,6 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { PayPalButton } from "react-paypal-button-v2";
+import {
+  Elements,
+  CardElement,
+  CardNumberElement,
+  CardExpiryElement,
+  CardCvcElement,
+} from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 
 import Button from "../../shared/components/FormElements/Button";
 import LoadingSpinner from "../../shared/components/UI/LoadingSpinner";
@@ -15,6 +23,10 @@ const Checkout = () => {
   const [sdkReady, setSdkReady] = useState(false);
   const [pageLoading, setPageLoading] = useState(false);
   const history = useHistory();
+
+  const stripePromise = loadStripe(
+    "pk_test_51HXRw3ISbDFjf5hilOKiPM3rFNskeEqRHr2oR596Js8Ui2JtTVMlnH02flye8cXSXqPbBYsmFAxA2plr1vMxmCAV00zq3jZABv"
+  );
 
   const itemsPrice = cart.items
     .reduce(
@@ -38,6 +50,7 @@ const Checkout = () => {
     if (cart.items.length === 0) {
       return history.push("/cart");
     }
+
     if (cart.paymentMethod === "PayPal") {
       const addPayPalScript = async () => {
         setPageLoading(true);
@@ -53,6 +66,14 @@ const Checkout = () => {
         document.body.appendChild(script);
       };
       addPayPalScript();
+    }
+
+    if (cart.paymentMethod === "Stripe") {
+      const addStripeScript = async () => {
+        const response = await axios("http://localhost:5000/api/config/stripe");
+        console.log(response.data);
+      };
+      addStripeScript();
     }
   }, [cart, history]);
 
@@ -136,7 +157,14 @@ const Checkout = () => {
         {cart.paymentMethod === "PayPal" && sdkReady && !pageLoading && (
           <PayPalButton amount={totalPrice} onSuccess={successPaymentHandler} />
         )}
-        {cart.paymentMethod === "Stripe" && <Button>Checkout</Button>}
+        {cart.paymentMethod === "Stripe" && (
+          <form className="checkout-section__stripe-form">
+            <Elements stripe={stripePromise}>
+              <CardElement />
+            </Elements>
+            <Button type="submit">Pay Now</Button>
+          </form>
+        )}
       </div>
     </div>
   );

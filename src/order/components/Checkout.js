@@ -2,17 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { PayPalButton } from "react-paypal-button-v2";
-import {
-  Elements,
-  CardElement,
-  CardNumberElement,
-  CardExpiryElement,
-  CardCvcElement,
-} from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
+import StripeCheckout from "react-stripe-checkout";
 
 import Button from "../../shared/components/FormElements/Button";
 import LoadingSpinner from "../../shared/components/UI/LoadingSpinner";
+import ErrorModal from "../../shared/components/UI/ErrorModal";
+import { useHttpClient } from "../../shared/hooks/http-hook";
 import { AuthContext } from "../../shared/context/auth-context";
 import { CartContext } from "../../shared/context/cart-context";
 import "./Checkout.css";
@@ -22,11 +17,8 @@ const Checkout = () => {
   const cart = useContext(CartContext);
   const [sdkReady, setSdkReady] = useState(false);
   const [pageLoading, setPageLoading] = useState(false);
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const history = useHistory();
-
-  const stripePromise = loadStripe(
-    "pk_test_51HXRw3ISbDFjf5hilOKiPM3rFNskeEqRHr2oR596Js8Ui2JtTVMlnH02flye8cXSXqPbBYsmFAxA2plr1vMxmCAV00zq3jZABv"
-  );
 
   const itemsPrice = cart.items
     .reduce(
@@ -67,14 +59,6 @@ const Checkout = () => {
       };
       addPayPalScript();
     }
-
-    if (cart.paymentMethod === "Stripe") {
-      const addStripeScript = async () => {
-        const response = await axios("http://localhost:5000/api/config/stripe");
-        console.log(response.data);
-      };
-      addStripeScript();
-    }
   }, [cart, history]);
 
   const successPaymentHandler = async (paymentResult) => {
@@ -111,9 +95,28 @@ const Checkout = () => {
     history.push("/orders");
   };
 
+  const stripeHandler = async (token) => {
+    const response = await sendRequest(
+      "http://localhost:5000/api/config/stripe",
+      "post",
+      { totalPrice, token }
+    );
+
+    const result = response.data.result;
+
+    if (result.status === "succeeded") {
+      successPaymentHandler({
+        id: result.id,
+        status: "COMPLETED",
+        payer: { email_address: result.receipt_email },
+      });
+    }
+  };
+
   return (
     <div className="checkout">
-      {pageLoading && <LoadingSpinner overlay />}
+      <ErrorModal error={error} onClear={clearError} />
+      {(pageLoading || isLoading) && <LoadingSpinner overlay />}
       <div className="checkout-section">
         <div className="checkout-section__menu">
           <h2>Shipping</h2>
@@ -158,12 +161,15 @@ const Checkout = () => {
           <PayPalButton amount={totalPrice} onSuccess={successPaymentHandler} />
         )}
         {cart.paymentMethod === "Stripe" && (
-          <form className="checkout-section__stripe-form">
-            <Elements stripe={stripePromise}>
-              <CardElement />
-            </Elements>
-            <Button type="submit">Pay Now</Button>
-          </form>
+          <div className="checkout-section__stripe">
+            <StripeCheckout
+              stripeKey={process.env.REACT_APP_STRIPE_KEY}
+              token={stripeHandler}
+              amount={totalPrice * 100}
+            >
+              <Button>Pay Now</Button>
+            </StripeCheckout>
+          </div>
         )}
       </div>
     </div>

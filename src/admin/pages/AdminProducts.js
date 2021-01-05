@@ -32,7 +32,7 @@ const AdminProducts = ({ match }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       const response = await sendRequest(
-        `http://localhost:5000/api/admin/products?page=${currentPage}`,
+        `${process.env.REACT_APP_SERVER_URL}/admin/products?page=${currentPage}`,
         "get",
         null,
         {
@@ -59,7 +59,7 @@ const AdminProducts = ({ match }) => {
   const deleteProductHandler = async () => {
     setDeleteLoading(true);
     await axios({
-      url: `http://localhost:5000/api/admin/delete-product/${targetProduct._id}`,
+      url: `${process.env.REACT_APP_SERVER_URL}/admin/delete-product/${targetProduct._id}`,
       method: "delete",
       headers: { Authorization: "Bearer " + auth.token },
     });

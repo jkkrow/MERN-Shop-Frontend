@@ -20,7 +20,7 @@ const CartItem = (props) => {
       clearTimeout(timer);
       timer = setTimeout(async () => {
         const response = await sendRequest(
-          "http://localhost:5000/api/user/change-quantity",
+          `${process.env.REACT_APP_SERVER_URL}/user/change-quantity`,
           "patch",
           { productId: props._id, quantity: num },
           { Authorization: "Bearer " + auth.token }
@@ -35,7 +35,7 @@ const CartItem = (props) => {
   const removeItemHandler = async () => {
     if (auth.isLoggedIn) {
       const response = await sendRequest(
-        `http://localhost:5000/api/user/remove-from-cart/${props._id}`,
+        `${process.env.REACT_APP_SERVER_URL}/user/remove-from-cart/${props._id}`,
         "delete",
         null,
         { Authorization: "Bearer " + auth.token }

@@ -21,7 +21,7 @@ const Cart = ({ history }) => {
       history.push("/login?redirect=place-order");
     } else {
       await sendRequest(
-        "http://localhost:5000/api/user/start-checkout",
+        `${process.env.REACT_APP_SERVER_URL}/user/start-checkout`,
         "post",
         { cart: cart.items },
         { Authorization: "Bearer " + auth.token }

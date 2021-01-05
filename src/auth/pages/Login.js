@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/FormElements/Button";
 import Card from "../../shared/components/UI/Card";
-import ValidationError from "../components/ValidationError";
+import AuthMessage from "../components/AuthMessage";
 import GoogleLoginBtn from "../components/GoogleLoginBtn";
 import { useForm } from "../../shared/hooks/form-hook";
 import { useHttpClient } from "../../shared/hooks/http-hook";
@@ -32,33 +32,27 @@ const Login = ({ history, location }) => {
     event.preventDefault();
 
     const response = await sendRequest(
-      "http://localhost:5000/api/auth/login",
+      `${process.env.REACT_APP_SERVER_URL}/auth/login`,
       "post",
       {
         email: formState.inputs.email.value,
         password: formState.inputs.password.value,
       }
     );
-    auth.login(
-      response.data.token,
-      response.data.user,
-    );
+    auth.login(response.data.token, response.data.user);
 
     redirect && history.push(redirect);
   };
 
   const googleLoginHandler = async (googleResponse) => {
     const response = await sendRequest(
-      "http://localhost:5000/api/auth/google-login",
+      `${process.env.REACT_APP_SERVER_URL}/auth/google-login`,
       "post",
       {
         tokenId: googleResponse.tokenId,
       }
     );
-    auth.login(
-      response.data.token,
-      response.data.user,
-    );
+    auth.login(response.data.token, response.data.user);
 
     redirect && history.push(redirect);
   };
@@ -66,9 +60,9 @@ const Login = ({ history, location }) => {
   return (
     <React.Fragment>
       <Card className="login">
-        <h2 className="login__header">Log In</h2>
+        <h2 className="login__header page-title">LOGIN</h2>
         <hr />
-        {error && <ValidationError message={error} />}
+        <AuthMessage message={error} type={"error"} />
         <form onSubmit={loginHandler}>
           <Input
             id="email"
@@ -78,14 +72,19 @@ const Login = ({ history, location }) => {
             errorText="Please enter a valid email address."
             onInput={inputHandler}
           />
-          <Input
-            id="password"
-            type="password"
-            label="Password"
-            validators={[VALIDATOR_MINLENGTH(7)]}
-            errorText="Please enter a valid password."
-            onInput={inputHandler}
-          />
+          <div className="login__password">
+            <Input
+              id="password"
+              type="password"
+              label="Password"
+              validators={[VALIDATOR_MINLENGTH(7)]}
+              errorText="Please enter a valid password."
+              onInput={inputHandler}
+            />
+            <Link className="login__reset-password" to="/forgot-password">
+              Forgot Password?
+            </Link>
+          </div>
           <Button
             type="submit"
             disabled={!formState.isValid}
@@ -96,12 +95,12 @@ const Login = ({ history, location }) => {
         </form>
         <p>
           Don't have an account?{" "}
-          <NavLink
+          <Link
             to={redirect ? `/signup?redirect=${redirect}` : `/signup`}
             style={{ color: "#0094f7" }}
           >
             Sign up
-          </NavLink>
+          </Link>
         </p>
         <GoogleLoginBtn onClick={googleLoginHandler} />
       </Card>

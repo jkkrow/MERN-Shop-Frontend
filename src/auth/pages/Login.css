@@ -12,7 +12,8 @@
 }
 
 .login button {
-  margin: 1rem;
+  display: block;
+  margin: 1rem auto;
 }
 
 .login form {
@@ -23,4 +24,16 @@
   color: var(--text-primary);
   text-align: center;
   margin: 2rem 0;
+}
+
+.login__password {
+  position: relative;
+}
+
+.login__reset-password {
+  position: absolute;
+  top: 0;
+  right: 2.5rem;
+  font-size: small;
+  color: var(--text-link);
 }

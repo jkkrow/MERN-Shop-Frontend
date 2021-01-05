@@ -46,7 +46,7 @@ const Checkout = () => {
     if (cart.paymentMethod === "PayPal") {
       const addPayPalScript = async () => {
         setPageLoading(true);
-        const response = await axios("http://localhost:5000/api/config/paypal");
+        const response = await axios(`${process.env.REACT_APP_SERVER_URL}/config/paypal`);
         const script = document.createElement("script");
         script.type = "text/javascript";
         script.src = `https://www.paypal.com/sdk/js?client-id=${response.data.clientId}`;
@@ -64,7 +64,7 @@ const Checkout = () => {
   const successPaymentHandler = async (paymentResult) => {
     setPageLoading(true);
     await axios({
-      url: "http://localhost:5000/api/user/create-order",
+      url: `${process.env.REACT_APP_SERVER_URL}/user/create-order`,
       method: "post",
       data: {
         orderItems: cart.items.map((item) => ({
@@ -97,7 +97,7 @@ const Checkout = () => {
 
   const stripeHandler = async (token) => {
     const response = await sendRequest(
-      "http://localhost:5000/api/config/stripe",
+      `${process.env.REACT_APP_SERVER_URL}/config/stripe`,
       "post",
       { totalPrice, token }
     );

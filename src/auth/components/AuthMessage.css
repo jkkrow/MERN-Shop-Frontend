@@ -1,0 +1,23 @@
+.auth-message {
+  margin: 2rem auto;
+  display: flex;
+  width: 90%;
+  height: 3rem;
+  border: 1px solid;
+  border-radius: 4px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-message__error {
+  color: var(--text-danger);
+  border-color: var(--text-danger);
+  background: var(--bg-danger);
+}
+
+.auth-message__success {
+  color: var(--text-success);
+  border-radius: var(--text-success);
+  background: var(--bg-success);
+}

@@ -44,7 +44,7 @@ export default (props) => {
           new Date(storedData.expiration) > new Date()
         ) {
           response = await axios({
-            url: "http://localhost:5000/api/user/move-items",
+            url: `${process.env.REACT_APP_SERVER_URL}/user/move-items`,
             method: "post",
             data: { cart: storedData.cart },
             headers: {
@@ -54,7 +54,7 @@ export default (props) => {
           localStorage.removeItem("cart");
         } else {
           response = await axios({
-            url: "http://localhost:5000/api/user/cart",
+            url: `${process.env.REACT_APP_SERVER_URL}/user/cart`,
             method: "get",
             headers: {
               Authorization: "Bearer " + auth.token,

@@ -7,6 +7,8 @@ import ProductDetail from "./products/pages/ProductDetail";
 import Cart from "./cart/pages/Cart";
 import Login from "./auth/pages/Login";
 import Signup from "./auth/pages/Signup";
+import ForgotPassword from "./auth/pages/ForgotPassword";
+import ResetPassword from "./auth/pages/ResetPassword";
 import SetProduct from "./products/pages/SetProduct";
 import Profile from "./user/pages/Profile";
 import Address from "./user/pages/Address";
@@ -117,6 +119,8 @@ const App = () => {
 
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route path="/forgot-password" component={ForgotPassword} />
+        <Route path="/reset-password/:token" component={ResetPassword} />
         <Redirect to="/login" />
       </Switch>
     );

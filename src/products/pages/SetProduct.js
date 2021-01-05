@@ -40,7 +40,7 @@ const SetProduct = ({ history }) => {
       const fetchProduct = async () => {
         setPageloading(true);
         const response = await sendRequest(
-          `http://localhost:5000/api/user/detail/${productId}`
+          `${process.env.REACT_APP_SERVER_URL}/user/detail/${productId}`
         );
         const product = response.data.product;
 
@@ -80,7 +80,7 @@ const SetProduct = ({ history }) => {
     formData.append("description", formState.inputs.description.value);
 
     await sendRequest(
-      "http://localhost:5000/api/admin/add-product",
+      `${process.env.REACT_APP_SERVER_URL}/admin/add-product`,
       "post",
       formData,
       { Authorization: "Bearer " + auth.token }
@@ -91,7 +91,7 @@ const SetProduct = ({ history }) => {
   const updateProductHandler = async (event) => {
     event.preventDefault();
     await sendRequest(
-      `http://localhost:5000/api/admin/update-product/${productId}`,
+      `${process.env.REACT_APP_SERVER_URL}/admin/update-product/${productId}`,
       "patch",
       {
         title: formState.inputs.title.value,

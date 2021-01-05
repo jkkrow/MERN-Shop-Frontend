@@ -17,7 +17,7 @@ const AdminOrders = ({ match }) => {
   useEffect(() => {
     const fetchOrders = async () => {
       const response = await sendRequest(
-        `http://localhost:5000/api/admin/orders?page=${currentPage}`,
+        `${process.env.REACT_APP_SERVER_URL}/admin/orders?page=${currentPage}`,
         "get",
         null,
         { Authorization: "Bearer " + auth.token }

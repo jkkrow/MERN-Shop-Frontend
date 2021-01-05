@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/FormElements/Button";
 import Card from "../../shared/components/UI/Card";
-import ValidationError from "../components/ValidationError";
+import ValidationError from "../components/AuthMessage";
 import { useForm } from "../../shared/hooks/form-hook";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import {
@@ -29,7 +29,7 @@ const Signup = ({ history, location }) => {
   const signupHandler = async (event) => {
     event.preventDefault();
     try {
-      await sendRequest("http://localhost:5000/api/auth/signup", "post", {
+      await sendRequest(`${process.env.REACT_APP_SERVER_URL}/auth/signup`, "post", {
         name: formState.inputs.name.value,
         email: formState.inputs.email.value,
         password: formState.inputs.password.value,
@@ -43,7 +43,7 @@ const Signup = ({ history, location }) => {
   return (
     <Card className="signup">
       <div>
-        <h2 className="signup__header">Sign Up</h2>
+        <h2 className="signup__header page-title">SIGNUP</h2>
         <hr />
         {error && <ValidationError message={error} />}
         <form onSubmit={signupHandler}>

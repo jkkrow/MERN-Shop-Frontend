@@ -21,7 +21,7 @@ const ProductReview = (props) => {
   const writeReviewHandler = async (event) => {
     event.preventDefault();
     const response = await sendRequest(
-      `http://localhost:5000/api/user/review/${productId}`,
+      `${process.env.REACT_APP_SERVER_URL}/user/review/${productId}`,
       "post",
       { rating, comment },
       { Authorization: "Bearer " + auth.token }

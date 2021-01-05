@@ -19,7 +19,7 @@ const OrderDetail = () => {
   useEffect(() => {
     const fetchOrder = async () => {
       const response = await sendRequest(
-        `http://localhost:5000/api/user/order-detail/${orderId}`,
+        `${process.env.REACT_APP_SERVER_URL}/user/order-detail/${orderId}`,
         "get",
         null,
         { Authorization: "Bearer " + auth.token }
@@ -32,7 +32,7 @@ const OrderDetail = () => {
   const deliveredHandler = async () => {
     setButtonLoading(true);
     const response = await axios({
-      url: `http://localhost:5000/api/admin/update-delivered/${orderId}`,
+      url: `${process.env.REACT_APP_SERVER_URL}/admin/update-delivered/${orderId}`,
       method: "patch",
       headers: { Authorization: "Bearer " + auth.token },
     });

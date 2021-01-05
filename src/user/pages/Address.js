@@ -20,7 +20,7 @@ const Address = () => {
   useEffect(() => {
     const fetchAddresses = async () => {
       const response = await sendRequest(
-        "http://localhost:5000/api/user/addresses",
+        `${process.env.REACT_APP_SERVER_URL}/user/addresses`,
         "get",
         null,
         { Authorization: "Bearer " + auth.token }

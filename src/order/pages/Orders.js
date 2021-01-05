@@ -19,7 +19,7 @@ const Orders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       const response = await sendRequest(
-        "http://localhost:5000/api/user/orders",
+        `${process.env.REACT_APP_SERVER_URL}/user/orders`,
         "get",
         null,
         { Authorization: "Bearer " + auth.token }
@@ -32,7 +32,7 @@ const Orders = () => {
 
   const fetchMoreOrders = async () => {
     const response = await sendRequest(
-      "http://localhost:5000/api/user/more-orders",
+      `${process.env.REACT_APP_SERVER_URL}/user/more-orders`,
       "post",
       { page },
       { Authorization: "Bearer " + auth.token }

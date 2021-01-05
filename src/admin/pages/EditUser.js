@@ -35,7 +35,7 @@ const EditUser = () => {
   useEffect(() => {
     const fetchUser = async () => {
       const response = await sendRequest(
-        `http://localhost:5000/api/admin/user/${userId}`,
+        `${process.env.REACT_APP_SERVER_URL}/admin/user/${userId}`,
         "get",
         null,
         { Authorization: "Bearer " + auth.token }
@@ -58,7 +58,7 @@ const EditUser = () => {
     event.preventDefault();
     setSubmitLoading(true);
     await axios({
-      url: `http://localhost:5000/api/admin/update-user/${fetchedUser._id}`,
+      url: `${process.env.REACT_APP_SERVER_URL}/admin/update-user/${fetchedUser._id}`,
       method: "patch",
       data: {
         name: formState.inputs.name.value,

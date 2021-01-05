@@ -1,13 +1,13 @@
 :root {
   --bg-dark: #292929;
   --bg-bright: #ffffff;
-  --bg-success: #3fbe5d;
+  --bg-success: #7eff9c;
   --bg-danger: #ffd1d1;
   --text-primary: #252525;
   --text-secondary: #999999;
   --text-reverse: #ffffff;
   --text-link: #0094f7;
-  --text-success: #269e42;
+  --text-success: #009b24;
   --text-danger: #dc3545;
 }
 

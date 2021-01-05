@@ -17,7 +17,7 @@ const Products = ({ match }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       const response = await sendRequest(
-        `http://localhost:5000/api/user/products?keyword=${keyword}&page=${currentPage}`
+        `${process.env.REACT_APP_SERVER_URL}/user/products?keyword=${keyword}&page=${currentPage}`
       );
       setFetchedProducts(response.data.products);
       setTotalPage(response.data.pages);

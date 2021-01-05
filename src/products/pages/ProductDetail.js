@@ -26,7 +26,7 @@ const ProductDetail = ({ history }) => {
   useEffect(() => {
     const fetchProduct = async () => {
       const response = await sendRequest(
-        `http://localhost:5000/api/user/detail/${productId}`
+        `${process.env.REACT_APP_SERVER_URL}/user/detail/${productId}`
       );
       setFetchedProduct(response.data.product);
       setSelectedImage(response.data.product.images[0]);
@@ -38,7 +38,7 @@ const ProductDetail = ({ history }) => {
     if (auth.isLoggedIn) {
       setAddToCartLoading(true);
       const response = await axios({
-        url: "http://localhost:5000/api/user/add-to-cart",
+        url: `${process.env.REACT_APP_SERVER_URL}/user/add-to-cart`,
         method: "post",
         data: { item: fetchedProduct, quantity },
         headers: { Authorization: "Bearer " + auth.token },

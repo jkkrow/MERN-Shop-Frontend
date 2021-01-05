@@ -29,7 +29,7 @@ const AdminUsers = ({ match }) => {
   useEffect(() => {
     const fetchUsers = async () => {
       const response = await sendRequest(
-        `http://localhost:5000/api/admin/users?page=${currentPage}`,
+        `${process.env.REACT_APP_SERVER_URL}/admin/users?page=${currentPage}`,
         "get",
         null,
         { Authorization: "Bearer " + auth.token }
@@ -54,7 +54,7 @@ const AdminUsers = ({ match }) => {
   const deleteUserHandler = async () => {
     setDeleteLoading(true);
     await axios({
-      url: `http://localhost:5000/api/admin/delete-user/${targetUser._id}`,
+      url: `${process.env.REACT_APP_SERVER_URL}/admin/delete-user/${targetUser._id}`,
       method: "delete",
       headers: { Authorization: "Bearer " + auth.token },
     });

@@ -48,8 +48,8 @@ const AddressForm = (props) => {
     event.preventDefault();
     const response = await sendRequest(
       editMode
-        ? `http://localhost:5000/api/user/update-address/${initialData._id}`
-        : "http://localhost:5000/api/user/add-address",
+        ? `${process.env.REACT_APP_SERVER_URL}/user/update-address/${initialData._id}`
+        : `${process.env.REACT_APP_SERVER_URL}/user/add-address`,
       editMode ? "patch" : "post",
       {
         address: formState.inputs.address.value,

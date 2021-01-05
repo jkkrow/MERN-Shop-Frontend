@@ -25,7 +25,7 @@ const AddressItem = (props) => {
 
   const deleteHandler = async () => {
     const response = await sendRequest(
-      `http://localhost:5000/api/user/delete-address/${props._id}`,
+      `${process.env.REACT_APP_SERVER_URL}/user/delete-address/${props._id}`,
       "delete",
       null,
       { Authorization: "Bearer " + auth.token }

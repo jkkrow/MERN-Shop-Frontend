@@ -31,12 +31,10 @@ const Input = (props) => {
 
   const { onInput, id } = props;
 
-  useEffect(() => onInput && onInput(id, inputState.value, inputState.isValid), [
-    onInput,
-    id,
-    inputState.value,
-    inputState.isValid,
-  ]);
+  useEffect(
+    () => onInput && onInput(id, inputState.value, inputState.isValid),
+    [onInput, id, inputState.value, inputState.isValid]
+  );
 
   const changeHandler = (event) => {
     dispatch({
@@ -76,6 +74,7 @@ const Input = (props) => {
       className={`form-control ${
         !inputState.isValid && inputState.isTouched && "form-control--invalid"
       }`}
+      style={props.style}
     >
       <label htmlFor={props.id}>{props.label}</label>
       {element}

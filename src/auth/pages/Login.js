@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 
+import AuthForm from "../components/AuthForm";
 import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/FormElements/Button";
-import Card from "../../shared/components/UI/Card";
 import AuthMessage from "../components/AuthMessage";
 import GoogleLoginBtn from "../components/GoogleLoginBtn";
 import { useForm } from "../../shared/hooks/form-hook";
@@ -59,8 +59,8 @@ const Login = ({ history, location }) => {
 
   return (
     <React.Fragment>
-      <Card className="login">
-        <h2 className="login__header page-title">LOGIN</h2>
+      <AuthForm className="login">
+        <h2 className="page-title">LOGIN</h2>
         <hr />
         <AuthMessage message={error} type={"error"} />
         <form onSubmit={loginHandler}>
@@ -72,18 +72,17 @@ const Login = ({ history, location }) => {
             errorText="Please enter a valid email address."
             onInput={inputHandler}
           />
-          <div className="login__password">
-            <Input
-              id="password"
-              type="password"
-              label="Password"
-              validators={[VALIDATOR_MINLENGTH(7)]}
-              errorText="Please enter a valid password."
-              onInput={inputHandler}
-            />
-            <Link className="login__reset-password" to="/forgot-password">
-              Forgot Password?
-            </Link>
+          <Input
+            id="password"
+            type="password"
+            label="Password"
+            validators={[VALIDATOR_MINLENGTH(7)]}
+            errorText="Please enter a valid password."
+            onInput={inputHandler}
+            style={{ marginBottom: "0.5rem" }}
+          />
+          <div className="login__forgot-password">
+            <Link to="/forgot-password">Forgot Password?</Link>
           </div>
           <Button
             type="submit"
@@ -103,7 +102,7 @@ const Login = ({ history, location }) => {
           </Link>
         </p>
         <GoogleLoginBtn onClick={googleLoginHandler} />
-      </Card>
+      </AuthForm>
     </React.Fragment>
   );
 };

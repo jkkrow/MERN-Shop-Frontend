@@ -1,39 +1,8 @@
-.login {
-  width: 100%;
-  max-width: 40rem;
-  margin: auto;
-  text-align: center;
+.login__forgot-password {
+  text-align: end;
 }
 
-.login input {
-  width: 90%;
-  margin: auto;
-  text-align: center;
-}
-
-.login button {
-  display: block;
-  margin: 1rem auto;
-}
-
-.login form {
-  margin-bottom: 1rem;
-}
-
-.login__header {
-  color: var(--text-primary);
-  text-align: center;
-  margin: 2rem 0;
-}
-
-.login__password {
-  position: relative;
-}
-
-.login__reset-password {
-  position: absolute;
-  top: 0;
-  right: 2.5rem;
+.login__forgot-password a {
   font-size: small;
   color: var(--text-link);
 }

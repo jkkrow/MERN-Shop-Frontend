@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import Card from "../../shared/components/UI/Card";
+import AuthForm from "../components/AuthForm";
 import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/FormElements/Button";
 import AuthMessage from "../components/AuthMessage";
@@ -32,8 +32,10 @@ const ForgotPassword = (props) => {
   };
 
   return (
-    <Card className="forgot-password">
-      <p>Enter your email to receive a reset link</p>
+    <AuthForm className="forgot-password">
+      <h2 className="page-title">RESET PASSWORD</h2>
+      <hr />
+      <p className="forgot-password__description">Enter your email to receive a recovery link</p>
       <AuthMessage
         message={error || message}
         type={error ? "error" : "message"}
@@ -50,7 +52,7 @@ const ForgotPassword = (props) => {
           Send
         </Button>
       </form>
-    </Card>
+    </AuthForm>
   );
 };
 

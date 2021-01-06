@@ -1,9 +1,9 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
+import AuthForm from '../components/AuthForm'
 import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/FormElements/Button";
-import Card from "../../shared/components/UI/Card";
 import ValidationError from "../components/AuthMessage";
 import { useForm } from "../../shared/hooks/form-hook";
 import { useHttpClient } from "../../shared/hooks/http-hook";
@@ -29,11 +29,15 @@ const Signup = ({ history, location }) => {
   const signupHandler = async (event) => {
     event.preventDefault();
     try {
-      await sendRequest(`${process.env.REACT_APP_SERVER_URL}/auth/signup`, "post", {
-        name: formState.inputs.name.value,
-        email: formState.inputs.email.value,
-        password: formState.inputs.password.value,
-      });
+      await sendRequest(
+        `${process.env.REACT_APP_SERVER_URL}/auth/signup`,
+        "post",
+        {
+          name: formState.inputs.name.value,
+          email: formState.inputs.email.value,
+          password: formState.inputs.password.value,
+        }
+      );
       history.push(redirect ? `/login?redirect=${redirect}` : `/login`);
     } catch (err) {
       console.log(err);
@@ -41,9 +45,9 @@ const Signup = ({ history, location }) => {
   };
 
   return (
-    <Card className="signup">
+    <AuthForm className="signup">
       <div>
-        <h2 className="signup__header page-title">SIGNUP</h2>
+        <h2 className="page-title">SIGNUP</h2>
         <hr />
         {error && <ValidationError message={error} />}
         <form onSubmit={signupHandler}>
@@ -69,7 +73,7 @@ const Signup = ({ history, location }) => {
             label="Password"
             placeholder="At least 7 characters"
             validators={[VALIDATOR_MINLENGTH(7)]}
-            errorText="Please enter a valid password."
+            errorText="Minimum length of password is 7."
             onInput={inputHandler}
           />
           <Button
@@ -79,18 +83,18 @@ const Signup = ({ history, location }) => {
           >
             Sign Up
           </Button>
-          <p>
-            Already have an account?{" "}
-            <NavLink
-              to={redirect ? `/login?redirect=${redirect}` : `/login`}
-              style={{ color: "#0094f7" }}
-            >
-              Log in
-            </NavLink>
-          </p>
         </form>
+        <p>
+          Already have an account?{" "}
+          <NavLink
+            to={redirect ? `/login?redirect=${redirect}` : `/login`}
+            style={{ color: "#0094f7" }}
+          >
+            Log in
+          </NavLink>
+        </p>
       </div>
-    </Card>
+    </AuthForm>
   );
 };
 

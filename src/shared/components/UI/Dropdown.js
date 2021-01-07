@@ -38,8 +38,8 @@ const Dropdown = (props) => {
     props.close();
   };
 
-  let accountMenuTitle = auth.isAdmin ? "Administrator" : "My Account";
-  let accountMenu = auth.isAdmin ? (
+  let accountMenuTitle = auth.userData.isAdmin ? "Administrator" : "My Account";
+  let accountMenu = auth.userData.isAdmin ? (
     <div className="dropdown-menu">
       <DropdownItem onClick={toMainMenu}>
         <h3>{accountMenuTitle}</h3>

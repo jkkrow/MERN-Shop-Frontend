@@ -28,7 +28,7 @@ const App = () => {
   let routes;
 
   if (auth.isLoggedIn) {
-    if (auth.isAdmin) {
+    if (auth.userData.isAdmin) {
       // Administrator
       routes = (
         <Switch>

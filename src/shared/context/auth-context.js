@@ -3,9 +3,7 @@ import React, { useState, useCallback, createContext } from "react";
 export const AuthContext = createContext({
   isLoggedIn: false,
   token: null,
-  userId: null,
-  isAdmin: null,
-  image: null,
+  userData: {},
   login: () => {},
   logout: () => {},
 });
@@ -15,30 +13,29 @@ export default (props) => {
     JSON.parse(localStorage.getItem("user")) &&
       JSON.parse(localStorage.getItem("user")).token
   );
-  const [userId, setUserId] = useState(
-    JSON.parse(localStorage.getItem("user")) &&
-      JSON.parse(localStorage.getItem("user")).userId
-  );
-  const [image, setImage] = useState(
-    JSON.parse(localStorage.getItem("user")) &&
-      JSON.parse(localStorage.getItem("user")).image
-  );
-  const [isAdmin, setIsAdmin] = useState(
-    JSON.parse(localStorage.getItem("user")) &&
-      JSON.parse(localStorage.getItem("user")).isAdmin
+  const [userData, setUserData] = useState(
+    JSON.parse(localStorage.getItem("user"))
+      ? JSON.parse(localStorage.getItem("user"))
+      : {}
   );
 
   const login = useCallback((token, userData) => {
     setToken(token);
-    setUserId(userData.userId);
-    setIsAdmin(userData.isAdmin);
-    setImage(userData.image);
+    setUserData({
+      userId: userData.userId,
+      isAdmin: userData.isAdmin,
+      email: userData.email,
+      name: userData.name,
+      image: userData.image,
+    });
     localStorage.setItem(
       "user",
       JSON.stringify({
         token,
         userId: userData.userId,
         isAdmin: userData.isAdmin,
+        email: userData.email,
+        name: userData.name,
         image: userData.image,
       })
     );
@@ -46,9 +43,7 @@ export default (props) => {
 
   const logout = useCallback(() => {
     setToken(null);
-    setUserId(null);
-    setIsAdmin(null);
-    setImage(null);
+    setUserData({});
     localStorage.removeItem("user");
   }, []);
 
@@ -57,9 +52,7 @@ export default (props) => {
       value={{
         isLoggedIn: !!token,
         token,
-        userId,
-        isAdmin,
-        image,
+        userData,
         login,
         logout,
       }}

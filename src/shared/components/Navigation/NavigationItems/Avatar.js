@@ -17,8 +17,8 @@ const Avatar = () => {
     <React.Fragment>
       <div className="avatar" onBlur={closeDropdownHandler} tabIndex="0">
         <div onClick={toggleDropdownHandler}>
-          <img src={auth.image || defaultImage} alt="avatar" />
-          {auth.isAdmin && <div className="avatar-admin">admin</div>}
+          <img src={auth.userData.image || defaultImage} alt="avatar" />
+          {auth.userData.isAdmin && <div className="avatar-admin">admin</div>}
         </div>
         {showDropdown && <Dropdown close={closeDropdownHandler} />}
       </div>

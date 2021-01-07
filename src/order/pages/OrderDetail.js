@@ -120,7 +120,7 @@ const OrderDetail = () => {
               <p>Total</p>
               <p>${fetchedOrder.totalPrice.toFixed(2)}</p>
             </div>
-            {auth.isAdmin && (
+            {auth.userData.isAdmin && (
               <Button
                 onClick={deliveredHandler}
                 disabled={fetchedOrder.isDelivered}

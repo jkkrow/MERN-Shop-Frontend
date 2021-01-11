@@ -2,29 +2,52 @@ import React, { useContext } from "react";
 
 import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/FormElements/Button";
+import ImageUpload from "../../shared/components/FormElements/ImageUpload";
+import ErrorModal from "../../shared/components/UI/ErrorModal";
+import { useHttpClient } from "../../shared/hooks/http-hook";
 import { useForm } from "../../shared/hooks/form-hook";
 import {
   VALIDATOR_REQUIRE,
   VALIDATOR_MINLENGTH,
 } from "../../shared/util/validators";
 import { AuthContext } from "../../shared/context/auth-context";
+import DefaultImage from "../../assets/images/default-profile.png";
 import "./Profile.css";
 
-const Profile = (props) => {
+const Profile = ({ history }) => {
   const auth = useContext(AuthContext);
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const [formState, inputHandler] = useForm(
     {
       name: { value: auth.userData.name, isValid: true },
-      password: { value: "", isValid: false },
+      password: { value: "", isValid: true },
+      image: { value: "", isValid: true },
     },
-    false
+    true
   );
+
+  const submitHandler = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("name", formState.inputs.name.value);
+    formData.append("password", formState.inputs.password.value);
+    formData.append("image", formState.inputs.image.value[0]);
+    const response = await sendRequest(
+      `${process.env.REACT_APP_SERVER_URL}/user/change-profile`,
+      "patch",
+      formData,
+      { Authorization: "Bearer " + auth.token }
+    );
+    auth.login(auth.token, response.data.user);
+    history.push("/profile");
+  };
 
   return (
     <div className="profile">
+      <ErrorModal error={error} onClear={clearError} />
       <h2 className="page-title">My Profile</h2>
-      <form>
-        <div>
+      <form onSubmit={submitHandler}>
+        <div className="profile__form-block">
           <Input
             id="name"
             type="text"
@@ -46,12 +69,26 @@ const Profile = (props) => {
           <Input
             id="password"
             type="password"
-            label="Password"
+            label="Change Password"
             placeholder="At least 7 characters"
             validators={[VALIDATOR_MINLENGTH(7)]}
             onInput={inputHandler}
+            initialValid={true}
           />
-          <Button type="submit" disabled={!formState.isValid}>
+        </div>
+        <div className="profile__form-block">
+          <ImageUpload
+            id="image"
+            label="Profile Image"
+            type="profile"
+            initialImage={auth.userData.image || DefaultImage}
+            onInput={inputHandler}
+          />
+          <Button
+            type="submit"
+            disabled={!formState.isValid}
+            loading={isLoading}
+          >
             Update
           </Button>
         </div>

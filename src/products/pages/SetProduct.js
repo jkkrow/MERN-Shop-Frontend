@@ -184,9 +184,12 @@ const SetProduct = ({ history }) => {
             <div className="set-product__section-2">
               <ImageUpload
                 id="images"
-                type="product"
                 label="Product Images"
+                type="product"
                 onInput={inputHandler}
+                multiple
+                required
+                maxLength={10}
               />
               <Button
                 type="submit"

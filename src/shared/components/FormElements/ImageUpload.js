@@ -6,7 +6,8 @@ const ImageUpload = (props) => {
   const filePickerRef = useRef();
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [validFiles, setValidFiles] = useState([]);
-  const [isValid, setIsValid] = useState(false);
+  const [isValid, setIsValid] = useState(props.required ? false : true);
+  const [isTouched, setIsTouched] = useState(false);
   const [previewImage, setPreviewImage] = useState();
   const [selectorImages, setSelectorImages] = useState([]);
 
@@ -35,14 +36,14 @@ const ImageUpload = (props) => {
     setValidFiles(filteredFiles);
   }, [selectedFiles]);
 
-  const { onInput, id } = props;
+  const { onInput, id, required } = props;
   useEffect(() => {
-    onInput(id, validFiles, isValid);
+    onInput && onInput(id, validFiles, isValid);
   }, [onInput, id, validFiles, isValid]);
 
   useEffect(() => {
     if (!validFiles.length) {
-      setIsValid(false);
+      required && setIsValid(false);
       setPreviewImage(null);
       return;
     }
@@ -51,23 +52,26 @@ const ImageUpload = (props) => {
       setIsValid(false);
     }
     readFile();
-  }, [validFiles, readFile]);
+  }, [validFiles, readFile, required]);
 
   const filePickerClicked = () => {
     filePickerRef.current.click();
   };
 
   const filePickerHandler = () => {
-    if (filePickerRef.current.files.length) {
-      handleFiles(filePickerRef.current.files);
+    setIsTouched(true);
+    const currentFiles = filePickerRef.current.files;
+    if (currentFiles.length) {
+      if (props.multiple) {
+        // Handle multiple files
+        for (let i = 0; i < currentFiles.length; i++) {
+          setSelectedFiles((prevFiles) => [...prevFiles, currentFiles[i]]);
+        }
+      } else {
+        // Handle single file
+        setValidFiles([currentFiles[0]]);
+      }
     }
-  };
-
-  const handleFiles = (files) => {
-    for (let i = 0; i < files.length; i++) {
-      setSelectedFiles((prevFiles) => [...prevFiles, files[i]]);
-    }
-    setIsValid(true);
   };
 
   const removeFile = (name) => {
@@ -80,23 +84,32 @@ const ImageUpload = (props) => {
   };
 
   return (
-    <div className={`form-control`}>
+    <div
+      className={`form-control ${
+        !isValid && isTouched && "form-control--invalid"
+      }`}
+    >
       <label htmlFor={props.id}>{props.label}</label>
       <input
         id={props.id}
         ref={filePickerRef}
         style={{ display: "none" }}
         type="file"
-        multiple
+        multiple={props.multiple}
         accept=".jpg, .png, .jpeg"
         onChange={filePickerHandler}
       />
       <div className={`image-upload ${props.type}`} onClick={filePickerClicked}>
         <div className="image-upload__preview">
           {previewImage && <img src={previewImage} alt="Preview" />}
-          {props.type === "profile"
-            ? !previewImage && <p>Click to choose an image</p>
-            : !previewImage && <p>Click to choose images</p>}
+          {!previewImage && props.initialImage && (
+            <img src={props.initialImage} alt="Preview" />
+          )}
+          {props.multiple
+            ? !previewImage &&
+              !props.initialImage && <p>Click to choose an images</p>
+            : !previewImage &&
+              !props.initialImage && <p>Click to choose image</p>}
         </div>
       </div>
       {validFiles.length === 1 && (
@@ -127,9 +140,9 @@ const ImageUpload = (props) => {
           ))}
         </div>
       )}
-      {validFiles.length > 10 && (
+      {validFiles.length > props.maxLength && (
         <div className="image-upload__warning">
-          Maximum number of image file is 10.
+          Maximum number of image file is {props.maxLength}.
         </div>
       )}
     </div>

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 
-import defaultImage from "../../../../assets/images/default-profile.png";
+import DefaultImage from "../../../../assets/images/default-profile.png";
 import Dropdown from "../../UI/Dropdown";
 import { AuthContext } from "../../../context/auth-context";
 import "./Avatar.css";
@@ -17,7 +17,7 @@ const Avatar = () => {
     <React.Fragment>
       <div className="avatar" onBlur={closeDropdownHandler} tabIndex="0">
         <div onClick={toggleDropdownHandler}>
-          <img src={auth.userData.image || defaultImage} alt="avatar" />
+          <img src={auth.userData.image || DefaultImage} alt="avatar" />
           {auth.userData.isAdmin && <div className="avatar-admin">admin</div>}
         </div>
         {showDropdown && <Dropdown close={closeDropdownHandler} />}

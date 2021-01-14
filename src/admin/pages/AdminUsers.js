@@ -19,7 +19,7 @@ const AdminUsers = ({ match }) => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [targetUser, setTargetUser] = useState({});
   const [deleteLoading, setDeleteLoading] = useState(false);
-  const { isLoading, sendRequest } = useHttpClient();
+  const { pageLoaded, isLoading, sendRequest } = useHttpClient();
   const [formState, inputHandler] = useForm(
     { user: { value: "", isValid: false } },
     false
@@ -96,56 +96,67 @@ const AdminUsers = ({ match }) => {
           onInput={inputHandler}
         />
       </Modal>
-      <h2 className="page-title">Users</h2>
-      <div className="admin-users__table">
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>E-mail</th>
-              <th>Admin</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {fetchedUsers.map((user) => (
-              <tr key={user._id}>
-                <td>{user._id}</td>
-                <td>{user.name}</td>
-                <td>
-                  <a href={`mailto:${user.email}`}>{user.email}</a>
-                </td>
-                <td>
-                  {user.isAdmin ? (
-                    <i className="fas fa-check" style={{ color: "green" }}></i>
-                  ) : (
-                    <i className="fas fa-times" style={{ color: "red" }}></i>
-                  )}
-                </td>
-                <td>
-                  <div className="admin-users__table__button">
-                    <Button to={`/edit-user/${user._id}`}>
-                      <i className="fas fa-edit"></i>
-                    </Button>
-                    <Button
-                      danger
-                      onClick={() => openWarninigHandler(user._id)}
-                    >
-                      <i className="fas fa-trash"></i>
-                    </Button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <Pagination
-        totalPage={totalPage}
-        currentPage={currentPage}
-        admin={"users"}
-      />
+
+      {pageLoaded && (
+        <React.Fragment>
+          <h2 className="page-title">Users</h2>
+          <div className="admin-users__table">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>E-mail</th>
+                  <th>Admin</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {fetchedUsers.map((user) => (
+                  <tr key={user._id}>
+                    <td>{user._id}</td>
+                    <td>{user.name}</td>
+                    <td>
+                      <a href={`mailto:${user.email}`}>{user.email}</a>
+                    </td>
+                    <td>
+                      {user.isAdmin ? (
+                        <i
+                          className="fas fa-check"
+                          style={{ color: "green" }}
+                        ></i>
+                      ) : (
+                        <i
+                          className="fas fa-times"
+                          style={{ color: "red" }}
+                        ></i>
+                      )}
+                    </td>
+                    <td>
+                      <div className="admin-users__table__button">
+                        <Button to={`/edit-user/${user._id}`}>
+                          <i className="fas fa-edit"></i>
+                        </Button>
+                        <Button
+                          danger
+                          onClick={() => openWarninigHandler(user._id)}
+                        >
+                          <i className="fas fa-trash"></i>
+                        </Button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <Pagination
+            totalPage={totalPage}
+            currentPage={currentPage}
+            admin={"users"}
+          />
+        </React.Fragment>
+      )}
     </div>
   );
 };

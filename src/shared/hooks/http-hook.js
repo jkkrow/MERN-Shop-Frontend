@@ -3,6 +3,7 @@ import axios from "axios";
 
 export const useHttpClient = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [pageLoaded, setPageLoaded] = useState(false);
   const [error, setError] = useState();
 
   const activeHttpRequests = useRef([]);
@@ -34,9 +35,11 @@ export const useHttpClient = () => {
         );
 
         setIsLoading(false);
+        setPageLoaded(true)
         return response;
       } catch (err) {
         setIsLoading(false);
+        setPageLoaded(true)
         console.log(err);
         if (err.response) {
           setError(err.response.data.message);
@@ -49,5 +52,5 @@ export const useHttpClient = () => {
 
   const clearError = () => setError(null);
 
-  return { isLoading, error, sendRequest, clearError };
+  return { pageLoaded, isLoading, error, sendRequest, clearError };
 };

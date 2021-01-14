@@ -13,10 +13,9 @@ const Orders = () => {
   const auth = useContext(AuthContext);
   const [orders, setOrders] = useState([]);
   const [page, setPage] = useState(1);
-  const [pageLoaded, setPageLoaded] = useState(false);
   const [period, setPeriod] = useState("7 Days");
   const [remainder, setRemainder] = useState();
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const { pageLoaded, isLoading, error, sendRequest, clearError } = useHttpClient();
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -30,7 +29,6 @@ const Orders = () => {
       );
       setOrders(response.data.orders);
       setRemainder(response.data.remainder);
-      setPageLoaded(true);
     };
     fetchOrders();
   }, [auth, sendRequest, period]);

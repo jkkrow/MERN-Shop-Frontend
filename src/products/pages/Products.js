@@ -8,9 +8,8 @@ import "./Products.css";
 
 const Products = ({ match }) => {
   const [fetchedProducts, setFetchedProducts] = useState([]);
-  const [pageLoaded, setPageLoaded] = useState(false);
   const [totalPage, setTotalPage] = useState();
-  const { isLoading, sendRequest } = useHttpClient();
+  const { pageLoaded, isLoading, sendRequest } = useHttpClient();
   const keyword = match.params.keyword || "";
   const currentPage = match.params.currentPage || "";
 
@@ -21,7 +20,6 @@ const Products = ({ match }) => {
       );
       setFetchedProducts(response.data.products);
       setTotalPage(response.data.pages);
-      setPageLoaded(true);
     };
     fetchProducts();
   }, [sendRequest, keyword, currentPage]);
@@ -29,7 +27,7 @@ const Products = ({ match }) => {
   return (
     <div className="products">
       {isLoading && <LoadingSpinner overlay />}
-      {!isLoading && pageLoaded && !fetchedProducts.length && (
+      {pageLoaded && !fetchedProducts.length && (
         <h2 style={{ fontSize: "3rem" }}>No Product Found.</h2>
       )}
       <ProductList items={fetchedProducts} />

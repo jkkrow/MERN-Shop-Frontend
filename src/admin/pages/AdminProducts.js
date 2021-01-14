@@ -20,7 +20,7 @@ const AdminProducts = ({ match }) => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [targetProduct, setTargetProduct] = useState({});
   const [deleteLoading, setDeleteLoading] = useState(false);
-  const { isLoading, sendRequest } = useHttpClient();
+  const { pageLoaded, isLoading, sendRequest } = useHttpClient();
   const [formState, inputHandler] = useForm(
     {
       product: { value: "", isValid: false },
@@ -102,59 +102,61 @@ const AdminProducts = ({ match }) => {
           onInput={inputHandler}
         />
       </Modal>
-      <React.Fragment>
-        <div className="admin-products__header">
-          <h2 className="page-title">Products</h2>
-          <Button to="/new-product">
-            <i className="fas fa-plus"></i> Add Product
-          </Button>
-        </div>
-        <div className="admin-products__table">
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Price</th>
-                <th>Category</th>
-                <th>Stock</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {fetchedProducts.map((product) => (
-                <tr key={product._id}>
-                  <td>{product._id}</td>
-                  <td>
-                    <Link to={`/detail/${product._id}`}>{product.title}</Link>
-                  </td>
-                  <td>${product.price.toFixed(2)}</td>
-                  <td>{product.category}</td>
-                  <td>{product.quantity}</td>
-                  <td>
-                    <div className="admin-products__table__button">
-                      <Button to={`/edit-product/${product._id}`}>
-                        <i className="fas fa-edit"></i>
-                      </Button>
-                      <Button
-                        danger
-                        onClick={() => openWarninigHandler(product._id)}
-                      >
-                        <i className="fas fa-trash"></i>
-                      </Button>
-                    </div>
-                  </td>
+      {pageLoaded && (
+        <React.Fragment>
+          <div className="admin-products__header">
+            <h2 className="page-title">Products</h2>
+            <Button to="/new-product">
+              <i className="fas fa-plus"></i> Add Product
+            </Button>
+          </div>
+          <div className="admin-products__table">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Title</th>
+                  <th>Price</th>
+                  <th>Category</th>
+                  <th>Stock</th>
+                  <th></th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <Pagination
-          totalPage={totalPage}
-          currentPage={currentPage}
-          admin={"products"}
-        />
-      </React.Fragment>
+              </thead>
+              <tbody>
+                {fetchedProducts.map((product) => (
+                  <tr key={product._id}>
+                    <td>{product._id}</td>
+                    <td>
+                      <Link to={`/detail/${product._id}`}>{product.title}</Link>
+                    </td>
+                    <td>${product.price.toFixed(2)}</td>
+                    <td>{product.category}</td>
+                    <td>{product.quantity}</td>
+                    <td>
+                      <div className="admin-products__table__button">
+                        <Button to={`/edit-product/${product._id}`}>
+                          <i className="fas fa-edit"></i>
+                        </Button>
+                        <Button
+                          danger
+                          onClick={() => openWarninigHandler(product._id)}
+                        >
+                          <i className="fas fa-trash"></i>
+                        </Button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <Pagination
+            totalPage={totalPage}
+            currentPage={currentPage}
+            admin={"products"}
+          />
+        </React.Fragment>
+      )}
     </div>
   );
 };

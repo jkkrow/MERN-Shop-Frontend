@@ -13,9 +13,10 @@
 }
 
 .address-form-section i {
+  color: var(--text-secondary);
   cursor: pointer;
   font-size: 5rem;
-  margin: 3rem auto auto auto;
+  margin: 1rem auto auto auto;
 }
 
 /* CSS Transition */

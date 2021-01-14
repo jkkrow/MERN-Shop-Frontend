@@ -14,7 +14,7 @@ const Address = () => {
   const [addresses, setAddresses] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [initialData, setInitialData] = useState();
-  const { isLoading, sendRequest } = useHttpClient();
+  const { pageLoaded, isLoading, sendRequest } = useHttpClient();
   const location = useLocation();
 
   useEffect(() => {
@@ -52,7 +52,7 @@ const Address = () => {
   return (
     <React.Fragment>
       {isLoading && <LoadingSpinner overlay />}
-      {!isLoading && (
+      {pageLoaded && (
         <React.Fragment>
           {location.pathname === "/address" && (
             <h2

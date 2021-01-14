@@ -46,7 +46,9 @@ const Checkout = () => {
     if (cart.paymentMethod === "PayPal") {
       const addPayPalScript = async () => {
         setPageLoading(true);
-        const response = await axios(`${process.env.REACT_APP_SERVER_URL}/config/paypal`);
+        const response = await axios(
+          `${process.env.REACT_APP_SERVER_URL}/config/paypal`
+        );
         const script = document.createElement("script");
         script.type = "text/javascript";
         script.src = `https://www.paypal.com/sdk/js?client-id=${response.data.clientId}`;
@@ -165,7 +167,7 @@ const Checkout = () => {
             <StripeCheckout
               stripeKey={process.env.REACT_APP_STRIPE_KEY}
               token={stripeHandler}
-              amount={totalPrice * 100}
+              amount={Math.round(totalPrice * 100)}
             >
               <Button>Pay Now</Button>
             </StripeCheckout>

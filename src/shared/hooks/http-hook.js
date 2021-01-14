@@ -37,7 +37,8 @@ export const useHttpClient = () => {
         return response;
       } catch (err) {
         setIsLoading(false);
-        if (err.response.data) {
+        console.log(err);
+        if (err.response) {
           setError(err.response.data.message);
         }
         throw err;

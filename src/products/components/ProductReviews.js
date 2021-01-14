@@ -2,7 +2,7 @@ import React, { useContext, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 
-import defaultImage from "../../assets/images/default-profile.png";
+import ReviewItem from "./ReviewItem";
 import Button from "../../shared/components/FormElements/Button";
 import Rating from "./Rating";
 import ErrorModal from "../../shared/components/UI/ErrorModal";
@@ -143,23 +143,15 @@ const ProductReview = (props) => {
             ) : (
               <ul>
                 {props.fetchedProduct.reviews.map((review) => (
-                  <li className="product-reviews__list-item" key={review._id}>
-                    <div className="product-reviews__list-item__user">
-                      <img
-                        src={review.user.image || defaultImage}
-                        alt={review.user.name}
-                      />
-                      <p> {review.user.name}</p>
-                    </div>
-                    <Rating value={review.rating} />
-                    <p className="product-reviews__list-item__date">
-                      Reviewed on{" "}
-                      {review.createdAt.substring(0, 10).replaceAll("-", ".")}
-                    </p>
-                    <p className="product-reviews__list-item__comment">
-                      {review.comment}
-                    </p>
-                  </li>
+                  <ReviewItem
+                    key={review._id}
+                    _id={review._id}
+                    user={review.user}
+                    rating={review.rating}
+                    images={review.images}
+                    comment={review.comment}
+                    createdAt={review.createdAt}
+                  />
                 ))}
               </ul>
             )}

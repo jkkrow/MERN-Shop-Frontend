@@ -1,0 +1,38 @@
+.review-item__user {
+  display: flex;
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.review-item__user img {
+  width: 3rem;
+  height: 3rem;
+  margin-right: 1rem;
+  border-radius: 50%;
+  border: none;
+}
+
+.review-item__date {
+  font-size: 1.3rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.review-item__images {
+  display: flex;
+}
+
+.review-item__images img {
+  width: 5rem;
+  height: 5rem;
+  border: 1px solid var(--text-secondary);
+  border-radius: 4px;
+  margin-right: 0.5rem;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.review-item__comment {
+  margin-bottom: 1rem;
+}
